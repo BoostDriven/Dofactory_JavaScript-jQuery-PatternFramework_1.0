@@ -1,0 +1,566 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Mediator</title>
+    <link rel="shortcut icon" href='../img/favicon.ico' />
+    <link href='../css/bootstrap.css' rel="stylesheet" />
+    <link href='../css/app.css' rel="stylesheet" />
+    <link href='../css/google-code-prettify/prettify.css' rel="stylesheet" />
+
+    <script src='../js/jquery.js' type="text/javascript" ></script>
+    <script src='../js/bootstrap.js' type="text/javascript" ></script>
+    <script src='../js/app.js' type="text/javascript" ></script>
+
+    <script src='../css/google-code-prettify/prettify.js' type="text/javascript"></script>
+</head>
+<body>
+     <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" style="padding-top:15px;" href='../index.htm'><img src='../img/js.png' alt="js" width="32" height="30" />
+              &nbsp; JavaScript + jQuery Design Pattern Framework <sup>TM</sup>&nbsp; 2013
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+     <div class="row">
+            <div class="span12" style="height:4px;background:crimson;"></div>
+     </div>
+
+     <div class="row">
+       <div class="span12">
+         <ul class="breadcrumb">
+           <li><a href='../index.htm'>Home</a> <span class="divider">/</span></li>
+           <li><a href='_index.htm'>Classic</a> <span class="divider">/</span></li>
+           <li class="active">Mediator</li>
+         </ul>
+        </div>
+      </div>
+      <br />
+        
+
+
+<div class="row">
+    <div class="span10">
+
+        <div class="row">
+            <div class="span7" style="padding: 0px 0 0 0;">
+                <h2 class="h1title">Mediator</h2>
+                <p>
+                   Define an object that encapsulates how a set of objects interact. Mediator promotes loose coupling by keeping objects from referring to each other explicitly, and it lets you vary their interaction independently.
+                </p>
+            </div>
+            <div class="span3">
+                &nbsp;&nbsp;&nbsp;<a class='js' href="javascript:void(0);" onclick="return openPdf('ClassicPatterns');">Classic Patterns Guide</a>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="span7">
+                <br />
+                <table class="usage">
+                    <tr>
+                        <td class="usage1">Usage in JavaScript:</td>
+                        <td class="usage2">
+                            <div class="progress progress-warning" style="width: 150px;">
+                                <div class="bar" style="width: 35%;"></div>
+                            </div>
+                        </td>
+                        <td class="usage3">medium low</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="span2">
+        <img src="../img/jspatterndetail.jpg" style="width:140px;height:140px;" alt="" />
+        <br />
+        <div class="back" style="padding:10px 0 0 18px;">
+            <i class="icon-hand-left" style="margin:2px 0 0 0;"></i>&nbsp;&nbsp;<a href='_index.htm' >back to list</a>
+        </div>
+    </div>
+</div>
+<hr />
+<br />
+
+<div class="row">
+    <div class="span8">
+        <h3>Summary</h3>
+        <br />
+<p class="ptext">
+The Mediator pattern provides central authority over a group of objects by encapsulating how these objects interact. 
+This model is useful for scenarios where there is a need to manage complex conditions in which every object is aware of any state change in any other object in the group.
+</p> 
+<p class="ptext">
+The Mediator patterns are useful in the development of complex forms. Take for example a page in which you enter options to make a flight reservation. 
+A simple Mediator rule would be: you must enter a valid departure date, a valid return date, 
+the return date must be after the departure date, a valid departure airport, a valid arrival airport, a valid number of travelers, and only then the Search button can be activated.
+</p> 
+<p class="ptext">
+Another example of Mediator is that of a control tower on an airport coordinating arrivals and departures of airplanes.
+</p>
+
+    </div>
+    <div class="span3 offset1"></div>
+</div>
+<br />
+<!-- Diagram -->
+<div class="row">
+    <div class="span8">
+        <h3>Diagram</h3>
+        <div style="padding: 14px 0 0 120px;">
+            <img src="../img/diagrams/javascript-mediator.jpg" alt="" />
+        </div>
+    </div>
+    <div class="span3 offset1"></div>
+</div>
+<br />
+<br />
+<!-- Participants -->
+<div class="row">
+    <div class="span8">
+        <h3>Participants</h3>
+        <br />
+ <div class="ptext">
+The objects participating in this pattern are: <br /><br />
+   
+<ul>
+
+<li><b>Mediator</b> -- In sample code: <b style="color:#088;">Chatroom</b>
+ <ul>
+  <li>defines an interface for communicating with Colleague objects</li>
+  <li>maintains references to Colleague objects</li>
+  <li>manages central control over operations</li>
+ </ul>
+</li>
+<li><b>Colleagues</b> -- In sample code: <b style="color:#088;">Participants</b>
+ <ul>
+  <li>objects that are being mediated by the Mediator</li>
+  <li>each instance maintains a reference to the Mediator</li>
+ </ul>
+</li>
+</ul>
+
+</div>
+    </div>
+    <div class="span3 offset1"></div>
+</div>
+<br />
+<!-- JavaScript code -->
+<div class="row">
+    <div class="span8">
+        <h3>JavaScript Code</h3>
+        <br />
+<p class="ptext">
+In the example code we have four participants that are joining in a chat session by registering with a <span class="cd">Chatroom</span> (the Mediator).
+Each participant is represented by a <span class="cd">Participant</span> object. 
+Participants send messages to each other and the Chatroom handles the routing.
+</p>
+<p class="ptext">
+This example is simple, but other complex rules could have been added, such as a 'junk filter' to protect participants from receiving junk messages.
+</p>
+<p class="ptext">
+The <span class="cd">log</span> function is a helper which collects and displays results. 
+</p>
+       
+        <br />
+<pre class="prettyprint">
+var Participant = function(name) {
+    this.name = name;
+    this.chatroom = null;
+};
+
+Participant.prototype = {
+    send: function(message, to) {
+        this.chatroom.send(message, this, to);
+    },
+    receive: function(message, from) {
+        log.add(from.name + " to " + this.name + ": " + message);
+    }
+};
+
+var Chatroom = function() {
+    var participants = {};
+    return {
+        register: function(participant) {
+            participants[participant.name] = participant;
+            participant.chatroom = this;
+        },
+        send: function(message, from, to) {
+            if (to) {                      // single message
+                to.receive(message, from);    
+            } else {                       // broadcast message
+                for (key in participants) {   
+                    if (participants[key] !== from) {
+                        participants[key].receive(message, from);
+                    }
+                }
+            }
+        }
+    };
+};
+
+// log helper
+var log = (function() {
+    var log = "";
+    return {
+        add: function(msg) { log += msg + "\n"; },
+        show: function() { alert(log); log = ""; }
+    }
+})();
+
+
+function run() {
+
+    var yoko = new Participant("Yoko");
+    var john = new Participant("John");
+    var paul = new Participant("Paul");
+    var ringo = new Participant("Ringo");
+
+    var chatroom = new Chatroom();
+    chatroom.register(yoko);
+    chatroom.register(john);
+    chatroom.register(paul);
+    chatroom.register(ringo);
+
+    yoko.send("All you need is love.");
+    yoko.send("I love you John.");
+    john.send("Hey, no need to broadcast", yoko);
+    paul.send("Ha, I heard that!");
+    ringo.send("Paul, what do you think?", paul);
+
+    log.show();
+}
+</pre>
+        <a class="btn" href="javascript:void(0);" onclick="run();return false;">Run</a>
+
+<script type="text/javascript">
+    var Participant = function (name) {
+        this.name = name;
+        this.chatroom = null;
+    };
+
+    Participant.prototype = {
+        send: function (message, to) {
+            this.chatroom.send(message, this, to);
+        },
+        receive: function (message, from) {
+            log.add(from.name + " to " + this.name + ": " + message);
+        }
+    };
+
+    var Chatroom = function () {
+        var participants = {};
+        return {
+            register: function (participant) {
+                participants[participant.name] = participant;
+                participant.chatroom = this;
+            },
+            send: function (message, from, to) {
+                if (to) {                       // single message
+                    to.receive(message, from);
+                } else {                        // broadcast message
+                    for (key in participants) {
+                        if (participants[key] !== from) {
+                            participants[key].receive(message, from);
+                        }
+                    }
+                }
+            }
+        };
+    };
+
+    //// log helper
+    //var log = (function() {
+    //    var log = "";
+    //    return {
+    //        add: function (msg) { log += msg + "\n"; },
+    //        show: function() { alert(log); log = ""; }
+    //    }
+    //})();
+
+
+    function run() {
+
+        var yoko = new Participant("Yoko");
+        var john = new Participant("John");
+        var paul = new Participant("Paul");
+        var ringo = new Participant("Ringo");
+
+        var chatroom = new Chatroom();
+        chatroom.register(yoko);
+        chatroom.register(john);
+        chatroom.register(paul);
+        chatroom.register(ringo);
+
+        yoko.send("All you need is love.");
+        yoko.send("I love you John.");
+        john.send("Hey, no need to broadcast", yoko);
+        paul.send("Ha, I heard that!");
+        ringo.send("Paul, what do you think?", paul);
+
+        log.show();
+    }
+</script>
+
+
+
+    </div>
+</div>
+
+<br />
+<br />
+<br />
+
+<!-- JavaScript Optimated Code -->
+<div class="row">
+    <div class="span8">
+        <h3>JavaScript Optimized Code</h3>
+        <br />
+<p class="ptext">
+The Namespace pattern is applied to keep the code out of the global namespace. Our namespace is <span class="cd">Patterns.Classic</span>.
+A Revealing Module named <span class="cd">Mediator</span> returns (i.e. reveals) a single item: <span class="cd">Chatroom</span>.
+The chatroom's <span class="cd">register</span> method now creates and returns the newly created Participant instance.
+This allows us to keep to code in the run method simple and compact. 
+</p>
+<p class="ptext">
+The <span class="cd">Patterns</span> object contains the <span class="cd">namespace</span> function which constructs namespaces non-destructively, 
+that is, if a name already exists it won't overwrite it. 
+</p>
+<p class="ptext">
+The <span class="cd">log</span> function is a helper which collects and displays results.
+</p>
+       
+ <br />
+<pre class="prettyprint">
+var Patterns = {
+    namespace: function (name) {
+        var parts = name.split(".");
+        var ns = this;
+
+        for (var i = 0, len = parts.length; i < len; i++) {
+            ns[parts[i]] = ns[parts[i]] || {};
+            ns = ns[parts[i]];
+        }
+
+        return ns;
+    }
+};
+
+Patterns.namespace("Classic").Mediator = (function () {
+    var Participant = function (name) {
+        this.name = name;
+        this.chatroom = null;
+    };
+
+    Participant.prototype = {
+        send: function (message, to) {
+            this.chatroom.send(message, this, to);
+        },
+        receive: function (message, from) {
+            log.add(from.name + " to " + this.name + ": " + message);
+        }
+    };
+
+    var Chatroom = function () {
+        var participants = {};
+        return {
+            register: function (name) {
+                var participant = new Participant(name);
+                participants[participant.name] = participant;
+                participant.chatroom = this;
+
+                return participant;
+            },
+            send: function (message, from, to) {
+                if (to) {                       // single message
+                    to.receive(message, from);
+                } else {                        // broadcast message
+                    for (key in participants) {
+                        if (participants[key] !== from) {
+                            participants[key].receive(message, from);
+                        }
+                    }
+                }
+            }
+        };
+    };
+
+    return {
+        Chatroom: Chatroom
+    }
+})();
+
+
+// log helper
+var log = (function () {
+    var log = "";
+    return {
+        add: function (msg) { log += msg + "\n"; },
+        show: function () { alert(log); log = ""; }
+    }
+})();
+
+
+function run() {
+
+    var chatroom = new Patterns.Classic.Mediator.Chatroom();
+
+    var yoko = chatroom.register("Yoko");
+    var john = chatroom.register("John");
+    var paul = chatroom.register("Paul");
+    var ringo = chatroom.register("Ringo");
+
+    yoko.send("All you need is love.");
+    yoko.send("I love you John.");
+    john.send("Hey, no need to broadcast", yoko);
+    paul.send("Ha, I heard that!");
+    ringo.send("Paul, what do you think?", paul);
+
+    log.show();
+}
+</pre>
+        <a class="btn" href="javascript:void(0);" onclick="run1();return false;">Run</a>
+
+<script type="text/javascript">
+    var Patterns = {
+        namespace: function (name) {
+            var parts = name.split(".");
+            var ns = this;
+
+            for (var i = 0, len = parts.length; i < len; i++) {
+                ns[parts[i]] = ns[parts[i]] || {};
+                ns = ns[parts[i]];
+            }
+
+            return ns;
+        }
+    };
+
+    Patterns.namespace("Classic").Mediator = (function () {
+        var Participant = function (name) {
+            this.name = name;
+            this.chatroom = null;
+        };
+
+        Participant.prototype = {
+            send: function (message, to) {
+                this.chatroom.send(message, this, to);
+            },
+            receive: function (message, from) {
+                log.add(from.name + " to " + this.name + ": " + message);
+            }
+        };
+
+        var Chatroom = function () {
+            var participants = {};
+            return {
+                register: function (name) {
+                    var participant = new Participant(name);
+                    participants[participant.name] = participant;
+                    participant.chatroom = this;
+
+                    return participant;
+                },
+                send: function (message, from, to) {
+                    if (to) {                       // single message
+                        to.receive(message, from);
+                    } else {                        // broadcast message
+                        for (key in participants) {
+                            if (participants[key] !== from) {
+                                participants[key].receive(message, from);
+                            }
+                        }
+                    }
+                }
+            };
+        };
+
+        return {
+            Chatroom: Chatroom
+        }
+    })();
+
+
+    // log helper
+    var log = (function () {
+        var log = "";
+        return {
+            add: function (msg) { log += msg + "\n"; },
+            show: function () { alert(log); log = ""; }
+        }
+    })();
+
+
+    function run1() {
+
+        var chatroom = new Patterns.Classic.Mediator.Chatroom();
+
+        var yoko = chatroom.register("Yoko");
+        var john = chatroom.register("John");
+        var paul = chatroom.register("Paul");
+        var ringo = chatroom.register("Ringo");
+
+        yoko.send("All you need is love.");
+        yoko.send("I love you John.");
+        john.send("Hey, no need to broadcast", yoko);
+        paul.send("Ha, I heard that!");
+        ringo.send("Paul, what do you think?", paul);
+
+        log.show();
+    }
+
+</script>
+
+
+
+    </div>
+</div>
+
+<br />
+<br />
+<br />
+<div class="row">
+    <div class="span4 offsethalf">
+        <i class="icon-hand-left" style="margin:2px 0 0 0;"></i>&nbsp;&nbsp;<a href='iterator.htm'>Iterator</a>
+
+    </div>
+    <div class="span3">
+        <a href='memento.htm'>Memento</a>&nbsp;&nbsp;<i class="icon-hand-right" style="margin:2px 0 0 0;"></i>
+    </div>
+</div>
+<br />
+<br />
+
+
+
+
+
+      <br /><br />
+
+      <hr />
+      <div class="footer">
+        <p class="pull-right"><a id="totop" href="#">Back to top</a></p>
+        <p style="font-size:11pt;">Copyright &#169; 2013. Data & Object Factory, LLC. www.dofactory.com. All rights reserved.</p>
+      </div>
+      <br />
+   </div>
+
+<script type="text/javascript">
+
+    $(function() {
+        prettyPrint();
+
+        // animates page to scroll to top
+        $('#totop').on('click', function () {
+            $("html, body").animate({ scrollTop: 0 }, 500);
+            return false;
+        });
+    });
+
+</script>
+</body>
+</html>

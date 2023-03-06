@@ -1,0 +1,317 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Multiton</title>
+    <link rel="shortcut icon" href='../img/favicon.ico' />
+    <link href='../css/bootstrap.css' rel="stylesheet" />
+    <link href='../css/app.css' rel="stylesheet" />
+    <link href='../css/google-code-prettify/prettify.css' rel="stylesheet" />
+
+    <script src='../js/jquery.js' type="text/javascript" ></script>
+    <script src='../js/bootstrap.js' type="text/javascript" ></script>
+    <script src='../js/app.js' type="text/javascript" ></script>
+
+    <script src='../css/google-code-prettify/prettify.js' type="text/javascript"></script>
+</head>
+<body>
+     <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" style="padding-top:15px;" href='../index.htm'><img src='../img/js.png' alt="js" width="32" height="30" />
+              &nbsp; JavaScript + jQuery Design Pattern Framework <sup>TM</sup>&nbsp; 2013
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+     <div class="row">
+            <div class="span12" style="height:4px;background:lightsalmon;"></div>
+     </div>
+
+     <div class="row">
+       <div class="span12">
+         <ul class="breadcrumb">
+           <li><a href='../index.htm'>Home</a> <span class="divider">/</span></li>
+           <li><a href='_index.htm'>Modern</a> <span class="divider">/</span></li>
+           <li class="active">Multiton</li>
+         </ul>
+        </div>
+      </div>
+      <br />
+        
+
+<div class="row">
+    <div class="span10">
+
+        <div class="row">
+            <div class="span7" style="padding: 0px 0 0 0;">
+                <h2 class="h1title">Multiton</h2>
+                <p>
+                   Limits the number of object instances that can be created.
+                </p>
+            </div>
+            <div class="span3">
+                &nbsp;&nbsp;&nbsp;<img src="../img/js.png" width="20" height="18" style="vertical-align:top;" alt="" />&nbsp; <a href="javascript:void(0);" onclick="return openPdf('ModernPatterns');">Modern Patterns Guide</a>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="span7">
+                <br />
+                <table class="usage">
+                    <tr>
+                        <td class="usage1">Usage in JavaScript:</td>
+                        <td class="usage2">
+                            <div class="progress progress-warning" style="width: 150px;">
+                                <div class="bar" style="width: 20%;"></div>
+                            </div>
+                        </td>
+                        <td class="usage3">low</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+     <div class="span2">
+        <img src="../img/jspatterndetail.jpg" style="width:140px;height:140px;" alt="" />
+        <br />
+        <div class="back" style="padding:10px 0 0 18px;">
+            <i class="icon-hand-left" style="margin:2px 0 0 0;"></i>&nbsp;&nbsp;<a href='_index.htm' >back to list</a>
+        </div>
+    </div>
+</div>
+<hr />
+<br />
+
+<div class="row">
+    <div class="span10">
+        <h3>Fundamentals</h3>
+        <br />
+<div class="ptext">
+
+<p>
+The Multiton pattern is from the same lineage as the Singleton pattern. Singleton limits the number of object instances to one and Multiton limits it to any given number.  
+To get a better appreciation for Multiton you may want to review the Singleton pattern which is listed in the Classic Patterns section. 
+</p>
+<p>
+Two varieties of Multiton exist. The first one is similar to Singleton, but instead of limiting the number of concurrent instances to 1 it limits it to n, where n is a number you specify.  
+We will call this <i>N-ton</i>. The second variety of Multiton is a map (or dictionary) of Singletons, where each can be retrieved by a key.  
+Essentially these are name/value pairs where named instances of Singletons are stored.  This last construct is sometimes referred to as a <i>Registry of Singletons</i>.  
+We will look at each one. 
+</p>
+<p>
+The N-ton model is helpful when, for whatever reason, you need to limit the number of instances.  
+This is usually related to some limited resource (such as a server or a database) that you are trying to manage. Here is the code for the N-ton model: 
+</p>
+<pre class="prettyprint">
+var Multiton = function (limit) {
+    var limit = limit;
+    var instances = [];
+
+    var Instance = function () {
+        // instance code here
+        this.say = function () {
+             alert("I am an instance" );
+        };
+    };
+
+    return {
+        getInstance: function () {
+            if (instances.length === 0) {
+                for (var i = 0; i < limit; i++) {
+                    instances.push(new Instance());
+                }
+            }
+            var random = Math.floor(Math.random() * limit);
+            return instances[random];
+        }
+    };
+};
+
+var multiton = new Multiton(6);
+
+var m1 = multiton.getInstance();
+var m2 = multiton.getInstance();
+var m3 = multiton.getInstance();
+var m4 = multiton.getInstance();
+
+m1.say();       // => I am an instance
+m2.say();       // => I am an instance
+
+</pre>
+<a class="btn" href="javascript:void(0);" onclick="run1();return false">Run</a>
+<script type="text/javascript">
+    function run1() {
+        var Multiton = function (limit) {
+            var limit = limit;
+            var instances = [];
+
+            var Instance = function () {
+                // instance code here
+                this.say = function () {
+                    alert("I am an instance");
+                };
+            };
+
+            return {
+                getInstance: function () {
+                    if (instances.length === 0) {
+                        for (var i = 0; i < limit; i++) {
+                            instances.push(new Instance());
+                        }
+                    }
+                    var random = Math.floor(Math.random() * limit);
+                    return instances[random];
+                }
+            };
+        };
+
+        var multiton = new Multiton(6);
+
+        var m1 = multiton.getInstance();
+        var m2 = multiton.getInstance();
+        var m3 = multiton.getInstance();
+        var m4 = multiton.getInstance();
+
+        m1.say();       // => I am an instance
+        m2.say();       // => I am an instance
+    }
+</script>
+<br /><br />
+<p>
+In this example the Multiton manages a maximum of 6 instances. When an instance is requested with <span class="cd">getInstance</span> a randomly selected instance is returned. 
+Notice that the constructor function named <span class="cd">Instance</span> is privately scoped within Multiton and can only be called from within Multiton. 
+The <span class="cd">Instance</span> constructor is where you specify instance specific properties and methods. 
+</p>
+<p>
+An example of the Registry of Singletons variety of the Multiton pattern is demonstrated next. 
+</p>
+<pre class="prettyprint">
+var Multiton = function () {
+    var instances = {};
+
+    var Instance = function (id) {
+        // instance code here
+        this.id = id;
+        this.say = function () {
+             alert("Instance for Server " + this.id );
+        };
+    };
+
+    return {
+        getInstance: function (id) {
+            if (Object.keys(instances).length === 0) {
+                for (var i = 1; i < 5; i++) {
+                    instances[i] = new Instance(i);
+                }
+            }
+            return instances[id];
+        }
+    };
+};
+
+var multiton = new Multiton();
+
+var server1 = multiton.getInstance(1);
+var server2 = multiton.getInstance(2);
+var server3 = multiton.getInstance(3);
+var server4 = multiton.getInstance(4);
+
+server1.say();       // => Instance for Server 1
+server3.say();       // => Instance for Server 3
+</pre>
+<a class="btn" href="javascript:void(0);" onclick="run2();return false">Run</a>
+<script type="text/javascript">
+    function run2() {
+        var Multiton = function () {
+            var instances = {};
+
+            var Instance = function (id) {
+                // instance code here
+                this.id = id;
+                this.say = function () {
+                    alert("Instance for Server " + this.id );
+                };
+            };
+
+            return {
+                getInstance: function (id) {
+                    if (Object.keys(instances).length === 0) {
+                        for (var i = 1; i < 5; i++) {
+                            instances[i] = new Instance(i);
+                        }
+                    }
+                    return instances[id];
+                }
+            };
+        };
+
+        var multiton = new Multiton();
+
+        var server1 = multiton.getInstance(1);
+        var server2 = multiton.getInstance(2);
+        var server3 = multiton.getInstance(3);
+        var server4 = multiton.getInstance(4);
+
+        server1.say();       // => Instance for Server 1
+        server3.say();       // => Instance for Server 3
+    }
+</script>
+<br /><br />
+<p>
+This code is quite similar to the previous variety only that we ask for specific instances that are keyed by a unique id (hardcoded from 1 to 4). \
+Each singleton represents a server.  The <span class="cd">instances</span> private object maintains the name/value pairs 
+(in the N-ton implementation this was an array). 
+</p>
+
+</div>
+
+
+
+    </div>
+</div>
+
+<br />
+<br />
+<div class="row">
+    <div class="span5 offsethalf">
+        <i class="icon-hand-left" style="margin:2px 0 0 0;"></i>&nbsp;&nbsp;<a href='lazyload.htm'>Lazy Load</a>
+
+    </div>
+    <div class="span3">
+        <a href='partial.htm'>Partial</a>&nbsp;&nbsp;<i class="icon-hand-right" style="margin:2px 0 0 0;"></i>
+    </div>
+</div>
+<br />
+<br />
+
+
+
+
+      <br /><br />
+
+      <hr />
+      <div class="footer">
+        <p class="pull-right"><a id="totop" href="#">Back to top</a></p>
+        <p style="font-size:11pt;">Copyright &#169; 2013. Data & Object Factory, LLC. www.dofactory.com. All rights reserved.</p>
+      </div>
+      <br />
+   </div>
+
+<script type="text/javascript">
+
+    $(function() {
+        prettyPrint();
+
+        // animates page to scroll to top
+        $('#totop').on('click', function () {
+            $("html, body").animate({ scrollTop: 0 }, 500);
+            return false;
+        });
+    });
+
+</script>
+</body>
+</html>

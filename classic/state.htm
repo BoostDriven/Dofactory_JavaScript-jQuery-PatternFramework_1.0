@@ -1,0 +1,554 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>State</title>
+    <link rel="shortcut icon" href='../img/favicon.ico' />
+    <link href='../css/bootstrap.css' rel="stylesheet" />
+    <link href='../css/app.css' rel="stylesheet" />
+    <link href='../css/google-code-prettify/prettify.css' rel="stylesheet" />
+
+    <script src='../js/jquery.js' type="text/javascript" ></script>
+    <script src='../js/bootstrap.js' type="text/javascript" ></script>
+    <script src='../js/app.js' type="text/javascript" ></script>
+
+    <script src='../css/google-code-prettify/prettify.js' type="text/javascript"></script>
+</head>
+<body>
+     <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" style="padding-top:15px;" href='../index.htm'><img src='../img/js.png' alt="js" width="32" height="30" />
+              &nbsp; JavaScript + jQuery Design Pattern Framework <sup>TM</sup>&nbsp; 2013
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+     <div class="row">
+            <div class="span12" style="height:4px;background:crimson;"></div>
+     </div>
+
+     <div class="row">
+       <div class="span12">
+         <ul class="breadcrumb">
+           <li><a href='../index.htm'>Home</a> <span class="divider">/</span></li>
+           <li><a href='_index.htm'>Classic</a> <span class="divider">/</span></li>
+           <li class="active">State</li>
+         </ul>
+        </div>
+      </div>
+      <br />
+        
+
+
+<div class="row">
+    <div class="span10">
+
+        <div class="row">
+            <div class="span7" style="padding: 0px 0 0 0;">
+                <h2 class="h1title">State</h2>
+                <p>
+                    Allow an object to alter its behavior when its internal state changes. The object will appear to change its class.
+                </p>
+            </div>
+            <div class="span3">
+                &nbsp;&nbsp;&nbsp;<a class='js' href="javascript:void(0);" onclick="return openPdf('ClassicPatterns');">Classic Patterns Guide</a>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="span7">
+                <br />
+                <table class="usage">
+                    <tr>
+                        <td class="usage1">Usage in JavaScript:</td>
+                        <td class="usage2">
+                            <div class="progress progress-warning" style="width: 150px;">
+                                <div class="bar" style="width: 35%;"></div>
+                            </div>
+                        </td>
+                        <td class="usage3">medium low</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="span2">
+        <img src="../img/jspatterndetail.jpg" style="width:140px;height:140px;" alt="" />
+        <br />
+        <div class="back" style="padding:10px 0 0 18px;">
+            <i class="icon-hand-left" style="margin:2px 0 0 0;"></i>&nbsp;&nbsp;<a href='_index.htm' >back to list</a>
+        </div>
+    </div>
+</div>
+<hr />
+<br />
+
+<div class="row">
+    <div class="span8">
+        <h3>Summary</h3>
+        <br />
+<p class="ptext">
+The State pattern provides state-specific logic to a limited set of objects in which each object represents a particular state.  
+This is best explained with an example.
+</p>
+<p class="ptext">
+Say a customer places an online order for a TV. 
+While this order is being processed it can in one of many states:  
+New, Approved, Packed, Pending, Hold, Shipping, Completed, or Canceled.
+If all goes well the sequence will be New, Approved, Packed, Shipped, and Completed. 
+However, at any point something unpredictable may happen, such as no inventory, breakage, or customer cancelation. 
+If that happens the order needs to be handled appropriately. 
+</p>
+<p class="ptext">
+Applying the State pattern to this scenario will provide you with 8 State objects, each with its own set of properties (state) and methods 
+(i.e. the rules of acceptable state transitions). State machines are often implemented using the State pattern. 
+These state machines simply have their State objects swapped out with another one when a state transition takes place. 
+</p>
+<p class="ptext">
+Two other examples where the State pattern is useful include: vending machines that dispense products when a correct combination of coins is entered, and 
+elevator logic which moves riders up or down depending on certain complex rules that attempt to minimize wait and ride times. 
+</p>
+    </div>
+    <div class="span3 offset1"></div>
+</div>
+<br />
+<!-- Diagram -->
+<div class="row">
+    <div class="span8">
+        <h3>Diagram</h3>
+        <div style="padding: 14px 0 0 120px;">
+            <img src="../img/diagrams/javascript-state.jpg" alt="" />
+        </div>
+    </div>
+    <div class="span3 offset1"></div>
+</div>
+<br />
+<br />
+<!-- Participants -->
+<div class="row">
+    <div class="span8">
+        <h3>Participants</h3>
+        <br />
+ <div class="ptext">
+The objects participating in this pattern are: <br /><br />
+   
+<ul>
+<li><b>Context</b> -- In sample code: <b style="color:#088;">TrafficLight</b>
+ <ul>
+  <li>exposes an interface that supports clients of the service</li>
+  <li>maintains a reference to a state object that defines the current state</li>
+  <li>allows State objects to change its current state to a different state</li>
+ </ul>
+</li>
+<li><b>State</b> -- In sample code: <b style="color:#088;">Red, Yellow, Green</b>
+ <ul>
+  <li>encapsulates the state values and associated behavior of the state</li>
+ </ul>
+</li>
+</ul>
+
+
+</div>
+    </div>
+    <div class="span3 offset1"></div>
+</div>
+<br />
+<!-- JavaScript code -->
+<div class="row">
+    <div class="span8">
+        <h3>JavaScript Code</h3>
+        <br />
+<p class="ptext">
+Our example is a traffic light (i.e. <span class="cd">TrafficLight</span> object) with 3 different states: 
+<span class="cd">Red</span>, <span class="cd">Yellow</span> and <span class="cd">Green</span>, each with its own set of rules. 
+The rules go like this: Say the traffic light is Red. After a delay the Red state changes to the Green state. 
+Then, after another delay, the Green state changes to the Yellow state. 
+After a very brief delay the Yellow state is changed to Red. And on and on.
+</p> 
+<p class="ptext">
+It is important to note that it is the State object that determines the transition to the next state.
+And it is also the State object that changes the current state in the TrafficLight -- not the TrafficLight itself. 
+</p> 
+<p class="ptext">
+For demonstration purposes, a built-in counter limits the number of state changes, or else the program would run indefinitely.
+</p> 
+<p class="ptext">
+The <span class="cd">log</span> function is a helper which collects and displays results. 
+</p>
+
+        <br />
+<pre class="prettyprint">
+var TrafficLight = function () {
+
+    var count = 0;
+    var currentState = new Red(this);
+
+    this.change = function (state) {
+        // limits number of changes
+        if (count++ >= 10) return;
+
+        currentState = state;
+        currentState.go();
+    };
+
+    this.start = function () {
+        currentState.go();
+    };
+}
+
+var Red = function (light) {
+    this.light = light;
+
+    this.go = function () {
+        log.add("Red --> for 1 minute");
+        light.change(new Green(light));
+    }
+};
+
+var Yellow = function (light) {
+    this.light = light;
+
+    this.go = function () {
+        log.add("Yellow --> for 10 seconds");
+        light.change(new Red(light));
+    }
+};
+
+var Green = function (light) {
+    this.light = light;
+
+    this.go = function () {
+        log.add("Green --> for 1 minute");
+        light.change(new Yellow(light));
+    }
+};
+
+// log helper
+
+var log = (function () {
+    var log = "";
+    return {
+        add: function (msg) { log += msg + "\n"; },
+        show: function () { alert(log); log = ""; }
+    }
+})();
+
+function run() {
+
+    var light = new TrafficLight();
+    light.start();
+
+    log.show();
+}
+</pre>
+        <a class="btn" href="javascript:void(0);" onclick="run();return false;">Run</a>
+
+ <script type="text/javascript">
+    var TrafficLight = function () {
+
+        var count = 0;
+        var currentState = new Red(this);
+
+        this.change = function (state) {
+            // limits number of changes
+            if (count++ >= 10) return;
+
+            currentState = state;
+            currentState.go();
+        };
+
+        this.start = function () {
+            currentState.go();
+        };
+    }
+
+    var Red = function (light) {
+        this.light = light;
+
+        this.go = function () {
+            log.add("Red --> for 1 minute");
+            light.change(new Green(light));
+        }
+    };
+
+    var Yellow = function (light) {
+        this.light = light;
+
+        this.go = function () {
+            log.add("Yellow --> for 10 seconds");
+            light.change(new Red(light));
+        }
+    };
+
+    var Green = function (light) {
+        this.light = light;
+
+        this.go = function () {
+            log.add("Green --> for 1 minute");
+            light.change(new Yellow(light));
+        }
+    };
+
+    // log helper
+
+    var log = (function () {
+        var log = "";
+        return {
+            add: function (msg) { log += msg + "\n"; },
+            show: function () { alert(log); log = ""; }
+        }
+    })();
+
+    function run() {
+
+        var light = new TrafficLight();
+        light.start();
+
+        log.show();
+    }
+</script>
+
+
+
+    </div>
+</div>
+
+<br />
+<br />
+<br />
+
+<!-- JavaScript Optimated Code -->
+<div class="row">
+    <div class="span8">
+        <h3>JavaScript Optimized Code</h3>
+        <br />
+<p class="ptext">
+The Namespace pattern is applied to keep the code out of the global namespace. Our namespace is named <span class="cd">Patterns.Classic</span>.
+A Revealing Module named <span class="cd">State</span> returns (i.e. reveals) only a single item: the <span class="cd">TrafficLight</span> constructor function.
+</p>
+<p class="ptext">
+    All three state items <span class="cd">Red</span>, <span class="cd">Yellow</span>, and <span class="cd">Green</span> are kept private in TrafficLight's closure. 
+    They have full access to the enclosing function which includes <span class="cd">change</span> through which they change the state.  
+    So the state objects do not need an explicit reference to TrafficLight anymore, they have implicit access.
+    The module only exposes TrafficLight, which, in turn, only exposes the <span class="cd">start</span> method. 
+    This is a nice example of OO encapsulation and data hiding using JavaScript patterns. 
+</p>
+<p class="ptext">
+The <span class="cd">Patterns</span> object contains the <span class="cd">namespace</span> function which constructs namespaces non-destructively, 
+that is, if a name already exists it won't overwrite it. 
+</p>
+<p class="ptext">
+The <span class="cd">log</span> function is a helper which collects and displays results.
+</p>
+        
+        <br />
+<pre class="prettyprint">
+var Patterns = {
+    namespace: function (name) {
+        var parts = name.split(".");
+        var ns = this;
+
+        for (var i = 0, len = parts.length; i < len; i++) {
+            ns[parts[i]] = ns[parts[i]] || {};
+            ns = ns[parts[i]];
+        }
+
+        return ns;
+    }
+};
+
+Patterns.namespace("Classic").State = (function () {
+    var TrafficLight = function () {
+
+        var Red = function () {
+            this.go = function () {
+                log.add("Red --> for 1 minute");
+                change(new Green());
+            }
+        };
+
+        var Yellow = function () {
+            this.go = function () {
+                log.add("Yellow --> for 10 seconds");
+                change(new Red());
+            }
+        };
+
+        var Green = function () {
+            this.go = function () {
+                log.add("Green --> for 1 minute");
+                change(new Yellow());
+            }
+        };
+
+        var count = 0;
+        var currentState = new Red(this);
+
+        var change = function (state) {
+            // limits number of changes
+            if (count++ >= 10) return;
+
+            currentState = state;
+            currentState.go();
+        };
+
+        this.start = function () {
+            currentState.go();
+        };
+    }
+
+    return {
+        TrafficLight: TrafficLight
+    };
+
+})();
+
+// log helper
+var log = (function () {
+    var log = "";
+    return {
+        add: function (msg) { log += msg + "\n"; },
+        show: function () { alert(log); log = ""; }
+    }
+})();
+
+function run() {
+
+    var light = new Patterns.Classic.State.TrafficLight();
+    light.start();
+
+    log.show();
+}
+</pre>
+        <a class="btn" href="javascript:void(0);" onclick="run1();return false;">Run</a>
+
+<script type="text/javascript">
+    var Patterns = {
+        namespace: function (name) {
+            var parts = name.split(".");
+            var ns = this;
+
+            for (var i = 0, len = parts.length; i < len; i++) {
+                ns[parts[i]] = ns[parts[i]] || {};
+                ns = ns[parts[i]];
+            }
+
+            return ns;
+        }
+    };
+
+    Patterns.namespace("Classic").State = (function () {
+        var TrafficLight = function () {
+
+            var Red = function () {
+                this.go = function () {
+                    log.add("Red --> for 1 minute");
+                    change(new Green());
+                }
+            };
+
+            var Yellow = function () {
+                this.go = function () {
+                    log.add("Yellow --> for 10 seconds");
+                    change(new Red());
+                }
+            };
+
+            var Green = function () {
+                this.go = function () {
+                    log.add("Green --> for 1 minute");
+                    change(new Yellow());
+                }
+            };
+
+            var count = 0;
+            var currentState = new Red(this);
+
+            var change = function (state) {
+                // limits number of changes
+                if (count++ >= 10) return;
+
+                currentState = state;
+                currentState.go();
+            };
+
+            this.start = function () {
+                currentState.go();
+            };
+        }
+
+        return {
+            TrafficLight: TrafficLight
+        };
+
+    })();
+
+    // log helper
+    var log = (function () {
+        var log = "";
+        return {
+            add: function (msg) { log += msg + "\n"; },
+            show: function () { alert(log); log = ""; }
+        }
+    })();
+
+    function run1() {
+
+        var light = new Patterns.Classic.State.TrafficLight();
+        light.start();
+
+        log.show();
+    }
+
+</script>
+
+
+
+    </div>
+</div>
+
+<br />
+<br />
+<br />
+<div class="row">
+    <div class="span4 offsethalf">
+        <i class="icon-hand-left" style="margin:2px 0 0 0;"></i>&nbsp;&nbsp;<a href='observer.htm'>Observer</a>
+
+    </div>
+    <div class="span3">
+        <a href='strategy.htm'>Strategy</a>&nbsp;&nbsp;<i class="icon-hand-right" style="margin:2px 0 0 0;"></i>
+    </div>
+</div>
+<br />
+<br />
+
+
+
+      <br /><br />
+
+      <hr />
+      <div class="footer">
+        <p class="pull-right"><a id="totop" href="#">Back to top</a></p>
+        <p style="font-size:11pt;">Copyright &#169; 2013. Data & Object Factory, LLC. www.dofactory.com. All rights reserved.</p>
+      </div>
+      <br />
+   </div>
+
+<script type="text/javascript">
+
+    $(function() {
+        prettyPrint();
+
+        // animates page to scroll to top
+        $('#totop').on('click', function () {
+            $("html, body").animate({ scrollTop: 0 }, 500);
+            return false;
+        });
+    });
+
+</script>
+</body>
+</html>

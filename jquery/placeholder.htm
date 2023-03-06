@@ -1,0 +1,150 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Placeholder</title>
+    <link rel="shortcut icon" href='../img/favicon.ico' />
+    <link href='../css/bootstrap.css' rel="stylesheet" />
+    <link href='../css/app.css' rel="stylesheet" />
+    <link href='../css/google-code-prettify/prettify.css' rel="stylesheet" />
+
+    <script src='../js/jquery.js' type="text/javascript" ></script>
+    <script src='../js/bootstrap.js' type="text/javascript" ></script>
+    <script src='../js/app.js' type="text/javascript" ></script>
+
+    <script src='../css/google-code-prettify/prettify.js' type="text/javascript"></script>
+</head>
+<body>
+     <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" style="padding-top:15px;" href='../index.htm'><img src='../img/js.png' alt="js" width="32" height="30" />
+              &nbsp; JavaScript + jQuery Design Pattern Framework <sup>TM</sup>&nbsp; 2013
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+     <div class="row">
+            <div class="span12" style="height:4px;background:mediumturquoise;"></div>
+     </div>
+
+     <div class="row">
+       <div class="span12">
+         <ul class="breadcrumb">
+           <li><a href='../index.htm'>Home</a> <span class="divider">/</span></li>
+           <li><a href='_index.htm'>jQuery</a> <span class="divider">/</span></li>
+           <li class="active">Placeholder</li>
+         </ul>
+        </div>
+      </div>
+      <br />
+        
+
+<div class="row">
+    <div class="span10">
+
+        <div class="row">
+            <div class="span7" style="padding: 0px 0 0 0;">
+                <h2 class="h1title">Placeholder</h2>
+                <p>
+                  A way to signify unused function parameters.<br /><br />
+                  jQuery uses the underscore (<span class="cd">_</span>) placeholder at several places. 
+                </p>
+            </div>
+            <div class="span3">
+                &nbsp;&nbsp;&nbsp;<a class='js' href="javascript:void(0);" onclick="return openPdf('jQueryPatterns');">jQuery Patterns Guide</a>
+            </div>
+        </div>
+       
+    </div>
+     <div class="span2">
+        <img src="../img/jspatterndetail.jpg" style="width:140px;height:140px;" alt="" />
+        <br />
+        <div class="back" style="padding:10px 0 0 18px;">
+            <i class="icon-hand-left" style="margin:2px 0 0 0;"></i>&nbsp;&nbsp;<a href='_index.htm' >back to list</a>
+        </div>
+    </div>
+</div>
+<hr />
+<br />
+
+<div class="row">
+   <div class="span10">
+      <h3>Overview</h3>
+      <br />
+      <div class="ptext">
+<p>
+The Placeholder Idiom uses an underscore (<span class="cd">_</span>) to indicate an unused parameter.  
+jQuery uses this idiom also. Here are two code snippets from its source: the first one has a placeholder parameter in a callback function. 
+The second uses it in a try/catch block: 
+</p>
+
+<pre class="prettyprint">
+// Listener
+callback = function( _, isAbort ) {
+    // etc.
+}
+</pre>
+<p>
+And
+</p>
+<pre class="prettyprint">
+// Need an extra try/catch for cross domain requests in Firefox 3
+try {
+    for ( i in headers ) {
+        xhr.setRequestHeader( i, headers[ i ] );
+    }
+} catch( _ ) {}
+
+</pre>
+<p>
+Placeholder is a simple but helpful idiom.
+</p>
+
+
+
+      </div> 
+  </div>
+</div>
+
+<br />
+<br />
+<div class="row">
+    <div class="span4 offsethalf">
+        <i class="icon-hand-left" style="margin:2px 0 0 0;"></i>&nbsp;&nbsp;<a href='overload.htm'>Overloading</a>
+    </div>
+    <div class="span3">
+        <a href='shortwalk.htm'>Short Walk</a>&nbsp;&nbsp;<i class="icon-hand-right" style="margin:2px 0 0 0;"></i>
+    </div>
+</div>
+<br />
+<br />
+
+
+      <br /><br />
+
+      <hr />
+      <div class="footer">
+        <p class="pull-right"><a id="totop" href="#">Back to top</a></p>
+        <p style="font-size:11pt;">Copyright &#169; 2013. Data & Object Factory, LLC. www.dofactory.com. All rights reserved.</p>
+      </div>
+      <br />
+   </div>
+
+<script type="text/javascript">
+
+    $(function() {
+        prettyPrint();
+
+        // animates page to scroll to top
+        $('#totop').on('click', function () {
+            $("html, body").animate({ scrollTop: 0 }, 500);
+            return false;
+        });
+    });
+
+</script>
+</body>
+</html>

@@ -1,0 +1,539 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Adapter</title>
+    <link rel="shortcut icon" href='../img/favicon.ico' />
+    <link href='../css/bootstrap.css' rel="stylesheet" />
+    <link href='../css/app.css' rel="stylesheet" />
+    <link href='../css/google-code-prettify/prettify.css' rel="stylesheet" />
+
+    <script src='../js/jquery.js' type="text/javascript" ></script>
+    <script src='../js/bootstrap.js' type="text/javascript" ></script>
+    <script src='../js/app.js' type="text/javascript" ></script>
+
+    <script src='../css/google-code-prettify/prettify.js' type="text/javascript"></script>
+</head>
+<body>
+     <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" style="padding-top:15px;" href='../index.htm'><img src='../img/js.png' alt="js" width="32" height="30" />
+              &nbsp; JavaScript + jQuery Design Pattern Framework <sup>TM</sup>&nbsp; 2013
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+     <div class="row">
+            <div class="span12" style="height:4px;background:crimson;"></div>
+     </div>
+
+     <div class="row">
+       <div class="span12">
+         <ul class="breadcrumb">
+           <li><a href='../index.htm'>Home</a> <span class="divider">/</span></li>
+           <li><a href='_index.htm'>Classic</a> <span class="divider">/</span></li>
+           <li class="active">Adapter</li>
+         </ul>
+        </div>
+      </div>
+      <br />
+        
+
+<div class="row">
+    <div class="span10">
+
+        <div class="row">
+            <div class="span7" style="padding: 0px 0 0 0;">
+                <h2 class="h1title">Adapter</h2>
+                <p>
+                    Convert the interface of a class into another interface clients expect. Adapter lets classes work together that couldn't otherwise because of incompatible interfaces.
+                </p>
+            </div>
+            <div class="span3">
+                &nbsp;&nbsp;&nbsp;<a class='js' href="javascript:void(0);" onclick="return openPdf('ClassicPatterns');">Classic Patterns Guide</a>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="span7">
+                <br />
+                <table class="usage">
+                    <tr>
+                        <td class="usage1">Usage in JavaScript:</td>
+                        <td class="usage2">
+                            <div class="progress progress-warning" style="width: 150px;">
+                                <div class="bar" style="width: 80%;"></div>
+                            </div>
+                        </td>
+                        <td class="usage3">medium high</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="span2">
+        <img src="../img/jspatterndetail.jpg" style="width:140px;height:140px;" alt="" />
+        <br />
+        <div class="back" style="padding:10px 0 0 18px;">
+            <i class="icon-hand-left" style="margin:2px 0 0 0;"></i>&nbsp;&nbsp;<a href='_index.htm' >back to list</a>
+        </div>
+    </div>
+</div>
+<hr />
+<br />
+
+<div class="row">
+    <div class="span8">
+        <h3>Summary</h3>
+        <br />
+<p class="ptext">
+The Adapter pattern translates one interface (an object's properties and methods) to another. 
+Adapters allows programming components to work together that otherwise wouldn't because of mismatched interfaces. 
+The Adapter pattern is also referred to as the Wrapper Pattern.
+</p> 
+<p class="ptext">
+One scenario where Adapters are commonly used is when new components need to be integrated and work together with existing components in the application.
+</p> 
+<p class="ptext">
+Another scenario is refactoring in which parts of the program are rewritten with an improved interface, but the old code still expects the original interface. 
+</p> 
+<br />
+    </div>
+    <div class="span3 offset1"></div>
+</div>
+<br />
+<!-- Diagram -->
+<div class="row">
+    <div class="span8">
+        <h3>Diagram</h3>
+        <div style="padding: 14px 0 0 120px;">
+            <img src="../img/diagrams/javascript-adapter.jpg" alt="" />
+        </div>
+    </div>
+    <div class="span3 offset1"></div>
+</div>
+<br />
+<br />
+<!-- Participants -->
+<div class="row">
+    <div class="span8">
+        <h3>Participants</h3>
+        <br />
+<div class="ptext">
+The objects participating in this pattern are: <br /><br />
+   
+<ul>
+<li><b>Client</b> -- In sample code: the run() function.
+ <ul>
+  <li>calls into Adapter to request a service</li>
+ </ul>
+</li>
+<li><b>Adapter</b> -- In sample code: <b style="color:#088;">ShippingAdapter</b>
+ <ul>
+  <li>implements the interface that the client expects or knows</li>
+ </ul>
+</li>
+<li><b>Adaptee</b> -- In sample code: <b style="color:#088;">AdvancedShipping</b>
+ <ul>
+  <li>the object being adapted</li>
+  <li>has a different interface from what the client expects or knows</li>
+ </ul>
+</li>
+</ul>
+
+</div>
+    </div>
+    <div class="span3 offset1"></div>
+</div>
+<br />
+<!-- JavaScript code -->
+<div class="row">
+    <div class="span8">
+        <h3>JavaScript Code</h3>
+        <br />
+<p class="ptext">
+The example code below shows an online shopping cart in which a shipping object is used to compute 
+shipping costs. The old <span class="cd">Shipping</span> object is replaced by a new and improved Shipping object that is more secure and offers better prices.
+</p>
+<p class="ptext">
+The new object is named <span class="cd">AdvancedShipping</span> and has a very different interface which the client program does not expect. 
+<span class="cd">ShippingAdapter</span> allows the client program to continue functioning without any API changes by
+mapping (adapting) the old <span class="cd">Shipping</span> interface to the new <span class="cd">AdvancedShipping</span> interface.
+</p>
+<p class="ptext">
+The <span class="cd">log</span> function is a helper which collects and displays results. 
+</p>
+
+      
+        <br />
+<pre class="prettyprint">
+// old interface
+function Shipping() {
+    this.request = function(zipStart, zipEnd, weight) {
+        // ...
+        return "$49.75";
+    }
+}
+
+// new interface
+function AdvancedShipping() {
+    this.login = function(credentials) { /* ... */ };
+    this.setStart = function(start) { /* ... */ };
+    this.setDestination = function(destination) { /* ... */ };
+    this.calculate = function(weight) { return "$39.50"; };
+}
+
+// adapter interface
+function ShippingAdapter(credentials) {
+    var shipping = new AdvancedShipping();
+    shipping.login(credentials);
+
+    return {
+        request: function(zipStart, zipEnd, weight) {
+            shipping.setStart(zipStart);
+            shipping.setDestination(zipEnd);
+            return shipping.calculate(weight);
+        }
+    };
+}
+
+// log helper
+var log = (function () {
+    var log = "";
+    return {
+        add: function (msg) { log += msg + "\n"; },
+        show: function () { alert(log); log = ""; }
+    }
+})();
+
+
+function run() {
+
+    var shipping = new Shipping();
+
+    var credentials = {token: "30a8-6ee1"};
+    var adapter = new ShippingAdapter(credentials);
+
+    // original shipping object and interface
+    var cost = shipping.request("78701", "10010", "2 lbs");
+    log.add("Old cost: " + cost);
+
+    // new shipping object with adapted interface
+    cost = adapter.request("78701", "10010", "2 lbs");
+    log.add("New cost: " + cost);
+
+    log.show();
+}
+</pre>
+        <a class="btn" href="javascript:void(0);" onclick="run();return false;">Run</a>
+
+<script type="text/javascript">
+    // old interface
+    function Shipping() {
+        this.request = function (zipStart, zipEnd, weight) {
+            // ...
+            return "$49.75";
+        }
+    }
+
+    // new interface
+    function AdvancedShipping() {
+        this.login = function (credentials) { /* ... */ };
+        this.setStart = function (start) { /* ... */ };
+        this.setDestination = function (destination) { /* ... */ };
+        this.calculate = function (weight) { return "$39.50"; };
+    }
+
+    // adapter interface
+    function ShippingAdapter(credentials) {
+        var shipping = new AdvancedShipping();
+        shipping.login(credentials);
+
+        return {
+            request: function (zipStart, zipEnd, weight) {
+                shipping.setStart(zipStart);
+                shipping.setDestination(zipEnd);
+                return shipping.calculate(weight);
+            }
+        };
+    }
+
+    // log helper
+    var log = (function () {
+        var log = "";
+        return {
+            add: function (msg) { log += msg + "\n"; },
+            show: function () { alert(log); log = ""; }
+        }
+    })();
+
+
+    function run() {
+
+        var shipping = new Shipping();
+
+        var credentials = { token: "30a8-6ee1" };
+        var adapter = new ShippingAdapter(credentials);
+
+        // original shipping object and interface
+        var cost = shipping.request("78701", "10010", "2 lbs");
+        log.add("Old cost: " + cost);
+
+        // new shipping object with adapted interface
+        cost = adapter.request("78701", "10010", "2 lbs");
+        log.add("New cost: " + cost);
+
+        log.show();
+    }
+</script>
+
+
+
+    </div>
+</div>
+
+<br />
+<br />
+<br />
+
+<!-- JavaScript Optimated Code -->
+<div class="row">
+    <div class="span8">
+        <h3>JavaScript Optimized Code</h3>
+        <br />
+<p class="ptext">
+The Namespace pattern is applied to keep the code out of the global namespace. Our namespace is named <span class="cd">Patterns.Classic</span>.
+A Revealing Module named <span class="cd">Adapter</span> encapsulates all of Adapter's functions including the advanced shipping interface.  
+It only exposes <span class="cd">ShippingAdapter</span> which has a single <span class="cd">request</span> method similar to the old shipping interface.
+</p>
+<p class="ptext">
+The original Shipping interface was kept outside the namespace because it is only used to show that the new (adapted) and old API are the same. 
+</p>
+<p class="ptext">
+The <span class="cd">Patterns</span> object contains the <span class="cd">namespace</span> function which constructs namespaces non-destructively, 
+that is, if a name already exists it won't overwrite it. 
+</p>
+<p class="ptext">
+The <span class="cd">log</span> function is a helper which collects and displays results.
+</p>
+       
+        <br />
+        <pre class="prettyprint">
+var Patterns = {
+    namespace: function (name) {
+        var parts = name.split(".");
+        var ns = this;
+
+        for (var i = 0, len = parts.length; i < len; i++) {
+            ns[parts[i]] = ns[parts[i]] || {};
+            ns = ns[parts[i]];
+        }
+
+        return ns;
+    }
+};
+
+Patterns.namespace("Classic").Adapter = (function () {
+
+    // new interface
+    var AdvancedShipping = function () {
+        this.login = function (credentials) { /* ... */ };
+        this.setStart = function (start) { /* ... */ };
+        this.setDestination = function (destination) { /* ... */ };
+        this.calculate = function (weight) { return "$39.50"; };
+    }
+
+    // adapter interface
+    var ShippingAdapter = function (credentials) {
+        var shipping = new AdvancedShipping();
+        shipping.login(credentials);
+
+        return {
+            request: function (zipStart, zipEnd, weight) {
+                shipping.setStart(zipStart);
+                shipping.setDestination(zipEnd);
+                return shipping.calculate(weight);
+            }
+        };
+    };
+
+    return {
+        ShippingAdapter: ShippingAdapter
+    };
+
+})();
+
+// old interface
+var Shipping = function () {
+    this.request = function (zipStart, zipEnd, weight) {
+        // ...
+        return "$49.75";
+    }
+}
+
+// log helper
+var log = (function () {
+    var log = "";
+    return {
+        add: function (msg) { log += msg + "\n"; },
+        show: function () { alert(log); log = ""; }
+    }
+})();
+
+
+function run() {
+
+    var shipping = new Shipping();
+
+    var credentials = { token: "30a8-6ee1" };
+    var adapter = new Patterns.Classic.Adapter.ShippingAdapter(credentials);
+
+    // original shipping object and interface
+    var cost = shipping.request("78701", "10010", "2 lbs");
+    log.add("Old cost: " + cost);
+
+    // new shipping object with adapted interface
+    cost = adapter.request("78701", "10010", "2 lbs");
+    log.add("New cost: " + cost);
+
+    log.show();
+}
+</pre>
+        <a class="btn" href="javascript:void(0);" onclick="run1();return false;">Run</a>
+
+<script type="text/javascript">
+    var Patterns = {
+        namespace: function (name) {
+            var parts = name.split(".");
+            var ns = this;
+
+            for (var i = 0, len = parts.length; i < len; i++) {
+                ns[parts[i]] = ns[parts[i]] || {};
+                ns = ns[parts[i]];
+            }
+
+            return ns;
+        }
+    };
+
+    Patterns.namespace("Classic").Adapter = (function () {
+
+        // new interface
+        var AdvancedShipping = function () {
+            this.login = function (credentials) { /* ... */ };
+            this.setStart = function (start) { /* ... */ };
+            this.setDestination = function (destination) { /* ... */ };
+            this.calculate = function (weight) { return "$39.50"; };
+        }
+
+        // adapter interface
+        var ShippingAdapter = function (credentials) {
+            var shipping = new AdvancedShipping();
+            shipping.login(credentials);
+
+            return {
+                request: function (zipStart, zipEnd, weight) {
+                    shipping.setStart(zipStart);
+                    shipping.setDestination(zipEnd);
+                    return shipping.calculate(weight);
+                }
+            };
+        };
+
+        return {
+            ShippingAdapter: ShippingAdapter
+        };
+
+    })();
+
+    // old interface
+    var Shipping = function () {
+        this.request = function (zipStart, zipEnd, weight) {
+            // ...
+            return "$49.75";
+        }
+    }
+
+    // log helper
+    var log = (function () {
+        var log = "";
+        return {
+            add: function (msg) { log += msg + "\n"; },
+            show: function () { alert(log); log = ""; }
+        }
+    })();
+
+
+    function run1() {
+
+        var shipping = new Shipping();
+
+        var credentials = { token: "30a8-6ee1" };
+        var adapter = new Patterns.Classic.Adapter.ShippingAdapter(credentials);
+
+        // original shipping object and interface
+        var cost = shipping.request("78701", "10010", "2 lbs");
+        log.add("Old cost: " + cost);
+
+        // new shipping object with adapted interface
+        cost = adapter.request("78701", "10010", "2 lbs");
+        log.add("New cost: " + cost);
+
+        log.show();
+    }
+
+</script>
+
+
+
+    </div>
+</div>
+
+
+<br />
+<br />
+<br />
+<div class="row">
+    <div class="span4 offsethalf">
+        <i class="icon-hand-left" style="margin:2px 0 0 0;"></i>&nbsp;&nbsp;<a href='singleton.htm'>Singleton</a>
+
+    </div>
+    <div class="span3">
+        <a href='bridge.htm'>Bridge</a>&nbsp;&nbsp;<i class="icon-hand-right" style="margin:2px 0 0 0;"></i>
+    </div>
+</div>
+<br />
+<br />
+
+
+
+
+
+      <br /><br />
+
+      <hr />
+      <div class="footer">
+        <p class="pull-right"><a id="totop" href="#">Back to top</a></p>
+        <p style="font-size:11pt;">Copyright &#169; 2013. Data & Object Factory, LLC. www.dofactory.com. All rights reserved.</p>
+      </div>
+      <br />
+   </div>
+
+<script type="text/javascript">
+
+    $(function() {
+        prettyPrint();
+
+        // animates page to scroll to top
+        $('#totop').on('click', function () {
+            $("html, body").animate({ scrollTop: 0 }, 500);
+            return false;
+        });
+    });
+
+</script>
+</body>
+</html>

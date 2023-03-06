@@ -1,0 +1,178 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Zero Timeout</title>
+    <link rel="shortcut icon" href='../img/favicon.ico' />
+    <link href='../css/bootstrap.css' rel="stylesheet" />
+    <link href='../css/app.css' rel="stylesheet" />
+    <link href='../css/google-code-prettify/prettify.css' rel="stylesheet" />
+
+    <script src='../js/jquery.js' type="text/javascript" ></script>
+    <script src='../js/bootstrap.js' type="text/javascript" ></script>
+    <script src='../js/app.js' type="text/javascript" ></script>
+
+    <script src='../css/google-code-prettify/prettify.js' type="text/javascript"></script>
+</head>
+<body>
+     <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" style="padding-top:15px;" href='../index.htm'><img src='../img/js.png' alt="js" width="32" height="30" />
+              &nbsp; JavaScript + jQuery Design Pattern Framework <sup>TM</sup>&nbsp; 2013
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+     <div class="row">
+            <div class="span12" style="height:4px;background:mediumturquoise;"></div>
+     </div>
+
+     <div class="row">
+       <div class="span12">
+         <ul class="breadcrumb">
+           <li><a href='../index.htm'>Home</a> <span class="divider">/</span></li>
+           <li><a href='_index.htm'>jQuery</a> <span class="divider">/</span></li>
+           <li class="active">Zero Timeout</li>
+         </ul>
+        </div>
+      </div>
+      <br />
+        
+
+<div class="row">
+    <div class="span10">
+
+        <div class="row">
+            <div class="span7" style="padding: 0px 0 0 0;">
+                <h2 class="h1title">Zero Timeout</h2>
+                <p>
+                  Provides a way to avoid the user interface from freezing up.<br /><br />
+                  jQuery uses Timeout values of 0 and 1, both of which have the same effect. 
+                </p>
+            </div>
+            <div class="span3">
+                &nbsp;&nbsp;&nbsp;<a class='js' href="javascript:void(0);" onclick="return openPdf('jQueryPatterns');">jQuery Patterns Guide</a>
+            </div>
+        </div>
+       
+    </div>
+     <div class="span2">
+        <img src="../img/jspatterndetail.jpg" style="width:140px;height:140px;" alt="" />
+        <br />
+        <div class="back" style="padding:10px 0 0 18px;">
+            <i class="icon-hand-left" style="margin:2px 0 0 0;"></i>&nbsp;&nbsp;<a href='_index.htm' >back to list</a>
+        </div>
+    </div>
+</div>
+<hr />
+<br />
+
+<div class="row">
+   <div class="span10">
+      <h3>Overview</h3>
+      <br />
+      <div class="ptext">
+<p>
+In the Essential Section of this program we discussed the event loop and the Zero Timeout pattern.  
+This pattern is used to give the event loop time to catch up with pending events in the event queue. 
+It an important pattern because it prevents the user interface from freezing up with long running scripts. 
+</p>
+<p>
+jQuery uses this pattern in several places. Here is a code snippet from jQuery's ready method:
+</p>
+<pre class="prettyprint">
+// Make sure body exists, at least, in case IE gets a little overzealous.
+if ( !document.body ) {
+    return setTimeout( jQuery.ready, 1 );
+}
+// ...
+
+</pre>
+<p>
+Another instance in the <span class="cd">jQuery.ready.promise</span> method:
+</p>
+<pre class="prettyprint">
+if ( document.readyState === "complete" || ( document.readyState !== "loading" && 
+    document.addEventListener ) ) {   
+    // Handle it asynchronously to allow scripts the opportunity to delay ready
+    setTimeout( jQuery.ready, 1 );
+}
+// ...
+
+</pre>
+<p>
+And here is a snippet from its Ajax functionality:
+</p>
+<pre class="prettyprint">
+} else if ( xhr.readyState === 4 ) {
+    // (IE6 & IE7) if it's in cache and has been
+    // retrieved directly we need to fire the callback
+    setTimeout( callback, 0 );
+}
+// ...
+</pre>
+<p>
+And finally an asynchronous animation example
+</p>
+<pre class="prettyprint">
+// Animations created synchronously will run synchronously
+function createFxNow() {
+     setTimeout(function() {
+         fxNow = undefined;
+     }, 0 );
+     return ( fxNow = jQuery.now() );
+}
+
+</pre>
+<p>
+In jQuery the Zero Timeout pattern is used to address some specific browser peculiarities as well as assist in asynchronous animations.  
+It is interesting to note that both 0 and 1 millisecond are used for the delay.  
+It really does not make a difference because JavaScript's internal minimum is apparently 4 milliseconds.
+</p>
+
+
+
+      </div> 
+  </div>
+</div>
+<br />
+<br />
+<div class="row">
+    <div class="span4 offsethalf">
+        <i class="icon-hand-left" style="margin:2px 0 0 0;"></i>&nbsp;&nbsp;<a href='lazyload.htm'>Lazy Load</a>
+    </div>
+    <div class="span3">
+        <a href='singleton.htm'>Singleton</a>&nbsp;&nbsp;<i class="icon-hand-right" style="margin:2px 0 0 0;"></i>
+    </div>
+</div>
+<br />
+<br />
+
+      <br /><br />
+
+      <hr />
+      <div class="footer">
+        <p class="pull-right"><a id="totop" href="#">Back to top</a></p>
+        <p style="font-size:11pt;">Copyright &#169; 2013. Data & Object Factory, LLC. www.dofactory.com. All rights reserved.</p>
+      </div>
+      <br />
+   </div>
+
+<script type="text/javascript">
+
+    $(function() {
+        prettyPrint();
+
+        // animates page to scroll to top
+        $('#totop').on('click', function () {
+            $("html, body").animate({ scrollTop: 0 }, 500);
+            return false;
+        });
+    });
+
+</script>
+</body>
+</html>

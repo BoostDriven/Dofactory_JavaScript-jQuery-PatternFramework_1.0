@@ -1,0 +1,218 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Adapter</title>
+    <link rel="shortcut icon" href='../img/favicon.ico' />
+    <link href='../css/bootstrap.css' rel="stylesheet" />
+    <link href='../css/app.css' rel="stylesheet" />
+    <link href='../css/google-code-prettify/prettify.css' rel="stylesheet" />
+
+    <script src='../js/jquery.js' type="text/javascript" ></script>
+    <script src='../js/bootstrap.js' type="text/javascript" ></script>
+    <script src='../js/app.js' type="text/javascript" ></script>
+
+    <script src='../css/google-code-prettify/prettify.js' type="text/javascript"></script>
+</head>
+<body>
+     <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" style="padding-top:15px;" href='../index.htm'><img src='../img/js.png' alt="js" width="32" height="30" />
+              &nbsp; JavaScript + jQuery Design Pattern Framework <sup>TM</sup>&nbsp; 2013
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+     <div class="row">
+            <div class="span12" style="height:4px;background:mediumturquoise;"></div>
+     </div>
+
+     <div class="row">
+       <div class="span12">
+         <ul class="breadcrumb">
+           <li><a href='../index.htm'>Home</a> <span class="divider">/</span></li>
+           <li><a href='_index.htm'>jQuery</a> <span class="divider">/</span></li>
+           <li class="active">Adapter</li>
+         </ul>
+        </div>
+      </div>
+      <br />
+        
+
+<div class="row">
+    <div class="span10">
+
+        <div class="row">
+            <div class="span7" style="padding: 0px 0 0 0;">
+                <h2 class="h1title">Adapter</h2>
+                <p>
+                  Matches interfaces of different objects.<br /><br />
+                  jQuery uses the Adapter pattern to support backward compatibility to older APIs.
+                </p>
+            </div>
+            <div class="span3">
+                &nbsp;&nbsp;&nbsp;<a class='js' href="javascript:void(0);" onclick="return openPdf('jQueryPatterns');">jQuery Patterns Guide</a>
+            </div>
+        </div>
+       
+    </div>
+     <div class="span2">
+        <img src="../img/jspatterndetail.jpg" style="width:140px;height:140px;" alt="" />
+        <br />
+        <div class="back" style="padding:10px 0 0 18px;">
+            <i class="icon-hand-left" style="margin:2px 0 0 0;"></i>&nbsp;&nbsp;<a href='_index.htm' >back to list</a>
+        </div>
+    </div>
+</div>
+<hr />
+<br />
+
+<div class="row">
+   <div class="span10">
+      <h3>Overview</h3>
+      <br />
+      <div class="ptext">
+<p>
+The Adapter pattern translates an object's interface (its properties and methods) to another interface. 
+Adapters allow programming components to work together that otherwise wouldn't because of mismatched interfaces. 
+The Adapter pattern is also referred to as the Wrapper Pattern.
+</p>
+<p>
+In jQuery you attach an event handler to click, mouseover, keypress, focus, resize, scroll and other events like this:
+</p>
+<pre class="prettyprint">
+$("#div").click(function() { alert("hello"); };
+
+$("#name").focus(function() { alert("name please"); };
+</pre>
+<p>
+These are shorthand methods for the more generic <span class="cd">bind</span> method, which is used like this: 
+</p>
+<pre class="prettyprint">
+$("#div").bind("click", function() { alert("hello"); };
+
+$("#name").bind("focus", function() { alert("name please"); };
+
+</pre>
+<p>
+In older versions of jQuery all shorthand methods were mapped to bind or trigger methods:
+</p>
+<pre class="prettyprint">
+function click (fn) {
+    return fn ? this.bind(name, fn) : this.trigger(name);
+}
+
+</pre>
+<p>
+This code shows that if an event handler (<span class="cd">fn</span>) is provided it is bound, but if none is provided it triggers the specific event.  
+This mapping of shortcut methods to the more generic bind method is the Adapter Pattern in action. 
+</p>
+<p>
+This functionality continuous to be supported, but in recent versions two new methods <span class="cd">on</span> an <span class="cd">off</span> were introduced. 
+They attach and detach event handlers respectively.  The two methods unify all good practices of event handling and allow you to write nice tidy code. 
+It is used just like the bind method above:
+</p>
+<pre class="prettyprint">
+$("#div").on("click", function() { alert("hello"); };
+
+$("#div").on("focus", function() { alert("name please"); };
+    
+</pre>
+<p>
+Again the Adapter Pattern translates the call from <span class="cd">bind</span> to <span class="cd">on</span>. 
+Here is a glimpse into jQuery's source which shows how this is done: 
+</p>
+<pre class="prettyprint">
+jQuery.each( (
+  "blur focus focusin focusout load resize scroll unload click dblclick " +
+  "mousedown mouseup mousemove mouseover mouseout mouseenter mouseleave " +
+  "change select submit keydown keypress keyup error contextmenu")
+   .split(" "), 
+    function( i, name ) {
+        // Handle event binding
+        jQuery.fn[ name ] = function( data, fn ) {
+            if ( fn == null ) {                   // argument switching
+                fn = data;
+                data = null;
+            }
+
+            return arguments.length > 0 ?
+                this.on( name, null, data, fn ) :
+                this.trigger( name );
+       };
+});
+
+</pre>
+<p>
+This code iterates over an array of shorthand method names and adds each one to jQuery.fn.  
+They are mapped to either the on method or the trigger method depending on the arguments passed (trigger, as the name implies, triggers the event).  
+Notice also that argument switching (function overload idiom) is used in these convenience methods.   
+</p>
+<p>
+Here is another jQuery Adapter in action. This time with the important ajax method: 
+</p>
+<pre class="prettyprint">
+ajax: function( url, options ) {
+    // If url is an object, simulate pre-1.5 signature
+    if ( typeof url === "object" ) {
+        options = url;
+        url = undefined;
+    }
+    // ...
+}
+
+</pre>
+<p>
+This method is adapted to support/simulate older versions of the API.  
+It does this through argument switching which allows it to support the current API and the older API.
+The fact that this is all handled in a single function is rather unusual. 
+</p>
+
+
+
+      </div> 
+  </div>
+</div>
+
+<br />
+<br />
+<div class="row">
+    <div class="span4 offsethalf">
+        <i class="icon-hand-left" style="margin:2px 0 0 0;"></i>&nbsp;&nbsp;<a href='facade.htm'>Façade</a>
+    </div>
+    <div class="span3">
+        <a href='plugin.htm'>jQuery Plugins</a>&nbsp;&nbsp;<i class="icon-hand-right" style="margin:2px 0 0 0;"></i>
+    </div>
+</div>
+<br />
+<br />
+
+
+      <br /><br />
+
+      <hr />
+      <div class="footer">
+        <p class="pull-right"><a id="totop" href="#">Back to top</a></p>
+        <p style="font-size:11pt;">Copyright &#169; 2013. Data & Object Factory, LLC. www.dofactory.com. All rights reserved.</p>
+      </div>
+      <br />
+   </div>
+
+<script type="text/javascript">
+
+    $(function() {
+        prettyPrint();
+
+        // animates page to scroll to top
+        $('#totop').on('click', function () {
+            $("html, body").animate({ scrollTop: 0 }, 500);
+            return false;
+        });
+    });
+
+</script>
+</body>
+</html>

@@ -1,0 +1,149 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Modularity</title>
+    <link rel="shortcut icon" href='../img/favicon.ico' />
+    <link href='../css/bootstrap.css' rel="stylesheet" />
+    <link href='../css/app.css' rel="stylesheet" />
+    <link href='../css/google-code-prettify/prettify.css' rel="stylesheet" />
+
+    <script src='../js/jquery.js' type="text/javascript" ></script>
+    <script src='../js/bootstrap.js' type="text/javascript" ></script>
+    <script src='../js/app.js' type="text/javascript" ></script>
+
+    <script src='../css/google-code-prettify/prettify.js' type="text/javascript"></script>
+</head>
+<body>
+     <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" style="padding-top:15px;" href='../index.htm'><img src='../img/js.png' alt="js" width="32" height="30" />
+              &nbsp; JavaScript + jQuery Design Pattern Framework <sup>TM</sup>&nbsp; 2013
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+     <div class="row">
+            <div class="span12" style="height:4px;background:yellowgreen;"></div>
+     </div>
+
+     <div class="row">
+       <div class="span12">
+         <ul class="breadcrumb">
+           <li><a href='/index.htm'>Home</a> <span class="divider">/</span></li>
+           <li><a href='_index.htm'>Architecture</a> <span class="divider">/</span></li>
+           <li class="active">Modularity</li>
+         </ul>
+        </div>
+      </div>
+      <br />
+        
+
+<div class="row">
+    <div class="span10">
+
+        <div class="row">
+            <div class="span7" style="padding: 0px 0 0 0;">
+                <h2 class="h1title">Modularity</h2>
+                <p>
+                  Partitioning your code base in standalone, independent units.<br /><br />
+                  Large JavaScript applications are easier to manage and maintain when they are modular. 
+                </p>
+            </div>
+            <div class="span3">
+                &nbsp;&nbsp;&nbsp;<a class='js' href="javascript:void(0);" onclick="return openPdf('ArchitecturePatterns');">Architecture Patterns Guide</a>
+            </div>
+        </div>
+       
+    </div>
+   <div class="span2">
+        <img src="../img/jspatterndetail.jpg" style="width:140px;height:140px;" alt="" />
+        <br />
+        <div class="back" style="padding:10px 0 0 18px;">
+            <i class="icon-hand-left" style="margin:2px 0 0 0;"></i>&nbsp;&nbsp;<a href='_index.htm' >back to list</a>
+        </div>
+    </div>
+</div>
+<hr />
+<br />
+
+<div class="row">
+   <div class="span10">
+      <h3>Overview</h3>
+      <br />
+      <div class="ptext">
+<p>
+When an application is said to be modular, it means that it has well-defined units of functionality are relatively independent from each other (that is, they are loosely coupled).  
+Suppose you have an app that maintains Employee data.  You may see modules like Employees, Admin, Reporting, and some cross-cutting modules, such as, Ajax, Security, and Utils 
+(note: cross-cutting means they affect all areas in the app).  Modularity is beneficial because it brings clarity to your code base; the programs are easier to understand, 
+easier to test, and easier to maintain. 
+</p>
+<p>
+Most languages allow you to organize a large body of code in modular units. JavaScript does not natively support this, but the Module pattern allows us to organize the 
+code into clearly defined units called modules. Usually there is one module per file. 
+</p>
+<p>
+The next step is the ability to import these modules where necessary. Most languages support native syntax for this, such as, <span class="cd">import</span>, <span class="cd">using</span>, or <span class="cd">require</span>. 
+JavaScript does not have this and there is no easy way to import modules and help with the dependency management of these modules. 
+</p>
+<p>
+The ES6 (EcmaScript 6) proposal addresses the problem head-on with a new module system and the addition of these keywords: 
+<span class="cd">module</span>, <span class="cd">export</span>, and <span class="cd">import</span>.  Unfortunately, it will take some time before JavaScript 
+developers are generally coding against the new ES6 standard.  
+</p>
+<p>
+In the meantime, many developers building large systems use an alternative called <i>AMD</i> (Asynchronous Modular Definition). AMD is a protocol: its goal is to provide a 
+modular development API that allows JavaScript to define modules and their dependencies that can be loaded asynchronously (notice how script loading comes into play again).  
+</p>
+<p>
+In the next section we will review the AMD format specification as well as the most popular open-source tool that implements it: <i>Require.js</i>. 
+</p>
+
+
+      </div> 
+  </div>
+</div>
+
+<br />
+<br />
+<div class="row">
+    <div class="span4 offsethalf">
+        <i class="icon-hand-left" style="margin:2px 0 0 0;"></i>&nbsp;&nbsp;<a href='scriptloading.htm'>Script Loading</a>
+
+    </div>
+    <div class="span3">
+        <a href='amdrequire.htm'>AMD & Require.js</a>&nbsp;&nbsp;<i class="icon-hand-right" style="margin:2px 0 0 0;"></i>
+    </div>
+</div>
+<br />
+<br />
+
+
+      <br /><br />
+
+      <hr />
+      <div class="footer">
+        <p class="pull-right"><a id="totop" href="#">Back to top</a></p>
+        <p style="font-size:11pt;">Copyright &#169; 2013. Data & Object Factory, LLC. www.dofactory.com. All rights reserved.</p>
+      </div>
+      <br />
+   </div>
+
+<script type="text/javascript">
+
+    $(function() {
+        prettyPrint();
+
+        // animates page to scroll to top
+        $('#totop').on('click', function () {
+            $("html, body").animate({ scrollTop: 0 }, 500);
+            return false;
+        });
+    });
+
+</script>
+</body>
+</html>

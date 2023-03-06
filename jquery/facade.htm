@@ -1,0 +1,137 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Fa&#231;ade</title>
+    <link rel="shortcut icon" href='../img/favicon.ico' />
+    <link href='../css/bootstrap.css' rel="stylesheet" />
+    <link href='../css/app.css' rel="stylesheet" />
+    <link href='../css/google-code-prettify/prettify.css' rel="stylesheet" />
+
+    <script src='../js/jquery.js' type="text/javascript" ></script>
+    <script src='../js/bootstrap.js' type="text/javascript" ></script>
+    <script src='../js/app.js' type="text/javascript" ></script>
+
+    <script src='../css/google-code-prettify/prettify.js' type="text/javascript"></script>
+</head>
+<body>
+     <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" style="padding-top:15px;" href='../index.htm'><img src='../img/js.png' alt="js" width="32" height="30" />
+              &nbsp; JavaScript + jQuery Design Pattern Framework <sup>TM</sup>&nbsp; 2013
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+     <div class="row">
+            <div class="span12" style="height:4px;background:mediumturquoise;"></div>
+     </div>
+
+     <div class="row">
+       <div class="span12">
+         <ul class="breadcrumb">
+           <li><a href='../index.htm'>Home</a> <span class="divider">/</span></li>
+           <li><a href='_index.htm'>jQuery</a> <span class="divider">/</span></li>
+           <li class="active">Facade</li>
+         </ul>
+        </div>
+      </div>
+      <br />
+        
+
+<div class="row">
+    <div class="span10">
+
+        <div class="row">
+            <div class="span7" style="padding: 0px 0 0 0;">
+                <h2 class="h1title">Façade</h2>
+                <p>
+                  A single object that represents an entire subsystem.<br /><br />
+                  The jQuery API is a Façade to its internal functionality. 
+                </p>
+            </div>
+            <div class="span3">
+                &nbsp;&nbsp;&nbsp;<a class='js' href="javascript:void(0);" onclick="return openPdf('jQueryPatterns');">jQuery Patterns Guide</a>
+            </div>
+        </div>
+       
+    </div>
+     <div class="span2">
+        <img src="../img/jspatterndetail.jpg" style="width:140px;height:140px;" alt="" />
+        <br />
+        <div class="back" style="padding:10px 0 0 18px;">
+            <i class="icon-hand-left" style="margin:2px 0 0 0;"></i>&nbsp;&nbsp;<a href='_index.htm' >back to list</a>
+        </div>
+    </div>
+</div>
+<hr />
+<br />
+
+<div class="row">
+   <div class="span10">
+      <h3>Overview</h3>
+      <br />
+      <div class="ptext">
+<p>
+The Façade pattern provides an interface that shields a client from complex functionality. 
+This definition appears to closely match jQuery's API which provides an easy-to-use interface to traverse the DOM, perform Ajax interactions, 
+event handling, and animation. None of these things is simple and each requires a large and complex body of JavaScript code. 
+</p>
+<p>
+The jQuery library is cross-browser, that is, it supports all popular browsers.  
+This involves a huge effort on the part of the authors of jQuery; not only are there several browsers to support (IE, Chrome, Safari, Firefox), 
+but each has different versions with differences among them. There are subtle, and not so subtle, differences between all these browsers as well as 
+bugs for which clever workarounds needed to be found.  
+</p>
+<p>
+In summary, the API of jQuery is an implementation of the Façade pattern.
+</p>
+
+
+
+      </div> 
+  </div>
+</div>
+
+<br />
+<br />
+<div class="row">
+    <div class="span4 offsethalf">
+        <i class="icon-hand-left" style="margin:2px 0 0 0;"></i>&nbsp;&nbsp;<a href='proxy.htm'>Proxy</a>
+    </div>
+    <div class="span3">
+        <a href='adapter.htm'>Adapter</a>&nbsp;&nbsp;<i class="icon-hand-right" style="margin:2px 0 0 0;"></i>
+    </div>
+</div>
+<br />
+<br />
+
+
+      <br /><br />
+
+      <hr />
+      <div class="footer">
+        <p class="pull-right"><a id="totop" href="#">Back to top</a></p>
+        <p style="font-size:11pt;">Copyright &#169; 2013. Data & Object Factory, LLC. www.dofactory.com. All rights reserved.</p>
+      </div>
+      <br />
+   </div>
+
+<script type="text/javascript">
+
+    $(function() {
+        prettyPrint();
+
+        // animates page to scroll to top
+        $('#totop').on('click', function () {
+            $("html, body").animate({ scrollTop: 0 }, 500);
+            return false;
+        });
+    });
+
+</script>
+</body>
+</html>

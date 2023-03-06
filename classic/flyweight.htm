@@ -1,0 +1,660 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Flyweight</title>
+    <link rel="shortcut icon" href='../img/favicon.ico' />
+    <link href='../css/bootstrap.css' rel="stylesheet" />
+    <link href='../css/app.css' rel="stylesheet" />
+    <link href='../css/google-code-prettify/prettify.css' rel="stylesheet" />
+
+    <script src='../js/jquery.js' type="text/javascript" ></script>
+    <script src='../js/bootstrap.js' type="text/javascript" ></script>
+    <script src='../js/app.js' type="text/javascript" ></script>
+
+    <script src='../css/google-code-prettify/prettify.js' type="text/javascript"></script>
+</head>
+<body>
+     <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" style="padding-top:15px;" href='../index.htm'><img src='../img/js.png' alt="js" width="32" height="30" />
+              &nbsp; JavaScript + jQuery Design Pattern Framework <sup>TM</sup>&nbsp; 2013
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+     <div class="row">
+            <div class="span12" style="height:4px;background:crimson;"></div>
+     </div>
+
+     <div class="row">
+       <div class="span12">
+         <ul class="breadcrumb">
+           <li><a href='../index.htm'>Home</a> <span class="divider">/</span></li>
+           <li><a href='_index.htm'>Classic</a> <span class="divider">/</span></li>
+           <li class="active">Flyweight</li>
+         </ul>
+        </div>
+      </div>
+      <br />
+        
+
+
+<div class="row">
+    <div class="span10">
+
+        <div class="row">
+            <div class="span7" style="padding: 0px 0 0 0;">
+                <h2 class="h1title">Flyweight</h2>
+                <p>
+                    Use sharing to support large numbers of fine-grained objects efficiently.
+                </p>
+            </div>
+            <div class="span3">
+               &nbsp;&nbsp;&nbsp;<a class='js' href="javascript:void(0);" onclick="return openPdf('ClassicPatterns');">Classic Patterns Guide</a>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="span7">
+                <br />
+                <table class="usage">
+                    <tr>
+                        <td class="usage1">Usage in JavaScript:</td>
+                        <td class="usage2">
+                            <div class="progress progress-warning" style="width: 150px;">
+                                <div class="bar" style="width: 100%;"></div>
+                            </div>
+                        </td>
+                        <td class="usage3">high</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="span2">
+        <img src="../img/jspatterndetail.jpg" style="width:140px;height:140px;" alt="" />
+        <br />
+        <div class="back" style="padding:10px 0 0 18px;">
+            <i class="icon-hand-left" style="margin:2px 0 0 0;"></i>&nbsp;&nbsp;<a href='_index.htm' >back to list</a>
+        </div>
+    </div>
+</div>
+<hr />
+<br />
+
+<div class="row">
+    <div class="span8">
+        <h3>Summary</h3>
+        <br />
+<p class="ptext">
+The Flyweight pattern conserves memory by sharing large numbers of fine-grained objects efficiently. 
+Shared flyweight objects are immutable, that is, they cannot be changed as they represent the characteristics that are shared with other objects.
+</p> 
+<p class="ptext">
+Essentially Flyweight is an 'object normalization technique' in which common properties are factored out into shared flyweight objects. 
+(Note: the idea is similar to data model normalization, a process in which the modeler attempts to minimize redundancy).
+</p> 
+<p class="ptext">
+An example of the Flyweight Pattern is within the JavaScript engine itself which maintains a list of immutable strings that are shared across the application.  
+</p> 
+<p class="ptext">
+Other examples include characters and line-styles in a word processor, or 'digit receivers' in a public switched telephone network application. 
+You will find flyweights mostly in utility type applications 
+such as word processors, graphics programs, and network apps; they are less often used in data-driven business type applications.
+</p>    
+        </div>
+    <div class="span3 offset1"></div>
+</div>
+<br />
+<!-- Diagram -->
+<div class="row">
+    <div class="span8">
+        <h3>Diagram</h3>
+        <div style="padding: 14px 0 0 120px;">
+            <img src="../img/diagrams/javascript-flyweight.jpg" alt="" />
+        </div>
+    </div>
+    <div class="span3 offset1"></div>
+</div>
+<br />
+<br />
+<!-- Participants -->
+<div class="row">
+    <div class="span8">
+        <h3>Participants</h3>
+        <br />
+ <div class="ptext">
+The objects participating in this pattern are: <br /><br />
+   
+<ul>
+<li><b>Client</b> -- In sample code: <b style="color:#088;">Computer</b>
+ <ul>
+  <li>calls into FlyweightFactory to obtain flyweight objects</li>
+ </ul>
+</li>
+<li><b>FlyweightFactory</b> -- In sample code: <b style="color:#088;">FlyweightFactory</b>
+ <ul>
+  <li>creates and manages flyweight objects</li>
+  <li>if requested, and a flyweight does not exist, it will create one</li>
+  <li>stores newly created flyweights for future requests</li>
+ </ul>
+</li>
+<li><b>Flyweight</b> -- In sample code: <b style="color:#088;">Flyweight</b>
+ <ul>
+  <li>maintains intrinsic data to be shared across the application</li>
+ </ul>
+</li>
+</ul>
+
+
+</div>
+    </div>
+    <div class="span3 offset1"></div>
+</div>
+<br />
+<!-- JavaScript code -->
+<div class="row">
+    <div class="span8">
+        <h3>JavaScript Code</h3>
+        <br />
+<p class="ptext">
+In our example code we are building computers. Many models, makes, and processor combinations are 
+common, so these characteristics are factored out and shared by Flyweight objects. 
+</p>
+<p class="ptext">
+The <span class="cd">FlyweightFactory</span> maintains a pool of <span class="cd">Flyweight</span> objects.
+When requested for a <span class="cd">Flyweight</span> object the <span class="cd">FlyweightFactory</span> will check if one already exists; 
+if not a new one will be created and stored for future reference. 
+All subsequent requests for that same computer will return the stored <span class="cd">Flyweight</span> object. 
+</p>
+<p class="ptext">
+Several different computers are added to a <span class="cd">ComputerCollection</span>. At the end we have a list of 7 <span class="cd">Computer</span> objects that share only 2 
+<span class="cd">Flyweights</span>. 
+These are small savings, but with large datasets the memory savings can be significant. 
+</p>
+<p class="ptext">
+The <span class="cd">log</span> function is a helper which collects and displays results. 
+</p>
+      
+        <br />
+<pre class="prettyprint">
+function Flyweight (make, model, processor) {
+    this.make = make;
+    this.model = model;
+    this.processor = processor;
+};
+
+var FlyWeightFactory = (function () {
+    var flyweights = {};
+
+    return {
+        get: function (make, model, processor) {
+
+            if (!flyweights[make + model]) {
+                flyweights[make + model] = 
+                    new Flyweight(make, model, processor);
+            }
+
+            return flyweights[make + model];
+        },
+        getCount: function () {
+            var count = 0;
+            for (var f in flyweights) count++;
+            return count;
+        }
+    }
+})();
+
+function ComputerCollection () {
+    var computers = {};
+    var count = 0;
+
+    return {
+        add: function (make, model, processor, memory, tag) {
+            computers[tag] = 
+                new Computer(make, model, processor, memory, tag);
+            count++;
+        },
+        get: function (tag) {
+            return computers[tag];
+        },
+        getCount: function () {
+            return count;
+        }
+    };
+}
+
+var Computer = function (make, model, processor, memory, tag) {
+    this.flyweight = FlyWeightFactory.get(make, model, processor);
+    this.memory = memory;
+    this.tag = tag;
+
+    this.getMake = function () {
+        return this.flyweight.make;
+    }
+
+    // ...
+}
+
+// log helper
+var log = (function () {
+    var log = "";
+    return {
+        add: function (msg) { log += msg + "\n"; },
+        show: function () { alert(log); log = ""; }
+    }
+})();
+
+
+function run() {
+
+    var computers = new ComputerCollection();
+    
+    computers.add("Dell", "Studio XPS", "Intel", "5G", "Y755P");
+    computers.add("Dell", "Studio XPS", "Intel", "6G", "X997T");
+    computers.add("Dell", "Studio XPS", "Intel", "2G", "U8U80");
+    computers.add("Dell", "Studio XPS", "Intel", "2G", "NT777");
+    computers.add("Dell", "Studio XPS", "Intel", "2G", "0J88A");
+    computers.add("HP", "Envy", "Intel", "4G", "CNU883701");
+    computers.add("HP", "Envy", "Intel", "2G", "TXU003283");
+
+    log.add("Computers: " + computers.getCount());
+    log.add("Flyweights: " + FlyWeightFactory.getCount());
+
+    log.show();
+}
+</pre>
+        <a class="btn" href="javascript:void(0);" onclick="run();return false;">Run</a>
+
+ <script type="text/javascript">
+     function Flyweight(make, model, processor) {
+         this.make = make;
+         this.model = model;
+         this.processor = processor;
+     };
+
+     var FlyWeightFactory = (function () {
+         var flyweights = {};
+
+         return {
+             get: function (make, model, processor) {
+
+                 if (!flyweights[make + model]) {
+                     flyweights[make + model] =
+                         new Flyweight(make, model, processor);
+                 }
+
+                 return flyweights[make + model];
+             },
+             getCount: function () {
+                 var count = 0;
+                 for (var f in flyweights) count++;
+                 return count;
+             }
+         }
+     })();
+
+     function ComputerCollection() {
+         var computers = {};
+         var count = 0;
+
+         return {
+             add: function (make, model, processor, memory, tag) {
+                 computers[tag] =
+                     new Computer(make, model, processor, memory, tag);
+                 count++;
+             },
+             get: function (tag) {
+                 return computers[tag];
+             },
+             getCount: function () {
+                 return count;
+             }
+         };
+     }
+
+     var Computer = function (make, model, processor, memory, tag) {
+         this.flyweight = FlyWeightFactory.get(make, model, processor);
+         this.memory = memory;
+         this.tag = tag;
+
+         this.getMake = function () {
+             return this.flyweight.make;
+         }
+
+         // ...
+     }
+
+     // log helper
+
+     var log = (function () {
+         var log = "";
+         return {
+             add: function (msg) { log += msg + "\n"; },
+             show: function () { alert(log); log = ""; }
+         }
+     })();
+
+     function run() {
+
+         var computers = new ComputerCollection();
+
+         computers.add("Dell", "Studio XPS", "Intel", "5G", "Y755P");
+         computers.add("Dell", "Studio XPS", "Intel", "6G", "X997T");
+         computers.add("Dell", "Studio XPS", "Intel", "2G", "U8U80");
+         computers.add("Dell", "Studio XPS", "Intel", "2G", "NT777");
+         computers.add("Dell", "Studio XPS", "Intel", "2G", "0J88A");
+         computers.add("HP", "Envy", "Intel", "4G", "CNU883701");
+         computers.add("HP", "Envy", "Intel", "2G", "TXU003283");
+
+         log.add("Computers: " + computers.getCount());
+         log.add("Flyweights: " + FlyWeightFactory.getCount());
+
+         log.show();
+     }
+</script>
+
+
+
+    </div>
+</div>
+
+<br />
+<br />
+<br />
+
+<!-- JavaScript Optimated Code -->
+<div class="row">
+    <div class="span9">
+        <h3>JavaScript Optimized Code</h3>
+        <br />
+<div style="width:620px;">
+<p class="ptext">
+The Namespace pattern is applied to keep the code out of the global namespace. Our namespace is named <span class="cd">Patterns.Classic</span>.
+A Revealing Module named <span class="cd">Flyweight</span> returns (i.e. reveals) two items: <span class="cd">create</span>, which, in fact, is a Factory Method pattern, 
+    and <span class="cd">ComputerCollection</span> which is list of computers we are managing. 
+</p>
+<p class="ptext">
+    Two pre-fabricated prototype objects (flyweights) have been created, one for Dell and one for HP, each with their own id and other values. 
+    The method <span class="cd">create</span> determines which prototype object to assign to the new <span class="cd">Computer</span> object. 
+    We have implemented the classic Flyweight pattern using JavaScript's built-in prototypal inheritance system. 
+</p>
+<p class="ptext">
+The <span class="cd">Patterns</span> object contains the <span class="cd">namespace</span> function which constructs namespaces non-destructively, 
+that is, if a name already exists it won't overwrite it. 
+</p>
+<p class="ptext">
+The <span class="cd">log</span> function is a helper which collects and displays results.
+</p>
+</div>
+        
+        <br />
+<pre class="prettyprint">
+var Patterns = {
+    namespace: function (name) {
+        var parts = name.split(".");
+        var ns = this;
+
+        for (var i = 0, len = parts.length; i < len; i++) {
+            ns[parts[i]] = ns[parts[i]] || {};
+            ns = ns[parts[i]];
+        }
+
+        return ns;
+    }
+};
+
+Patterns.namespace("Classic").Flyweight = (function () {
+
+    // prototype flyweights
+    var Proto = function (id, make, model, processor) {
+        this.id = id;
+        this.make = make;
+        this.model = model;
+        this.processor = processor;
+    }
+    var protoDell = new Proto(1, "Dell", "Studio XPS", "Intel");
+    var protoHp = new Proto(2, "HP", "Envy", "Intel");
+
+    var Computer = function (memory, tag) {
+        this.memory = memory;
+        this.tag = tag;
+    };
+
+    function create(make, model, processor, memory, tag) {
+
+        if (make === "Dell" && model === "Studio XPS") {
+            Computer.prototype = protoDell;
+        } else if (make === "HP" && model === "Envy") {
+            Computer.prototype = protoHp;
+        }
+
+        return new Computer(memory, tag);
+    }
+
+    var ComputerCollection = function () {
+        var computers = {};
+        var count = 0;
+
+        return {
+            add: function (computer) {
+                computers[computer.tag] = computer;
+                count++;
+            },
+            get: function (tag) {
+                return computers[tag];
+            },
+            getCount: function () {
+                return count;
+            },
+            getPrototypeCount: function () {
+                var types = {};
+                for (var tag in computers) types[computers[tag].id] = true;
+
+                var count = 0;
+                for (var t in types) count++;
+                return count;
+            }
+        };
+    }
+
+    return {
+        create: create,
+        ComputerCollection: ComputerCollection
+    };
+
+})();
+    
+// log helper
+var log = (function () {
+    var log = "";
+    return {
+        add: function (msg) { log += msg + "\n"; },
+        show: function () { alert(log); log = ""; }
+    }
+})();
+
+
+function run1() {
+        
+    var flyweight = Patterns.Classic.Flyweight;
+
+    var computers = new flyweight.ComputerCollection();
+
+    computers.add(flyweight.create("Dell", "Studio XPS", "Intel", "5G", "Y755P"));
+    computers.add(flyweight.create("Dell", "Studio XPS", "Intel", "6G", "X997T"));
+    computers.add(flyweight.create("Dell", "Studio XPS", "Intel", "2G", "U8U80"));
+    computers.add(flyweight.create("Dell", "Studio XPS", "Intel", "2G", "NT777"));
+    computers.add(flyweight.create("Dell", "Studio XPS", "Intel", "2G", "0J88A"));
+    computers.add(flyweight.create("HP", "Envy", "Intel", "4G", "CNU883701"));
+    computers.add(flyweight.create("HP", "Envy", "Intel", "2G", "TXU003283"));
+        
+    log.add("Computers: " + computers.getCount());
+    log.add("Prototypes: " + computers.getPrototypeCount());
+
+    log.show();
+}
+</pre>
+        <a class="btn" href="javascript:void(0);" onclick="run1();return false;">Run</a>
+
+<script type="text/javascript">
+    var Patterns = {
+        namespace: function (name) {
+            var parts = name.split(".");
+            var ns = this;
+
+            for (var i = 0, len = parts.length; i < len; i++) {
+                ns[parts[i]] = ns[parts[i]] || {};
+                ns = ns[parts[i]];
+            }
+
+            return ns;
+        }
+    };
+
+    Patterns.namespace("Classic").Flyweight = (function () {
+
+        // prototype flyweights
+        var Proto = function (id, make, model, processor) {
+            this.id = id;
+            this.make = make;
+            this.model = model;
+            this.processor = processor;
+        }
+        var protoDell = new Proto(1, "Dell", "Studio XPS", "Intel");
+        var protoHp = new Proto(2, "HP", "Envy", "Intel");
+
+        var Computer = function (memory, tag) {
+            this.memory = memory;
+            this.tag = tag;
+        };
+
+        function create(make, model, processor, memory, tag) {
+
+            if (make === "Dell" && model === "Studio XPS") {
+                Computer.prototype = protoDell;
+            } else if (make === "HP" && model === "Envy") {
+                Computer.prototype = protoHp;
+            }
+
+            return new Computer(memory, tag);
+        }
+
+        var ComputerCollection = function () {
+            var computers = {};
+            var count = 0;
+
+            return {
+                add: function (computer) {
+                    computers[computer.tag] = computer;
+                    count++;
+                },
+                get: function (tag) {
+                    return computers[tag];
+                },
+                getCount: function () {
+                    return count;
+                },
+                getPrototypeCount: function () {
+                    var types = {};
+                    for (var tag in computers) types[computers[tag].id] = true;
+
+                    var count = 0;
+                    for (var t in types) count++;
+                    return count;
+                }
+            };
+        }
+
+        return {
+            create: create,
+            ComputerCollection: ComputerCollection
+        };
+
+    })();
+    
+    // log helper
+    var log = (function () {
+        var log = "";
+        return {
+            add: function (msg) { log += msg + "\n"; },
+            show: function () { alert(log); log = ""; }
+        }
+    })();
+
+
+    function run1() {
+        
+        var flyweight = Patterns.Classic.Flyweight;
+
+        var computers = new flyweight.ComputerCollection();
+
+        computers.add(flyweight.create("Dell", "Studio XPS", "Intel", "5G", "Y755P"));
+        computers.add(flyweight.create("Dell", "Studio XPS", "Intel", "6G", "X997T"));
+        computers.add(flyweight.create("Dell", "Studio XPS", "Intel", "2G", "U8U80"));
+        computers.add(flyweight.create("Dell", "Studio XPS", "Intel", "2G", "NT777"));
+        computers.add(flyweight.create("Dell", "Studio XPS", "Intel", "2G", "0J88A"));
+        computers.add(flyweight.create("HP", "Envy", "Intel", "4G", "CNU883701"));
+        computers.add(flyweight.create("HP", "Envy", "Intel", "2G", "TXU003283"));
+        
+        log.add("Computers: " + computers.getCount());
+        log.add("Prototypes: " + computers.getPrototypeCount());
+
+        log.show();
+    }
+
+</script>
+
+
+
+    </div>
+</div>
+
+<br />
+<br />
+<br />
+<div class="row">
+    <div class="span4 offsethalf">
+        <i class="icon-hand-left" style="margin:2px 0 0 0;"></i>&nbsp;&nbsp;<a href='facade.htm'>Façade</a>
+
+    </div>
+    <div class="span3">
+        <a href='proxy.htm'>Proxy</a>&nbsp;&nbsp;<i class="icon-hand-right" style="margin:2px 0 0 0;"></i>
+    </div>
+</div>
+<br />
+<br />
+
+
+
+
+
+      <br /><br />
+
+      <hr />
+      <div class="footer">
+        <p class="pull-right"><a id="totop" href="#">Back to top</a></p>
+        <p style="font-size:11pt;">Copyright &#169; 2013. Data & Object Factory, LLC. www.dofactory.com. All rights reserved.</p>
+      </div>
+      <br />
+   </div>
+
+<script type="text/javascript">
+
+    $(function() {
+        prettyPrint();
+
+        // animates page to scroll to top
+        $('#totop').on('click', function () {
+            $("html, body").animate({ scrollTop: 0 }, 500);
+            return false;
+        });
+    });
+
+</script>
+</body>
+</html>

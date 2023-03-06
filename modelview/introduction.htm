@@ -1,0 +1,152 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Introduction</title>
+    <link rel="shortcut icon" href='../img/favicon.ico' />
+    <link href='../css/bootstrap.css' rel="stylesheet" />
+    <link href='../css/app.css' rel="stylesheet" />
+    <link href='../css/google-code-prettify/prettify.css' rel="stylesheet" />
+
+    <script src='../js/jquery.js' type="text/javascript" ></script>
+    <script src='../js/bootstrap.js' type="text/javascript" ></script>
+    <script src='../js/app.js' type="text/javascript" ></script>
+
+    <script src='../css/google-code-prettify/prettify.js' type="text/javascript"></script>
+</head>
+<body>
+     <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" style="padding-top:15px;" href='../index.htm'><img src='../img/js.png' alt="js" width="32" height="30" />
+              &nbsp; JavaScript + jQuery Design Pattern Framework <sup>TM</sup>&nbsp; 2013
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+     <div class="row">
+            <div class="span12" style="height:4px;background:darkorchid;"></div>
+     </div>
+
+     <div class="row">
+       <div class="span12">
+         <ul class="breadcrumb">
+           <li><a href='../index.htm'>Home</a> <span class="divider">/</span></li>
+           <li><a href='_index.htm'>Model View</a> <span class="divider">/</span></li>
+           <li class="active">Introduction</li>
+         </ul>
+        </div>
+      </div>
+      <br />
+        
+
+<script src="/js/json2.js" type="text/javascript"></script>
+<script src="/js/knockout.js" type="text/javascript"></script>
+
+<style type='text/css'>
+  .knockout { padding:15px;background-color: beige;  }
+</style>
+
+<div class="row">
+    <div class="span10">
+              
+        <div class="row">
+            <div class="span7" style="padding: 0px 0 0 0;">
+                <h2 class="h1title">Introduction</h2>
+                <p>
+                   Introduction to Model View Patterns.<br /><br />
+                    Model View Patterns allow JavaScript developers to organize their 
+                    applications in logical components to bring clarity and structure into their programs.
+                </p>
+            </div>
+            <div class="span3">
+                &nbsp;&nbsp;&nbsp;<a class='js' href="javascript:void(0);" onclick="return openPdf('ModelViewPatterns');">Model View Patterns Guide</a>
+            </div>
+        </div>
+    </div>
+    <div class="span2">
+        <img src="../img/jspatterndetail.jpg" style="width:140px;height:140px;" alt="" />
+        <br />
+        <div class="back" style="padding:10px 0 0 18px;">
+            <i class="icon-hand-left" style="margin:2px 0 0 0;"></i>&nbsp;&nbsp;<a href='_index.htm' >back to list</a>
+        </div>
+    </div>
+</div>
+    
+<hr />
+<br />
+
+<div class="row">
+    <div class="span10">
+        <h3>Overview</h3>
+        <br />
+        <div class="ptext">
+
+<p>
+Suppose you are in charge of a small team that starts development on a new web application. 
+Your initial thoughts are that on the client side all you need is a DOM manipulation library, 
+such as jQuery, and perhaps a couple utility-type plugins and UI controls. With that you start crafting your app. 
+</p>
+<p>
+However, a few weeks into the project you realize that many pages in the app are becoming rather unwieldy and unstructured 
+with dozens of event handlers and long reams of DOM manipulating JavaScript.  
+You feel that you could use some extra help in getting your programs better organized. 
+This is exactly what a Model-View (MV) Framework can do: to bring additional structure to your project. 
+</p>
+<p>
+What exactly is an MV Framework?  An MV Framework is a JavaScript library that allows developers to organize their 
+application in logical components to bring clarity and structure into their programs. These components represent 3 areas 
+of concern which are called: Model, View and Controller. Together they make up the MVC design pattern.   
+</p>
+<p>
+The MVC pattern one of a family of three related patterns which collectively are referred to as Model View (MV*) Patterns. The other two are refinements of MVC; they are MVP (Model View Presenter) and MVVM (Model View ViewModel).  We will first review MVC, followed by MVP and MVVM. Finally, we provide a review of some popular open source MV Frameworks.
+</p>
+
+        </div>
+    </div>
+</div>
+
+<br />
+<br />
+<div class="row">
+    <div class="span4 offsethalf">
+        <i class="icon-hand-left" style="margin:2px 0 0 0;"></i>&nbsp;&nbsp;<a href='_index.htm' >back to list</a>
+
+    </div>
+    <div class="span3">
+        <a href='mvc.htm'>MVC</a>&nbsp;&nbsp;<i class="icon-hand-right" style="margin:2px 0 0 0;"></i>
+    </div>
+</div>
+<br />
+<br />
+
+
+
+
+      <br /><br />
+
+      <hr />
+      <div class="footer">
+        <p class="pull-right"><a id="totop" href="#">Back to top</a></p>
+        <p style="font-size:11pt;">Copyright &#169; 2013. Data & Object Factory, LLC. www.dofactory.com. All rights reserved.</p>
+      </div>
+      <br />
+   </div>
+
+<script type="text/javascript">
+
+    $(function() {
+        prettyPrint();
+
+        // animates page to scroll to top
+        $('#totop').on('click', function () {
+            $("html, body").animate({ scrollTop: 0 }, 500);
+            return false;
+        });
+    });
+
+</script>
+</body>
+</html>

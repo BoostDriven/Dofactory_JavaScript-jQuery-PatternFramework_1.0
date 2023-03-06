@@ -1,0 +1,184 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>MV Frameworks</title>
+    <link rel="shortcut icon" href='../img/favicon.ico' />
+    <link href='../css/bootstrap.css' rel="stylesheet" />
+    <link href='../css/app.css' rel="stylesheet" />
+    <link href='../css/google-code-prettify/prettify.css' rel="stylesheet" />
+
+    <script src='../js/jquery.js' type="text/javascript" ></script>
+    <script src='../js/bootstrap.js' type="text/javascript" ></script>
+    <script src='../js/app.js' type="text/javascript" ></script>
+
+    <script src='../css/google-code-prettify/prettify.js' type="text/javascript"></script>
+</head>
+<body>
+     <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" style="padding-top:15px;" href='../index.htm'><img src='../img/js.png' alt="js" width="32" height="30" />
+              &nbsp; JavaScript + jQuery Design Pattern Framework <sup>TM</sup>&nbsp; 2013
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+     <div class="row">
+            <div class="span12" style="height:4px;background:darkorchid;"></div>
+     </div>
+
+     <div class="row">
+       <div class="span12">
+         <ul class="breadcrumb">
+           <li><a href='../index.htm'>Home</a> <span class="divider">/</span></li>
+           <li><a href='_index.htm'>Model View</a> <span class="divider">/</span></li>
+           <li class="active">MV Frameworks</li>
+         </ul>
+        </div>
+      </div>
+      <br />
+        
+
+<script src="/js/json2.js" type="text/javascript"></script>
+<script src="/js/knockout.js" type="text/javascript"></script>
+
+<style type='text/css'>
+  .knockout { padding:15px;background-color: beige;  }
+</style>
+
+<div class="row">
+    <div class="span10">
+              
+        <div class="row">
+            <div class="span7" style="padding: 0px 0 0 0;">
+                <h2 class="h1title">MV Frameworks</h2>
+                <p>
+                   An overview of Model View JavaScript Frameworks.<br /><br />
+                   Many high-quality MV Frameworks available today.  
+                   The problem is not the availability but rather selecting the one that is the best for your project.
+                </p>
+            </div>
+            <div class="span3">
+                &nbsp;&nbsp;&nbsp;<a class='js' href="javascript:void(0);" onclick="return openPdf('ModelViewPatterns');">Model View Patterns Guide</a>
+            </div>
+        </div>
+    </div>
+    <div class="span2">
+        <img src="../img/jspatterndetail.jpg" style="width:140px;height:140px;" alt="" />
+        <br />
+        <div class="back" style="padding:10px 0 0 18px;">
+            <i class="icon-hand-left" style="margin:2px 0 0 0;"></i>&nbsp;&nbsp;<a href='_index.htm' >back to list</a>
+        </div>
+    </div>
+</div>
+    
+<hr />
+<br />
+
+<div class="row">
+    <div class="span10">
+        <h3>Overview</h3>
+        <br />
+        <div class="ptext">
+<p>
+At this point you have a good understanding of the MVC, MVP, and MVVM design patterns and appreciate that they may offer a solid architectural foundation for your JavaScript projects. 
+</p>
+<p>
+To build your own MV framework can be a daunting task. Fortunately, there is no reason to do so. 
+There are many open-source projects available that have been field-tested in high-performance deployments, so all the work is done for you. 
+</p>
+<p>
+Assuming you have decided that you need the additional structure that an MV framework can offer, the only thing left is to choose the right framework for your project. 
+Unfortunately this is easier said than done because it takes time to do the research and determine which one is most appropriate for you. 
+</p>
+<p>
+When looking for a framework there are some criteria to keep in mind: 
+</p>
+<ul>
+<li>Which MV model -- that is, MVC, MVP, MVVM, or MVA -- best fits your project style?</li>
+<li>Is the framework stable, mature, and has it plenty of successful real-world deployments.</li>
+<li>Does the framework have good documentation with good example code</li>
+<li>Is the framework actively maintained; are bugs resolved quickly and effectively?</li>
+<li>Does it have an active community behind it that is willing to support each other?</li>
+<li>Is the framework opiniated or not?  Are you willing to totally commit yourself?</li>
+</ul>
+<p>
+The last point about <i>opiniated</i> frameworks is important. Some frameworks stay out of the way and let you use it when you need it. 
+In other words, you can use it as much or as little as you like in your pages. Others however, require that you follow their structure to the letter 
+for the entire project or else things stop working. These are called opiniated frameworks, i.e. they have strong opinions on standards, layout, code organization, and other conventions. 
+</p>
+<br />
+<p>
+Below we have listed the most high-profile frameworks in order of popularity. 
+Mind you that things change very quickly in this space and what is fashionable today, may be out of favor tomorrow. So, take this ordering with a grain of salt.
+</p>
+<ol>
+<li><strong>Backbone</strong>. Small framework, less than 1000 lines of code. MVC, with C standing for Collections. Includes rich Routing. Many successful deployments at high-profile sites. Mature.</li>
+<li><strong>Ember</strong>. Large framework, both in size and functionality. Inspired by Rails and Cocoa. Well thought out but opiniated. Intended to control entire web page. New.</li>
+<li><strong>Angular</strong>. Developed by Google. Includes templating and data binding. Designed with an eye towards the future: "this is where web development is going." MVVM like. Relatively new.</li>
+<li><strong>Knockout</strong>. Pure MVVM. Includes templating, declarative data binding, and observable models. No built-in routing. Not very opiniated: allows limited usage. Mature.</li>
+<li><strong>Spine</strong>. Very small framework. Derived from Backbone without Collections, but adds numerous small modifications. Uses Models and Controllers. Relatively new.</li>
+<li><strong>Batman</strong>. Primarily for Rails and CoffeeScript developers. Rich models, views, and controllers. Highly opiniated: you must follow their conventions. New.</li>
+</ol>
+<p>
+The least opiniated ones are Backbone, Knockout, and Spine. They are reasonably agnostic and can be used on an as-needed basis in most environments. 
+It is interesting to note that the highly opiniated frameworks, Ember and Batman, have close ties to Ruby on Rails which itself is an opiniated development framework 
+that has been built around the <i>convention over configuration</i> concept. Rails developers will most certainly lean towards these frameworks. 
+</p>
+<p>
+Furthermore, Knockout has evolved from the .NET MVVM arena, so developers that have experience with WPF or Silverlight in .NET will feel quickly at home with Knockout.  
+</p>
+<p>
+In our 'Patterns in Action' section we make use of Backbone.
+</p>
+
+
+        </div>
+    </div>
+</div>
+
+<br />
+<br />
+<div class="row">
+    <div class="span4 offsethalf">
+        <i class="icon-hand-left" style="margin:2px 0 0 0;"></i>&nbsp;&nbsp;<a href='mvvm.htm'>MVVM</a>
+
+    </div>
+    <div class="span3">
+        <a href='../jquery/_index.htm'>next section</a>&nbsp;&nbsp;<i class="icon-hand-right" style="margin:2px 0 0 0;"></i>
+    </div>
+</div>
+<br />
+<br />
+
+
+
+
+      <br /><br />
+
+      <hr />
+      <div class="footer">
+        <p class="pull-right"><a id="totop" href="#">Back to top</a></p>
+        <p style="font-size:11pt;">Copyright &#169; 2013. Data & Object Factory, LLC. www.dofactory.com. All rights reserved.</p>
+      </div>
+      <br />
+   </div>
+
+<script type="text/javascript">
+
+    $(function() {
+        prettyPrint();
+
+        // animates page to scroll to top
+        $('#totop').on('click', function () {
+            $("html, body").animate({ scrollTop: 0 }, 500);
+            return false;
+        });
+    });
+
+</script>
+</body>
+</html>

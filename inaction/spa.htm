@@ -1,0 +1,410 @@
+﻿<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Single Page App</title>
+    <link rel="shortcut icon" href='../img/favicon.ico' />
+    <link href='../css/bootstrap.css' rel="stylesheet" />
+    <link href='../css/app.css' rel="stylesheet" />
+    <link href='../css/google-code-prettify/prettify.css' rel="stylesheet" />
+
+    <script src='../js/jquery.js' type="text/javascript" ></script>
+    <script src='../js/bootstrap.js' type="text/javascript" ></script>
+    <script src='../js/app.js' type="text/javascript" ></script>
+
+    <script src='../css/google-code-prettify/prettify.js' type="text/javascript"></script>
+</head>
+<body>
+     <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" style="padding-top:15px;" href='../index.htm'><img src='../img/js.png' alt="js" width="32" height="30" />
+              &nbsp; JavaScript + jQuery Design Pattern Framework <sup>TM</sup>&nbsp; 2013
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+     <div class="row">
+            <div class="span12" style="height:4px;background:mediumblue;"></div>
+     </div>
+
+     <div class="row">
+       <div class="span12">
+         <ul class="breadcrumb">
+           <li><a href='../index.htm'>Home</a> <span class="divider">/</span></li>
+           <li><a href='_index.htm'>Patterns In Action</a> <span class="divider">/</span></li>
+           <li class="active">Single Page App</li>
+         </ul>
+        </div>
+      </div>
+      <br />
+        
+<div class="row">
+    <div class="span10">
+
+        <div class="row">
+            <div class="span7" style="padding: 0px 0 0 0;">
+                <h2 class="h1title">Single Page Application</h2>
+                <p>
+                  An SPA (Single Page Application) which includes several pages and page transitions.
+                </p>
+                <br />
+                <br />
+                <a href='spaapp.htm' class="btn btn-inverse">Launch App</a>
+            </div>
+            <div class="span3">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class='js' href="javascript:void(0);" onclick="return openPdf('PatternsInAction');">Patterns in Action Guide</a>
+            </div>
+        </div>
+       
+    </div>
+    <div class="span2">
+        <img src="../img/jspatterndetail.jpg" style="width:140px;height:140px;" alt="" />
+        <br />
+        <div class="back" style="padding:10px 0 0 18px;">
+            <i class="icon-hand-left" style="margin:2px 0 0 0;"></i>&nbsp;&nbsp;<a href='_index.htm' >back to list</a>
+        </div>
+    </div>
+</div>
+<hr />
+<br />
+
+<div class="row">
+   <div  id="text" class="span12">
+      <h3>Description</h3>
+      <br />
+      <div class="ptext">
+
+<p>
+SPA or Single Page Applications are becoming quite fashionable because they are responsive and create wonderful user experiences. 
+In an SPA there is no need for full page refreshes anymore; only partial pages are populated through behind-the-scenes Ajax calls. A disadvantage of SPAs is that they make it more difficult for Search Engines to properly index your web site. 
+</p>
+<p>
+In the sample SPA app, each page features a nice sliding effect that is implemented with jQuery's animation functionality. 
+When the page is first loaded it displays a timestamp (in blue).  You'll see it never changes, even when viewing different pages by clicking on the menus, 
+meaning the page itself is never refreshed.
+</p>
+<p>
+The template pages are brought in via &lt;script&gt; tags.  This was done because the file:// 
+protocol has limited privileges to load files (for those viewing this framework as a set of HTML files).   
+However, if you are running it from a webserver (using http://) you can swap out the <span class="cd">loadTemplates</span> method 
+to the one that is commented out. This one dynamically loads the template pages from the /templates directory.  
+The advantage of using separate template files is that each developer can work on their own pages without interfering with other developers.
+</p>
+<p>
+Here is the code for the SPA App:
+</p>
+</div>
+<pre class="prettyprint" style="width:700px;">
+// ** AMD pattern
+require(['patterns'], function (Patterns) {
+   
+    // ** namespace pattern 
+    // ** revealing module pattern
+    // ** singleton pattern
+    Patterns.namespace("InAction").App = (function () {
+
+        // ** namespace pattern (Models, Collections, Views, Routers)
+        var Models = {};
+        var Views = {};
+        var Routers = {};
+
+        var start = function (content) {
+            var router = new Routers.Router({ el: content });
+            var templates = ["AboutUs", "OurStory", "Management", "Investors", 
+                             "Careers", "Newsroom", "ContactUs"];
+            loadTemplates(templates, function () {
+                Backbone.history.start();
+            });
+        };
+
+        // run this locally (with file:// protocol) 
+        var loadTemplates = function (views, callback) {
+
+            // ** iterator pattern
+            $.each(views, function (index, view) {
+                if (Views[view]) {
+                    Views[view].prototype.template = _.template($("#" + view).html());
+                } else {
+                    alert(view + " not found.");
+                }
+            });
+
+            callback();
+        };
+
+        // run this on a web server (with http:// protocol)
+        //var loadTemplates = function (views, callback) {
+            //var deferreds = [];
+
+            // ** iterator pattern
+            //$.each(views, function (index, view) {
+            //    if (Views[view]) {
+            //        deferreds.push($.get('../templates/' + 
+            //                       view.toLowerCase() + '.htm', function (data) {
+            //            Views[view].prototype.template = _.template(data);
+            //        }));
+            //    } else {
+            //        alert(view + " not found.");
+            //    }
+            //});
+
+            //// ** apply invocation Pattern
+            //$.when.apply(null, deferreds).done(callback);
+        //}
+
+        var selectMenu = function (item) {
+            $('.nav li').removeClass('active');
+
+            // ** truthy/falsy idiom
+            if (item) {
+                $('.' + item).addClass('active');
+            }
+        };
+
+        // ** extend pattern
+        Routers.Router = Backbone.Router.extend({
+            // ** init pattern
+            initialize: function (options) {
+                this.el = options.el;
+            },
+            routes: {
+                "": "first",
+                "aboutus": "display",
+                "ourstory": "display",
+                "management": "display",
+                "investors": "display",
+                "careers": "display",
+                "newsroom": "display",
+                "contactus": "display"
+            },
+
+            // ** Factory method
+            factory: function(type) {
+                switch(type) {
+                    case "aboutus": return new Views.AboutUs();
+                    case "ourstory": return new Views.OurStory();
+                    case "management": return new Views.Management();
+                    case "investors": return new Views.Investors();
+                    case "careers": return new Views.Careers();
+                    case "newsroom": return new Views.Newsroom();
+                    case "contactus": return new Views.ContactUs();
+                    default: return null;
+                }
+            },
+
+            first: function () {
+                var key = "aboutus";
+                var view = this.factory(key);
+
+                selectMenu(key);
+                this.el.html(view.render().el);
+            },
+
+            display: function () {
+                var key = Backbone.history.fragment;
+                var view = this.factory(key);
+
+                selectMenu(key);
+                this.transition(view);
+            },
+
+            transition: function (view) {
+                    this.el.animate({ width: '-=668' }, 300, function () {
+                    this.el.html(view.render().el);
+                    this.el.animate({ width: '+=668' }, 300);
+                }.bind(this));
+            },
+        });
+
+        // ** extend pattern
+        Views.AboutUs = Backbone.View.extend({
+            render: function () {
+                this.$el.html(this.template());
+                return this;
+            }
+        });
+
+        // ** extend pattern
+        Views.OurStory = Backbone.View.extend({
+            render: function () {
+                this.$el.html(this.template());
+                return this;
+            }
+        });
+
+        // ** extend pattern
+        Views.Management = Backbone.View.extend({
+            render: function () {
+                this.$el.html(this.template());
+                return this;
+            }
+        });
+
+        // ** extend pattern
+        Views.Investors = Backbone.View.extend({
+            render: function () {
+                this.$el.html(this.template());
+                return this;
+            }
+        });
+
+        // ** extend pattern
+        Views.Careers = Backbone.View.extend({
+            render: function () {
+                this.$el.html(this.template());
+                return this;
+            }
+        });
+
+        // ** extend pattern
+        Views.Newsroom = Backbone.View.extend({
+            render: function () {
+                this.$el.html(this.template());
+                return this;
+            }
+        });
+
+        // ** extend pattern
+        Views.ContactUs = Backbone.View.extend({
+            render: function () {
+                this.$el.html(this.template());
+
+                // ** zero timout pattern
+                setTimeout(function () {
+                    $("#name").focus();
+
+                    // ** chaining pattern
+                    $("#submit").off().on('click', function (e) {
+                        alert("Great! Thank you for your message.");
+                        return reset(e);
+                    });
+
+                    // ** chaining pattern
+                    $("#reset").off().on('click', function (e) {
+                        return reset(e);
+                    });
+                    var reset = function (e) {
+                        e.preventDefault();
+                        $("#name").val("").focus();
+                        $("#email").val("");
+                        $("#message").val("");
+                        return false;
+                    }
+                },0);
+
+                return this;
+            }
+        });
+
+        return {
+            start: start
+        };
+
+    })();
+
+    $(function () {
+
+        // Display timestap at top of page 
+        $("#time").html(new Date().toLocaleTimeString());
+
+        // ** facade pattern
+        Patterns.InAction.App.start($("#content-slide"));
+    });
+
+});
+</pre>
+<div class="ptext">
+<p>
+Patterns and idioms in this sample include: 
+</p>
+<ul>
+<li>AMD Pattern</li>
+<li>Truthy/falsy idiom</li>
+<li>|| and && idiom</li>
+<li>Option Hash idiom</li>
+<li>Namespace pattern</li>
+<li>Single var pattern</li>
+<li>Factory Method pattern</li>
+<li>Apply Invocation pattern</li>
+<li>Zero Timeout pattern</li>
+<li>Module pattern </li>
+<li>Extend pattern</li>
+<li>Init pattern</li>
+<li>Chaining pattern</li>
+<li>Iterator pattern</li>
+<li>Singleton pattern</li>
+<li>Observer pattern</li>
+<li>Façade pattern</li>
+</ul>
+<p>
+This is the only Patterns-in-Action example in which we use Require.js showing the AMD pattern. 
+We kept it simple by only loading the patterns.js file. It shows the basic principle of script loading and module dependencies. 
+</p>
+<p>
+This sample has a high level of code reuse, courtesy of the Factory Method pattern. 
+The Factory Method allows us to map all urls to the same <span class="cd">display</span> method on the Router. 
+The parameter named <span class="cd">key</span> in <span class="cd">factory</span> determines the view (page) that gets created and ultimately rendered. 
+</p>
+<p>
+The Zero Timeout pattern is used in activating a script for the Contact Us page. This gives JavaScript the time to render the page, so that the DOM is in 
+place and the script can attach event handlers to the controls. 
+</p>
+<p>
+If you recall, the Apply Invocation pattern is the most flexible of the four invocation patterns. 
+It is used with jQuery's <span class="cd">when</span> method which is applied to the deferred template loaders. 
+When the loading of all templates is done a callback is invoked (which will start Backbone). 
+The first argument in <span class="cd">apply</span>, which is the object context, is set to null because it is not used. 
+</p>
+
+<br />
+<p>
+<a href='spaapp.htm' class="btn btn-inverse">Launch App</a>
+</p>
+       </div>
+    </div>
+</div>
+
+<br />
+
+<br />
+<br />
+<div class="row">
+    <div class="span4 offsethalf">
+        <i class="icon-hand-left" style="margin:2px 0 0 0;"></i>&nbsp;&nbsp;<a href='mapping.htm'>Mapping</a>
+
+    </div>
+    <div class="span3">
+        <a href='../rockstar/_index.htm'>next section</a>&nbsp;&nbsp;<i class="icon-hand-right" style="margin:2px 0 0 0;"></i>
+    </div>
+</div>
+<br />
+<br />
+
+      <br /><br />
+
+      <hr />
+      <div class="footer">
+        <p class="pull-right"><a id="totop" href="#">Back to top</a></p>
+        <p style="font-size:11pt;">Copyright &#169; 2013. Data & Object Factory, LLC. www.dofactory.com. All rights reserved.</p>
+      </div>
+      <br />
+   </div>
+
+<script type="text/javascript">
+
+    $(function() {
+        prettyPrint();
+
+        // animates page to scroll to top
+        $('#totop').on('click', function () {
+            $("html, body").animate({ scrollTop: 0 }, 500);
+            return false;
+        });
+    });
+
+</script>
+</body>
+</html>

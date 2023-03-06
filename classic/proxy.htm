@@ -1,0 +1,598 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Proxy</title>
+    <link rel="shortcut icon" href='../img/favicon.ico' />
+    <link href='../css/bootstrap.css' rel="stylesheet" />
+    <link href='../css/app.css' rel="stylesheet" />
+    <link href='../css/google-code-prettify/prettify.css' rel="stylesheet" />
+
+    <script src='../js/jquery.js' type="text/javascript" ></script>
+    <script src='../js/bootstrap.js' type="text/javascript" ></script>
+    <script src='../js/app.js' type="text/javascript" ></script>
+
+    <script src='../css/google-code-prettify/prettify.js' type="text/javascript"></script>
+</head>
+<body>
+     <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" style="padding-top:15px;" href='../index.htm'><img src='../img/js.png' alt="js" width="32" height="30" />
+              &nbsp; JavaScript + jQuery Design Pattern Framework <sup>TM</sup>&nbsp; 2013
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+     <div class="row">
+            <div class="span12" style="height:4px;background:crimson;"></div>
+     </div>
+
+     <div class="row">
+       <div class="span12">
+         <ul class="breadcrumb">
+           <li><a href='../index.htm'>Home</a> <span class="divider">/</span></li>
+           <li><a href='_index.htm'>Classic</a> <span class="divider">/</span></li>
+           <li class="active">Proxy</li>
+         </ul>
+        </div>
+      </div>
+      <br />
+        
+
+
+<div class="row">
+    <div class="span10">
+
+        <div class="row">
+            <div class="span7" style="padding: 0px 0 0 0;">
+                <h2 class="h1title">Proxy</h2>
+                <p>
+                    Provide a surrogate or placeholder for another object to control access to it.
+                </p>
+            </div>
+            <div class="span3">
+                &nbsp;&nbsp;&nbsp;<a class='js' href="javascript:void(0);" onclick="return openPdf('ClassicPatterns');">Classic Patterns Guide</a>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="span7">
+                <br />
+                <table class="usage">
+                    <tr>
+                        <td class="usage1">Usage in JavaScript:</td>
+                        <td class="usage2">
+                            <div class="progress progress-warning" style="width: 150px;">
+                                <div class="bar" style="width: 80%;"></div>
+                            </div>
+                        </td>
+                        <td class="usage3">medium high</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="span2">
+        <img src="../img/jspatterndetail.jpg" style="width:140px;height:140px;" alt="" />
+        <br />
+        <div class="back" style="padding:10px 0 0 18px;">
+            <i class="icon-hand-left" style="margin:2px 0 0 0;"></i>&nbsp;&nbsp;<a href='_index.htm' >back to list</a>
+        </div>
+    </div>
+</div>
+<hr />
+<br />
+
+<div class="row">
+    <div class="span8">
+        <h3>Summary</h3>
+        <br />
+<p class="ptext">
+The Proxy pattern provides a surrogate or placeholder object for another object and controls access to this other object.
+</p> 
+<p class="ptext">
+In object-oriented programming, objects do the work they advertise through their interface (properties and methods). 
+Clients of these objects expect this work to be done quickly and efficiently. 
+However, there are situations where an object is severely constrained and cannot live up to its responsibility. 
+Typically this occurs when there is a dependency on a remote resource (resulting in network latency) or when an object takes a long time to load.
+</p> 
+<p class="ptext">
+In situations like these you apply the Proxy pattern and create a proxy object that ‘stands in’ for the original object. 
+The Proxy forwards the request to a target object. 
+The interface of the Proxy object is the same as the original object and clients may not even be aware they are dealing with a proxy rather than the real object
+</p>
+    </div>
+    <div class="span3 offset1"></div>
+</div>
+<br />
+<!-- Diagram -->
+<div class="row">
+    <div class="span8">
+        <h3>Diagram</h3>
+        <div style="padding: 14px 0 0 120px;">
+            <img src="../img/diagrams/javascript-proxy.jpg" alt="" />
+        </div>
+    </div>
+    <div class="span3 offset1"></div>
+</div>
+<br />
+<br />
+<!-- Participants -->
+<div class="row">
+    <div class="span8">
+        <h3>Participants</h3>
+        <br />
+<div class="ptext">
+The objects participating in this pattern are: <br /><br />
+   
+<ul>
+<li><b>Client</b> -- In sample code: the run() function
+ <ul>
+  <li>calls Proxy to request an operation</li>
+ </ul>
+</li>
+<li><b>Proxy</b> -- In sample code: <b style="color:#088;">GeoProxy</b>
+ <ul>
+  <li>provides an interface similar to the real object</li>
+  <li>maintains a reference that lets the proxy access the real object</li>
+  <li>handles requests and forwards these to the real object</li>
+ </ul>
+</li>
+<li><b>RealSubject</b> -- In sample code: <b style="color:#088;">GeoCoder</b>
+ <ul>
+  <li>defines the real object for which service is requested</li>
+ </ul>
+</li>
+</ul>
+
+
+</div>
+    </div>
+    <div class="span3 offset1"></div>
+</div>
+<br />
+<!-- JavaScript code -->
+<div class="row">
+    <div class="span8">
+        <h3>JavaScript Code</h3>
+        <br />
+<p class="ptext">
+The <span class="cd">GeoCoder</span> object simulates the Google Maps Geocoding service. 
+In geocoding you provide a location (a place on the earth) and it will return its latitude/longitude (latlng). 
+Our <span class="cd">GeoCoder</span> can resolve only 4 locations, but in reality there are millions, because it 
+involves countries, cities, and streets.
+</p>
+<p class="ptext">
+The programmer decided to implement a Proxy object because <span class="cd">GeoCoder</span> is relatively slow.   
+The proxy object is called <span class="cd">GeoProxy</span>. 
+It is known that many repeated requests (for the same location) are coming in.
+To speed things up <span class="cd">GeoProxy</span> caches frequently requested locations. If a location is not already 
+cached it goes out to the real <span class="cd">GeoCoder</span> service and stores the results in cache. 
+</p>
+<p class="ptext">
+Several city locations are queried and many of these are for the same city. <span class="cd">GeoProxy</span> builds up its cache while supporting these calls. 
+At the end <span class="cd">GeoProxy<</span> has processed 11 requests but had to go out to <span class="cd">GeoCoder</span> only 3 times. 
+Notice that the client program has no knowledge about the proxy object (it calls the same interface with the standard getLatLng method).
+</p>
+<p class="ptext">
+The <span class="cd">log</span> function is a helper which collects and displays results. 
+</p>
+       
+        <br />
+<pre class="prettyprint">
+function GeoCoder() {
+    this.getLatLng = function(address) {
+        
+        if (address === "Amsterdam") {
+            return "52.3700° N, 4.8900° E";
+        } else if (address === "London") {
+            return "51.5171° N, 0.1062° W";
+        } else if (address === "Paris") {
+            return "48.8742° N, 2.3470° E";
+        } else if (address === "Berlin") {
+            return "52.5233° N, 13.4127° E";
+        } else {
+            return "";
+        }
+    };
+}
+
+function GeoProxy() {
+    var geocoder = new GeoCoder();
+    var geocache = {};
+
+    return {
+        getLatLng: function(address) {
+            if (!geocache[address]) {
+                geocache[address] = geocoder.getLatLng(address);
+            }
+
+            log.add(address + ": " + geocache[address]);
+            return geocache[address];
+        },
+        getCount: function() {
+            var count = 0;
+            for (var code in geocache) { count++; }
+            return count;
+        }
+    };
+};
+
+// log helper
+var log = (function() {
+    var log = "";
+    return {
+        add: function(msg) { log += msg + "\n"; },
+        show: function() { alert(log); log = ""; }
+    }
+})();
+
+
+function run() {
+
+    var geo = new GeoProxy();
+
+    // geolocation requests
+    geo.getLatLng("Paris");
+    geo.getLatLng("London");
+    geo.getLatLng("London");
+    geo.getLatLng("London");
+    geo.getLatLng("London");
+    geo.getLatLng("Amsterdam");
+    geo.getLatLng("Amsterdam");
+    geo.getLatLng("Amsterdam");
+    geo.getLatLng("Amsterdam");
+    geo.getLatLng("London");
+    geo.getLatLng("London");
+
+    log.add("\nCache size: " + geo.getCount());
+    log.show();
+}
+</pre>
+        <a class="btn" href="javascript:void(0);" onclick="run();return false;">Run</a>
+
+ <script type="text/javascript">
+     function GeoCoder() {
+         this.getLatLng = function (address) {
+
+             if (address === "Amsterdam") {
+                 return "52.3700° N, 4.8900° E";
+             } else if (address === "London") {
+                 return "51.5171° N, 0.1062° W";
+             } else if (address === "Paris") {
+                 return "48.8742° N, 2.3470° E";
+             } else if (address === "Berlin") {
+                 return "52.5233° N, 13.4127° E";
+             } else {
+                 return "";
+             }
+         };
+     }
+
+     function GeoProxy() {
+         var geocoder = new GeoCoder();
+         var geocache = {};
+
+         return {
+             getLatLng: function (address) {
+                 if (!geocache[address]) {
+                     geocache[address] = geocoder.getLatLng(address);
+                 }
+
+                 log.add(address + ": " + geocache[address]);
+                 return geocache[address];
+             },
+             getCount: function () {
+                 var count = 0;
+                 for (var code in geocache) { count++; }
+                 return count;
+             }
+         };
+     };
+
+     // log helper
+     var log = (function () {
+         var log = "";
+         return {
+             add: function (msg) { log += msg + "\n"; },
+             show: function () { alert(log); log = ""; }
+         }
+     })();
+
+
+     function run() {
+
+         var geo = new GeoProxy();
+
+         // geolocation requests
+         geo.getLatLng("Paris");
+         geo.getLatLng("London");
+         geo.getLatLng("London");
+         geo.getLatLng("London");
+         geo.getLatLng("London");
+         geo.getLatLng("Amsterdam");
+         geo.getLatLng("Amsterdam");
+         geo.getLatLng("Amsterdam");
+         geo.getLatLng("Amsterdam");
+         geo.getLatLng("London");
+         geo.getLatLng("London");
+
+         log.add("\nCache size: " + geo.getCount());
+         log.show();
+     }
+</script>
+
+
+
+    </div>
+</div>
+
+<br />
+<br />
+<br />
+
+<!-- JavaScript Optimated Code -->
+<div class="row">
+    <div class="span8">
+        <h3>JavaScript Optimized Code</h3>
+        <br />
+       <p class="ptext">
+The Namespace pattern is applied to keep the code out of the global namespace. Our namespace is <span class="cd">Patterns.Classic</span>.
+A Revealing Module named <span class="cd">Proxy</span> returns (i.e. reveals) only a single item: the <span class="cd">Geo</span> constructor function which in turn 
+           supports two public methods: <span class="cd">getLatLng</span> and <span class="cd">getCount</span>.
+The public <span class="cd">GeoCoder</span> interface remains public because it simulates Google Maps geocoding functionality.
+</p>
+<p class="ptext">
+The <span class="cd">Patterns</span> object contains the <span class="cd">namespace</span> function which constructs namespaces non-destructively, 
+that is, if a name already exists it won't overwrite it. 
+</p>
+<p class="ptext">
+The <span class="cd">log</span> function is a helper which collects and displays results.
+</p>
+        
+        <br />
+<pre class="prettyprint">
+var Patterns = {
+    namespace: function (name) {
+        var parts = name.split(".");
+        var ns = this;
+
+        for (var i = 0, len = parts.length; i < len; i++) {
+            ns[parts[i]] = ns[parts[i]] || {};
+            ns = ns[parts[i]];
+        }
+
+        return ns;
+    }
+};
+
+Patterns.namespace("Classic").Proxy = (function () {
+
+    var Geo = function () {
+        var geocoder = new GeoCoder();
+        var geocache = {};
+
+        return {
+            getLatLng: function (address) {
+                if (!geocache[address]) {
+                    geocache[address] = geocoder.getLatLng(address);
+                }
+
+                log.add(address + ": " + geocache[address]);
+                return geocache[address];
+            },
+            getCount: function () {
+                var count = 0;
+                for (var code in geocache) { count++; }
+                return count;
+            }
+        };
+    };
+
+    return { 
+        Geo: Geo 
+    };
+})();
+
+// public interface 
+function GeoCoder() {
+    this.getLatLng = function (address) {
+
+        if (address === "Amsterdam") {
+            return "52.3700° N, 4.8900° E";
+        } else if (address === "London") {
+            return "51.5171° N, 0.1062° W";
+        } else if (address === "Paris") {
+            return "48.8742° N, 2.3470° E";
+        } else if (address === "Berlin") {
+            return "52.5233° N, 13.4127° E";
+        } else {
+            return "";
+        }
+    };
+}
+
+// log helper
+var log = (function () {
+    var log = "";
+    return {
+        add: function (msg) { log += msg + "\n"; },
+        show: function () { alert(log); log = ""; }
+    }
+})();
+
+
+function run() {
+
+    var proxy = Patterns.Classic.Proxy;
+
+    var geo = new proxy.Geo();
+
+    // geolocation requests
+    geo.getLatLng("Paris");
+    geo.getLatLng("London");
+    geo.getLatLng("London");
+    geo.getLatLng("London");
+    geo.getLatLng("London");
+    geo.getLatLng("Amsterdam");
+    geo.getLatLng("Amsterdam");
+    geo.getLatLng("Amsterdam");
+    geo.getLatLng("Amsterdam");
+    geo.getLatLng("London");
+    geo.getLatLng("London");
+
+    log.add("\nCache size: " + geo.getCount());
+    log.show();
+
+}
+</pre>
+        <a class="btn" href="javascript:void(0);" onclick="run1();return false;">Run</a>
+
+<script type="text/javascript">
+    var Patterns = {
+        namespace: function (name) {
+            var parts = name.split(".");
+            var ns = this;
+
+            for (var i = 0, len = parts.length; i < len; i++) {
+                ns[parts[i]] = ns[parts[i]] || {};
+                ns = ns[parts[i]];
+            }
+
+            return ns;
+        }
+    };
+
+    Patterns.namespace("Classic").Proxy = (function () {
+
+        var Geo = function () {
+            var geocoder = new GeoCoder();
+            var geocache = {};
+
+            return {
+                getLatLng: function (address) {
+                    if (!geocache[address]) {
+                        geocache[address] = geocoder.getLatLng(address);
+                    }
+
+                    log.add(address + ": " + geocache[address]);
+                    return geocache[address];
+                },
+                getCount: function () {
+                    var count = 0;
+                    for (var code in geocache) { count++; }
+                    return count;
+                }
+            };
+        };
+
+        return { Geo: Geo };
+
+
+    })();
+
+    // public interface 
+    function GeoCoder() {
+        this.getLatLng = function (address) {
+
+            if (address === "Amsterdam") {
+                return "52.3700° N, 4.8900° E";
+            } else if (address === "London") {
+                return "51.5171° N, 0.1062° W";
+            } else if (address === "Paris") {
+                return "48.8742° N, 2.3470° E";
+            } else if (address === "Berlin") {
+                return "52.5233° N, 13.4127° E";
+            } else {
+                return "";
+            }
+        };
+    }
+
+    // log helper
+    var log = (function () {
+        var log = "";
+        return {
+            add: function (msg) { log += msg + "\n"; },
+            show: function () { alert(log); log = ""; }
+        }
+    })();
+
+
+    function run1() {
+
+        var proxy = Patterns.Classic.Proxy;
+
+        var geo = new proxy.Geo();
+
+        // geolocation requests
+        geo.getLatLng("Paris");
+        geo.getLatLng("London");
+        geo.getLatLng("London");
+        geo.getLatLng("London");
+        geo.getLatLng("London");
+        geo.getLatLng("Amsterdam");
+        geo.getLatLng("Amsterdam");
+        geo.getLatLng("Amsterdam");
+        geo.getLatLng("Amsterdam");
+        geo.getLatLng("London");
+        geo.getLatLng("London");
+
+        log.add("\nCache size: " + geo.getCount());
+        log.show();
+
+    }
+
+</script>
+
+
+
+    </div>
+</div>
+
+<br />
+<br />
+<br />
+<div class="row">
+    <div class="span4 offsethalf">
+        <i class="icon-hand-left" style="margin:2px 0 0 0;"></i>&nbsp;&nbsp;<a href='flyweight.htm'>Flyweight</a>
+
+    </div>
+    <div class="span3">
+        <a href='chain.htm'>Chain of Responsibility</a>&nbsp;&nbsp;<i class="icon-hand-right" style="margin:2px 0 0 0;"></i>
+    </div>
+</div>
+<br />
+<br />
+
+
+
+
+      <br /><br />
+
+      <hr />
+      <div class="footer">
+        <p class="pull-right"><a id="totop" href="#">Back to top</a></p>
+        <p style="font-size:11pt;">Copyright &#169; 2013. Data & Object Factory, LLC. www.dofactory.com. All rights reserved.</p>
+      </div>
+      <br />
+   </div>
+
+<script type="text/javascript">
+
+    $(function() {
+        prettyPrint();
+
+        // animates page to scroll to top
+        $('#totop').on('click', function () {
+            $("html, body").animate({ scrollTop: 0 }, 500);
+            return false;
+        });
+    });
+
+</script>
+</body>
+</html>

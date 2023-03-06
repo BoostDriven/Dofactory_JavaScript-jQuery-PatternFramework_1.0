@@ -1,0 +1,26 @@
+﻿<!doctype html>
+<html>
+<head>
+  <title>QUnit test page</title>
+  <link href="../css/qunit.css" rel="stylesheet" />
+  <script src="../js/qunit.js" type="text/javascript"></script>
+</head>
+<body>
+  <div id="qunit"></div>
+  <div id="qunit-fixture"></div>
+  <script>
+      test("my deepEqual test", function () {
+          var jim = {
+              name: "Jim",
+              address: {
+                  street: "123 Main",
+                  city: "Houston"
+              }
+          };
+
+          deepEqual(jim, { name: "Jim", address: { street: "123 Main", city: "Houston" } },
+              "Jim deep instance test");
+      });
+  </script>
+</body>
+</html>

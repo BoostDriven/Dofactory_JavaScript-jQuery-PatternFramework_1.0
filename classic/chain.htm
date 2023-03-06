@@ -1,0 +1,426 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Chain Of Responsibility</title>
+    <link rel="shortcut icon" href='../img/favicon.ico' />
+    <link href='../css/bootstrap.css' rel="stylesheet" />
+    <link href='../css/app.css' rel="stylesheet" />
+    <link href='../css/google-code-prettify/prettify.css' rel="stylesheet" />
+
+    <script src='../js/jquery.js' type="text/javascript" ></script>
+    <script src='../js/bootstrap.js' type="text/javascript" ></script>
+    <script src='../js/app.js' type="text/javascript" ></script>
+
+    <script src='../css/google-code-prettify/prettify.js' type="text/javascript"></script>
+</head>
+<body>
+     <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" style="padding-top:15px;" href='../index.htm'><img src='../img/js.png' alt="js" width="32" height="30" />
+              &nbsp; JavaScript + jQuery Design Pattern Framework <sup>TM</sup>&nbsp; 2013
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+     <div class="row">
+            <div class="span12" style="height:4px;background:crimson;"></div>
+     </div>
+
+     <div class="row">
+       <div class="span12">
+         <ul class="breadcrumb">
+           <li><a href='../index.htm'>Home</a> <span class="divider">/</span></li>
+           <li><a href='_index.htm'>Classic</a> <span class="divider">/</span></li>
+           <li class="active">Chain of Responsibility</li>
+         </ul>
+        </div>
+      </div>
+      <br />
+        
+
+
+<div class="row">
+    <div class="span10">
+
+        <div class="row">
+            <div class="span7" style="padding: 0px 0 0 0;">
+                <h2 class="h1title">Chain of Responsibiity</h2>
+                <p>
+                   Avoid coupling the sender of a request to its receiver by giving more than one object a chance to handle the request. Chain the receiving objects and pass the request along the chain until an object handles it.
+                </p>
+            </div>
+            <div class="span3">
+                &nbsp;&nbsp;&nbsp;<a class='js' href="javascript:void(0);" onclick="return openPdf('ClassicPatterns');">Classic Patterns Guide</a>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="span7">
+                <br />
+                <table class="usage">
+                    <tr>
+                        <td class="usage1">Usage in JavaScript:</td>
+                        <td class="usage2">
+                            <div class="progress progress-warning" style="width: 150px;">
+                                <div class="bar" style="width: 55%;"></div>
+                            </div>
+                        </td>
+                        <td class="usage3">medium</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="span2">
+        <img src="../img/jspatterndetail.jpg" style="width:140px;height:140px;" alt="" />
+        <br />
+        <div class="back" style="padding:10px 0 0 18px;">
+            <i class="icon-hand-left" style="margin:2px 0 0 0;"></i>&nbsp;&nbsp;<a href='_index.htm' >back to list</a>
+        </div>
+    </div>
+</div><hr />
+<br />
+
+<div class="row">
+    <div class="span8">
+        <h3>Summary</h3>
+        <br />
+<p class="ptext">
+The Chain of Responsibility pattern provides a chain of loosely coupled objects one of which can satisfy a request.  
+This pattern is essentially a linear search for an object that can handle a particular request.
+</p> 
+<p class="ptext">
+An example of a chain-of-responsibility is event-bubbling in which an event propagates through a series of nested controls 
+one of which may choose to handle the event. 
+</p> 
+<p class="ptext">
+The Chain of Responsiblity patterns is related to the Chaining Pattern which is frequently used in JavaScript (jQuery makes extensive use of this pattern). 
+To learn more about the Chaining patterns view the Modern Patterns section.
+</p>
+    </div>
+    <div class="span3 offset1"></div>
+</div>
+<br />
+<!-- Diagram -->
+<div class="row">
+    <div class="span8">
+        <h3>Diagram</h3>
+        <div style="padding: 14px 0 0 120px;">
+            <img src="../img/diagrams/javascript-chain-of-responsibility.jpg" alt="" />
+        </div>
+    </div>
+    <div class="span3 offset1"></div>
+</div>
+<br />
+<br />
+<!-- Participants -->
+<div class="row">
+    <div class="span8">
+        <h3>Participants</h3>
+        <br />
+ <div class="ptext">
+The objects participating in this pattern are: <br /><br />
+   
+<ul>
+<li><b>Client</b> -- In sample code: <b style="color:#088;">Request</b>
+ <ul>
+  <li>initiates the request to a chain of handler objects</li>
+ </ul>
+</li>
+<li><b>Handler</b> -- In sample code: <b style="color:#088;">Request.get() method</b>
+ <ul>
+  <li>defines an interface for handling the requests</li>
+  <li>implements the successor link (returning 'this')</li>
+ </ul>
+</li>
+</ul>
+
+</div>
+    </div>
+    <div class="span3 offset1"></div>
+</div>
+<br />
+<!-- JavaScript code -->
+<div class="row">
+    <div class="span8">
+        <h3>JavaScript Code</h3>
+        <br />
+<p class="ptext">This example differs slightly from the classic Chain of Responsibility pattern in that not one, but all 
+handlers participate in handling the request. 
+</p>
+<p class="ptext">The code demonstrates an elegant solution to a money dispensing machine problem. 
+Say, a customer requires $247 from an ATM machine. 
+What is the combination of bank notes ($100, $50, $20, $10, $5, $1) that satisfies that request? 
+</p>
+<p class="ptext">
+A <span class="cd">Request</span> is created with the amount requested.  Next, a series of <span class="cd">get</span> calls are chained together, 
+each one handling a particular denomination. Each handler determines the number of bank notes dispensed and substracts this amount from the remaining amount.
+The request object is passed through the chain by returning <span class="cd">this</span> in the <span class="cd">get</span> method. 
+</p>
+<p class="ptext">
+The <span class="cd">log</span> function is a helper which collects and displays results. 
+</p>
+      
+        <br />
+<pre class="prettyprint">
+var Request = function(amount) {
+    this.amount = amount;
+
+    log.add("Requested: $" + amount + "\n");
+}
+
+Request.prototype = {
+    get: function(bill) {
+        var count = Math.floor(this.amount / bill);
+        this.amount -= count * bill;
+
+        log.write("Dispense " + count + " $" + bill + " bills");
+
+        return this;
+    }
+}
+
+// log helper 
+var log = (function() {
+    var log = "";
+    return {
+        add: function(msg) { log += msg + "\n"; },
+        show: function() { alert(log); log = ""; }
+    }
+})();
+
+
+function run() {
+
+    var request = new Request(378);
+    request.get(100).get(50).get(20).get(10).get(5).get(1);
+
+    log.show();
+}
+</pre>
+        <a class="btn" href="javascript:void(0);" onclick="run();return false;">Run</a>
+
+<script type="text/javascript">
+    var Request = function (amount) {
+        this.amount = amount;
+
+        log.add("Requested: $" + amount + "\n");
+    }
+
+    Request.prototype = {
+        get: function (bill) {
+            var count = Math.floor(this.amount / bill);
+            this.amount -= count * bill;
+
+            log.add("Dispense " + count + " $" + bill + " bills");
+
+            return this;
+        }
+    }
+
+    function run() {
+
+        var request = new Request(378);
+        request.get(100).get(50).get(20).get(10).get(5).get(1);
+
+        log.show();
+    }
+</script>
+
+
+
+    </div>
+</div>
+
+<br />
+<br />
+<br />
+
+<!-- JavaScript Optimated Code -->
+<div class="row">
+    <div class="span8">
+        <h3>JavaScript Optimized Code</h3>
+        <br />
+<p class="ptext">
+The Namespace pattern is applied to keep the code out of the global namespace. Our namespace is named <span class="cd">Patterns.Classic</span>.
+A Revealing Module named <span class="cd">Chain</span> returns (i.e. reveals) only a single item: the <span class="cd">Request</span> constructor function and its prototype by association.
+</p>
+<p class="ptext">
+The <span class="cd">Patterns</span> object contains the <span class="cd">namespace</span> function which constructs namespaces non-destructively, 
+that is, if a name already exists it won't overwrite it. 
+</p>
+<p class="ptext">
+The <span class="cd">log</span> function is a helper which collects and displays results.
+</p>
+       
+        <br />
+<pre class="prettyprint">
+var Patterns = {
+    namespace: function (name) {
+        var parts = name.split(".");
+        var ns = this;
+
+        for (var i = 0, len = parts.length; i < len; i++) {
+            ns[parts[i]] = ns[parts[i]] || {};
+            ns = ns[parts[i]];
+        }
+
+        return ns;
+    }
+};
+
+Patterns.namespace("Classic").Chain = (function () {
+    var Request = function (amount) {
+        this.amount = amount;
+
+        log.add("Requested: $" + amount + "\n");
+    }
+
+    Request.prototype = {
+        get: function (bill) {
+            var count = Math.floor(this.amount / bill);
+            this.amount -= count * bill;
+
+            log.add("Dispense " + count + " $" + bill + " bills");
+
+            return this;
+        }
+    }
+
+    return {
+        Request: Request
+    }
+})();
+
+// log helper
+var log = (function () {
+    var log = "";
+    return {
+        add: function (msg) { log += msg + "\n"; },
+        show: function () { alert(log); log = ""; }
+    }
+})();
+
+function run() {
+
+    var chain = Patterns.Classic.Chain;
+
+    var request = new chain.Request(378);
+    request.get(100).get(50).get(20).get(10).get(5).get(1);
+
+    log.show();
+}</pre>
+        <a class="btn" href="javascript:void(0);" onclick="run1();return false;">Run</a>
+
+<script type="text/javascript">
+    var Patterns = {
+        namespace: function (name) {
+            var parts = name.split(".");
+            var ns = this;
+
+            for (var i = 0, len = parts.length; i < len; i++) {
+                ns[parts[i]] = ns[parts[i]] || {};
+                ns = ns[parts[i]];
+            }
+
+            return ns;
+        }
+    };
+
+    Patterns.namespace("Classic").Chain = (function () {
+        var Request = function (amount) {
+            this.amount = amount;
+
+            log.add("Requested: $" + amount + "\n");
+        }
+
+        Request.prototype = {
+            get: function (bill) {
+                var count = Math.floor(this.amount / bill);
+                this.amount -= count * bill;
+
+                log.add("Dispense " + count + " $" + bill + " bills");
+
+                return this;
+            }
+        }
+
+        return {
+            Request: Request
+        }
+    })();
+
+    // log helper
+    var log = (function () {
+        var log = "";
+        return {
+            add: function (msg) { log += msg + "\n"; },
+            show: function () { alert(log); log = ""; }
+        }
+    })();
+
+    function run1() {
+
+        var chain = Patterns.Classic.Chain;
+
+        var request = new chain.Request(378);
+        request.get(100).get(50).get(20).get(10).get(5).get(1);
+
+        log.show();
+    }
+
+</script>
+
+
+
+    </div>
+</div>
+
+<br />
+<br />
+<br />
+<div class="row">
+    <div class="span4 offsethalf">
+        <i class="icon-hand-left" style="margin:2px 0 0 0;"></i>&nbsp;&nbsp;<a href='proxy.htm'>Proxy</a>
+
+    </div>
+    <div class="span3">
+        <a href='command.htm'>Command</a>&nbsp;&nbsp;<i class="icon-hand-right" style="margin:2px 0 0 0;"></i>
+    </div>
+</div>
+<br />
+<br />
+
+
+
+
+
+      <br /><br />
+
+      <hr />
+      <div class="footer">
+        <p class="pull-right"><a id="totop" href="#">Back to top</a></p>
+        <p style="font-size:11pt;">Copyright &#169; 2013. Data & Object Factory, LLC. www.dofactory.com. All rights reserved.</p>
+      </div>
+      <br />
+   </div>
+
+<script type="text/javascript">
+
+    $(function() {
+        prettyPrint();
+
+        // animates page to scroll to top
+        $('#totop').on('click', function () {
+            $("html, body").animate({ scrollTop: 0 }, 500);
+            return false;
+        });
+    });
+
+</script>
+</body>
+</html>

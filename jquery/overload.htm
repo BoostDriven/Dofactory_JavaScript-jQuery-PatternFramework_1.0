@@ -1,0 +1,195 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Overloading</title>
+    <link rel="shortcut icon" href='../img/favicon.ico' />
+    <link href='../css/bootstrap.css' rel="stylesheet" />
+    <link href='../css/app.css' rel="stylesheet" />
+    <link href='../css/google-code-prettify/prettify.css' rel="stylesheet" />
+
+    <script src='../js/jquery.js' type="text/javascript" ></script>
+    <script src='../js/bootstrap.js' type="text/javascript" ></script>
+    <script src='../js/app.js' type="text/javascript" ></script>
+
+    <script src='../css/google-code-prettify/prettify.js' type="text/javascript"></script>
+</head>
+<body>
+     <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" style="padding-top:15px;" href='../index.htm'><img src='../img/js.png' alt="js" width="32" height="30" />
+              &nbsp; JavaScript + jQuery Design Pattern Framework <sup>TM</sup>&nbsp; 2013
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+     <div class="row">
+            <div class="span12" style="height:4px;background:mediumturquoise;"></div>
+     </div>
+
+     <div class="row">
+       <div class="span12">
+         <ul class="breadcrumb">
+           <li><a href='../index.htm'>Home</a> <span class="divider">/</span></li>
+           <li><a href='_index.htm'>jQuery</a> <span class="divider">/</span></li>
+           <li class="active">Overload</li>
+         </ul>
+        </div>
+      </div>
+      <br />
+        
+
+<div class="row">
+    <div class="span10">
+
+        <div class="row">
+            <div class="span7" style="padding: 0px 0 0 0;">
+                <h2 class="h1title">Overloading</h2>
+                <p>
+                  Allows function overloading using argument switching.<br /><br />
+                  jQuery uses overloading. A good example is the top-level jQuery method itself which 
+                  performs argument switching and is therefore overloaded.
+                </p>
+            </div>
+            <div class="span3">
+                &nbsp;&nbsp;&nbsp;<a class='js' href="javascript:void(0);" onclick="return openPdf('jQueryPatterns');">jQuery Patterns Guide</a>
+            </div>
+        </div>
+       
+    </div>
+     <div class="span2">
+        <img src="../img/jspatterndetail.jpg" style="width:140px;height:140px;" alt="" />
+        <br />
+        <div class="back" style="padding:10px 0 0 18px;">
+            <i class="icon-hand-left" style="margin:2px 0 0 0;"></i>&nbsp;&nbsp;<a href='_index.htm' >back to list</a>
+        </div>
+    </div>
+</div>
+<hr />
+<br />
+
+<div class="row">
+   <div class="span10">
+      <h3>Overview</h3>
+      <br />
+      <div class="ptext">
+<p>
+Many languages support <i>function overloading</i> which is a feature that allows you to have multiple functions with the same name, 
+but they all have a different set of parameters.  For example <span class="nobr cd">add(x, y)</span> and <span class="nobr cd">add(x, y, z)</span> are overloaded functions. 
+In typed languages the parameter type is also significant. We may have <span class="nobr cd">add(x, y)</span> which adds two numbers and <span class="nobr cd">add(s, t)</span>
+which concatenating two string values with <span class="cd">s</span> and <span class="cd">t</span> of type string. 
+</p>
+<p>
+JavaScript does not support overloading. However, you mimic it with a technique called <i>argument switching</i>. 
+jQuery uses it extensively. In fact, the main jQuery method itself (which is aliased as $) is overloaded.  
+It does different things depending on the arguments that are being passed. Here are some examples of different uses for jQuery (or $): 
+</p>
+
+<pre class="prettyprint">
+$(function() {
+   // ... 
+});
+</pre>
+<p>
+This is a shorthand for <span class="cd">$(document).ready()</span> which runs when the DOM has been fully loaded.
+A function is passed into the <span class="cd">$()</span> function.
+</p>
+<p>
+Here is another example:
+</p>
+<pre class="prettyprint">
+$("#menu").addClass("active");
+</pre>
+<p>
+This is the regular selector syntax which returns a list of elements that meet the selector criteria. The <span class="cd">$()</span> function is passed a string. 
+</p>
+<p>
+And another example:
+</p>
+<pre class="prettyprint">
+$("&lt;p&gt;Hello there!&lt;/p&gt;").insertAfter("#intro");
+</pre>
+<p>
+This inserts a new DOM element after a specific location in the HTML document.
+</p>
+<p>
+These are all examples of function overloading. The overloaded versions expect argument types that are either a function or a string.  
+As you would expect the jQuery source code checks for the selector type. Here is an outline of this code (simplified):   
+</p>
+<pre class="prettyprint">
+init: function( selector, context, rootjQuery ) {
+
+        // HANDLE: $(HTML)
+        if (....) {
+
+           return this;
+        }
+
+        // HANDLE: $(expr) 
+        if (....) {
+
+           return this;
+        }
+
+        // HANDLE: $(function)
+        if ( jQuery.isFunction( selector ) ) {
+           return rootjQuery.ready( selector );
+        }
+        // ...
+}
+
+</pre>
+<p>
+Interestingly, this goes beyond standard function overloading.  
+If the selector type is a string value, the function needs to determine whether this is a CSS selector or an HTML string.  
+This could be called <i>semantic overloading</i>. 
+</p>
+
+
+      </div> 
+  </div>
+</div>
+
+<br />
+<br />
+<div class="row">
+    <div class="span4 offsethalf">
+        <i class="icon-hand-left" style="margin:2px 0 0 0;"></i>&nbsp;&nbsp;<a href='doubleexclamation.htm'>Double Exclamation</a>
+    </div>
+    <div class="span3">
+        <a href='placeholder.htm'>Placeholder</a>&nbsp;&nbsp;<i class="icon-hand-right" style="margin:2px 0 0 0;"></i>
+    </div>
+</div>
+<br />
+<br />
+
+
+
+      <br /><br />
+
+      <hr />
+      <div class="footer">
+        <p class="pull-right"><a id="totop" href="#">Back to top</a></p>
+        <p style="font-size:11pt;">Copyright &#169; 2013. Data & Object Factory, LLC. www.dofactory.com. All rights reserved.</p>
+      </div>
+      <br />
+   </div>
+
+<script type="text/javascript">
+
+    $(function() {
+        prettyPrint();
+
+        // animates page to scroll to top
+        $('#totop').on('click', function () {
+            $("html, body").animate({ scrollTop: 0 }, 500);
+            return false;
+        });
+    });
+
+</script>
+</body>
+</html>

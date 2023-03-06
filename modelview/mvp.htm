@@ -1,0 +1,537 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>MVP</title>
+    <link rel="shortcut icon" href='../img/favicon.ico' />
+    <link href='../css/bootstrap.css' rel="stylesheet" />
+    <link href='../css/app.css' rel="stylesheet" />
+    <link href='../css/google-code-prettify/prettify.css' rel="stylesheet" />
+
+    <script src='../js/jquery.js' type="text/javascript" ></script>
+    <script src='../js/bootstrap.js' type="text/javascript" ></script>
+    <script src='../js/app.js' type="text/javascript" ></script>
+
+    <script src='../css/google-code-prettify/prettify.js' type="text/javascript"></script>
+</head>
+<body>
+     <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" style="padding-top:15px;" href='../index.htm'><img src='../img/js.png' alt="js" width="32" height="30" />
+              &nbsp; JavaScript + jQuery Design Pattern Framework <sup>TM</sup>&nbsp; 2013
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+     <div class="row">
+            <div class="span12" style="height:4px;background:darkorchid;"></div>
+     </div>
+
+     <div class="row">
+       <div class="span12">
+         <ul class="breadcrumb">
+           <li><a href='../index.htm'>Home</a> <span class="divider">/</span></li>
+           <li><a href='_index.htm'>Model View</a> <span class="divider">/</span></li>
+           <li class="active">MVP</li>
+         </ul>
+        </div>
+      </div>
+      <br />
+        
+
+<div class="row">
+    <div class="span10">
+              
+        <div class="row">
+            <div class="span7" style="padding: 0px 0 0 0;">
+                <h2 class="h1title">MVP &nbsp;- Model View Presenter</h2>
+                <p>
+                    A modification of MVC. <br /><br />
+                    The Controller is named Presenter as it takes a more active role in updating the View. 
+                    In MVP the Model and View do not communicate directly with each other; all communication goes via the Presenter.
+                </p>
+            </div>
+            <div class="span3">
+                &nbsp;&nbsp;&nbsp;<a class='js' href="javascript:void(0);" onclick="return openPdf('ModelViewPatterns');">Model View Patterns Guide</a>
+            </div>
+        </div>
+    </div>
+    <div class="span2">
+        <img src="../img/jspatterndetail.jpg" style="width:140px;height:140px;" alt="" />
+        <br />
+        <div class="back" style="padding:10px 0 0 18px;">
+            <i class="icon-hand-left" style="margin:2px 0 0 0;"></i>&nbsp;&nbsp;<a href='_index.htm' >back to list</a>
+        </div>
+    </div>
+</div>
+<hr />
+<br />
+
+<div class="row">
+    <div class="span10">
+        <h3>Overview</h3>
+        <br />
+        <div class="ptext">
+<p>
+MVP is a variation of the MVC pattern.  In MVP the Controller has been renamed Presenter because it takes on a much greater role.
+The Presenter makes decisions how to respond to events it receives from the View, but, more importantly, it can update the View directly. Hence its name 'Presenter': it presents the data and changes the presentation.  
+</p>
+<p>
+In MVP the role of the View is limited to notifying the Presenter of events that happen on the page, such as button clicks or data entry.  The View does not have any business logic which is now the responsibility of the Presenter. 
+</p>
+<p>
+The Presenter communicates with the Model by updating its data. The Model does not notify the View but instead may notify the Presenter of any model changes. 
+Below is a diagram of MVP and its data flow.  We see that the Presenter sits in between the View and the Model and all communication must flow through the Presenter.  In MVP there is no direct communication between the View and the Model.
+</p>
+<div style="padding:30px 0 30px 120px;">
+<img src="../img/diagrams/javascript-mvp.jpg" alt="" />
+</div>
+<p>
+To highlight the differences between MVC and MVP we show them side by side in a diagram. The size of the component boxes is a measure of their responsibilities, that is, the larger the box, the larger its role and responsibility. 
+Notice the differences in data flow: in MVC it is circular and in MVP it is up and down the components. 
+</p>
+
+<div style="padding:30px 0 30px 120px;">
+<img src="../img/diagrams/javascript-mvc-vs-mvp.jpg" alt="" />
+</div>
+<p>
+When developing complex applications, MVP tends to be a more natural pattern than MVC. Developers like MVP because the UI is usually not the best place to implement business logic; 
+it is better to maintain that at a central location. 
+</p>
+<p>
+Furthermore, MVP forces you to think in terms of reusability which improves the modeling and coding process. 
+For example, when dealing with many pages, each with their own validation logic, it can be very difficult to find candidates for reuse. 
+MVP helps in structuring you app from the onset.
+</p>
+<p>
+Another benefit of MVP is testability: compared to MVC, MVP is much easier to test. 
+User Interfaces are notorious difficult to test and having a relatively small and more passive view makes it easy to replace it with a Mock object and perform unit- or system-testing.  
+</p>
+<p>
+Next, we'll examine how to code MVP in JavaScript. 
+</p>
+<p>
+<strong>Implementing MVP in JavaScript</strong><br />
+We will use the same page as MVC.  This will allow us to focus on the pattern itself. Here is the HTML markup: 
+</p>
+<pre class="prettyprint">
+&lt;div&gt;
+    MVP&lt;br /&gt;
+    &lt;select id="nameList" size="15"&gt;lt;/select&gt;
+    &lt;div id="nameCount"&gt;Total users: 0&lt;/div&gt;
+    &lt;button id="addButton"&gt;Add User&lt;/button&gt;
+    &lt;button id="removeButton"&gt;Remove User&lt;/button&gt;
+&lt;/div&gt;
+</pre>
+<p>
+Just like the MVC example, it has a list control with user names and two buttons; one to add a new user, and one to delete the currently selected user.  
+Also included is a div element that displays the total number of users. As a reminder, here is what the page looks like: 
+</p>
+<div style="padding:30px 0 30px 10px;">
+<img src="../img/diagrams/javascript-mvp-screen.jpg" alt="" />
+</div>
+<p>
+Let's now move on to the code starting with the Model and the Observer helper object.  
+</p>
+<pre class="prettyprint">
+var Model = function (names) {
+    this.names = names;
+
+    this.nameAdded = new Observer();
+    this.nameRemoved = new Observer();
+};
+
+Model.prototype = {
+
+    add: function (name) {
+        this.names.push(name);
+        this.nameAdded.notify(this.names);
+    },
+
+    remove: function (index) {
+        this.names.splice(index, 1);
+        this.nameRemoved.notify(this.names);
+    },
+
+    getNames: function () {
+        return this.names;
+    }
+
+};
+
+
+var Observer = function () {
+    this.observers = [];
+};
+
+Observer.prototype = {
+
+    attach: function (callback) {
+        this.observers.push(callback);
+    },
+
+    notify: function (n) {
+        for (var i = 0, len = this.observers.length; i < len; i++) {
+            this.observers[i](n);
+        }
+    }
+};
+
+</pre>
+<p>
+These are exactly the same as in MVC.
+</p>
+<p>
+Recall that in MVC the <span class="cd">nameAdded</span> and <span class="cd">nameRemoved</span> Observers were used in notifying the View of any data changes.  
+In MVP you will see that the Presenter gets notified instead. 
+</p>
+<p>
+This works well in asynchronous scenarios in which the Model gets updated from a remote server or database and the Observers notify any event handlers in the Presenter of any data changes. 
+The Presenter then makes the business decisions and updates the View accordingly. 
+</p>
+<p>
+Next we will examine the View which is listed below. 
+</p>
+<pre class="prettyprint">
+var View = function (elements) {
+
+    this.elements = elements;
+};
+
+</pre>
+<p>
+Yes, that is all that is left of the View. It is an array of DOM elements that the Presenter interacts with. 
+You can already see that this View is far easier to mock in testing scenarios compared with the View we had in MVC. 
+</p>
+
+<p>
+Let's move on to Presenter where the bulk of the logic resides: 
+</p>
+
+<pre class="prettyprint">
+var Presenter = function (model, view) {
+    this.model = model;
+    this.view = view;
+    this.index = -1;
+};
+
+Presenter.prototype = {
+
+    init: function () {
+
+        var self = this;
+
+        this.view.elements.addButton.click(function () {
+            self.addName();
+        });
+
+        this.view.elements.removeButton.click(function () {
+            self.removeName();
+        });
+
+        this.view.elements.nameList.change(function (e) {
+            self.index = e.target.selectedIndex;
+        });
+
+        this.model.nameAdded.attach(function (n) {
+            self.refresh(n);
+        });
+
+        this.model.nameRemoved.attach(function (n) {
+            self.refresh(n);
+        });
+
+
+        this.refresh(this.model.getNames());
+    },
+
+    addName: function () {
+        var name = prompt('Add a new user name: ', '');
+        if (name) {
+            this.model.add(name);
+            this.index = -1;
+        }
+    },
+
+    removeName: function () {
+        if (this.index > -1) {
+            this.model.remove(this.index);
+            this.index = -1;
+        }
+        else {
+            alert("No name was selected");
+        }
+    },
+
+    refresh: function (names) {
+
+        this.view.elements.nameList.html('');
+
+        for (var i = 0, len = names.length; i < len; i++)
+            this.view.elements.nameList.append(
+                 '&lt;option&gt;' + names[i] + '&lt;/option&gt;');
+
+        this.view.elements.nameCount.text("Total names: " + len);
+    }
+};
+</pre>
+<p>
+You will recognize most of the logic, much of it from the original View in MVC. 
+The initialization has migrated here, but more interestingly the <span class="cd">refresh</span> method also resides here. 
+The <span class="cd">refresh</span> method updates the controls on the page: the View is not involved at all.  
+</p>
+<p>
+Let's go back to the <span class="cd">init</span> method. In it, the Presenter registers for events that occur on both the View and one the Model. 
+It listens to the View's click events and the list's selection change events as well as the Model's <span class="cd">nameAdded</span> and <span class="cd">nameRemoved</span> events.  
+The Presenter is the central hub in MVP. 
+</p>
+<p>
+Finally, let's run the system and review the startup code: 
+</p>
+<pre class="prettyprint">
+var model = new Model(['Bob Smith', 'Cindy Jackson', 'Alan Wong']);
+
+var elements = {
+    nameList: $('#nameList'),
+    nameCount: $("#nameCount"),
+    addButton: $('#addButton'),
+    removeButton: $('#removeButton')
+};
+
+var view = new View(elements);
+
+var presenter = new Presenter(model, view);
+presenter.init();
+
+</pre>
+<p>
+From a separation of concerns' perspective this startup code feels right.  
+First, the Model is created and initialized with three user names.  
+There are no external dependencies. Next, the View is created with just the visual elements that we are interested in.  
+Again, there are no dependencies.  Then the Presenter is created with references to both the model and view instances, exactly the way you would expect it to be.  
+The final call to <span class="cd">init</span> ties all components together and the page is ready to go!
+</p>
+<p>
+The MVP app below is ready to run: 
+</p>
+
+ <br />
+
+
+<div style="padding: 15px ; background: beige;">
+        MVP<br />
+        <select id="nameList" size="15" style="width: 210px; border: 1px solid #ccc; padding: 2px;"></select>
+        <br />
+        <span id="nameCount">Count</span>
+        <br />
+        <br />
+        <button id="addButton">Add User</button>&nbsp;&nbsp;
+        <button id="removeButton">Remove User</button>
+</div>
+
+
+
+<script type="text/javascript">
+
+    var Observer = function () {
+        this.observers = [];
+    };
+
+    Observer.prototype = {
+
+        attach: function (callback) {
+            this.observers.push(callback);
+        },
+
+        notify: function (n) {
+            for (var i = 0, len = this.observers.length; i < len; i++) {
+                this.observers[i](n);
+            }
+        }
+    };
+
+    var Model = function (names) {
+        this.names = names;
+
+        this.nameAdded = new Observer();
+        this.nameRemoved = new Observer();
+    };
+
+    Model.prototype = {
+
+        add: function (name) {
+            this.names.push(name);
+            this.nameAdded.notify(this.names);
+        },
+
+        remove: function (index) {
+            this.names.splice(index, 1);
+            this.nameRemoved.notify(this.names);
+        },
+
+        getNames: function () {
+            return this.names;
+        }
+
+    };
+
+    var View = function (elements) {
+
+        this.elements = elements;
+    };
+
+    var Presenter = function (model, view) {
+        this.model = model;
+        this.view = view;
+        this.index = -1;
+    };
+
+    Presenter.prototype = {
+
+        init: function () {
+
+            var self = this;
+
+            this.view.elements.addButton.click(function () {
+                self.addName();
+            });
+
+            this.view.elements.removeButton.click(function () {
+                self.removeName();
+            });
+
+            this.view.elements.nameList.change(function (e) {
+                self.index = e.target.selectedIndex;
+            });
+
+            this.model.nameAdded.attach(function (n) {
+                self.refresh(n);
+            });
+
+            this.model.nameRemoved.attach(function (n) {
+                self.refresh(n);
+            });
+
+
+            this.refresh(this.model.getNames());
+        },
+
+        addName: function () {
+            var name = prompt('Add a new user name: ', '');
+            if (name) {
+                this.model.add(name);
+                this.index = -1;
+            }
+        },
+
+        removeName: function () {
+            if (this.index > -1) {
+                this.model.remove(this.index);
+                this.index = -1;
+            }
+            else {
+                alert("No name was selected");
+            }
+        },
+
+        refresh: function (names) {
+
+            this.view.elements.nameList.html('');
+
+            for (var i = 0, len = names.length; i < len; i++)
+                this.view.elements.nameList.append('<option>' + names[i] + '</option>');
+
+            this.view.elements.nameCount.text("Total names: " + len);
+        }
+    };
+
+    $(function () {
+        var model = new Model(['Bob Smith', 'Cindy Jackson', 'Alan Wong']);
+
+        var elements = {
+            nameList: $('#nameList'),
+            nameCount: $("#nameCount"),
+            addButton: $('#addButton'),
+            removeButton: $('#removeButton')
+        };
+
+        var view = new View(elements);
+
+        var presenter = new Presenter(model, view);
+        presenter.init();
+    });
+
+</script>
+
+<br />
+<p>
+MVP is an elegant pattern: each part has a clear responsibility and they are loosely coupled which is another good thing; it makes our code clean, clear, and highly maintainable. 
+</p>
+<p>
+As an aside: when reading up on MVP you may discover there are really two flavors of this pattern: one is called Passive View and the other is Supervising Controller.  
+Our model is the Passive View which is the more common approach.  The Supervising Controller simply adds bidirectional data flow between the Model and the View, so it a bit closer to MVC. 
+</p>
+<p>
+Whatever the intricate details of these patterns are it turns out that the JavaScript community has taken a lot of creative freedom with these patterns. 
+From the 25 or so popular open source MV Frameworks only a few are easy to categorize as MVC, MVP, or MVVM; the rest is something like MV and 'Anything'. 
+For example, the popular Backbone framework follows MVC, but the C stands for Collections, not Controller.  Backbone also has a Router, which looks like a Controller.
+</p>
+<p>
+As a JavaScript developer the main thing to understand is the separation of concerns, the loose binding, and the role that each component plays within each MV pattern. 
+</p>
+<p>
+Next we'll review the last of the MV patterns: MVVM.
+</p>
+
+        </div>
+    </div>
+</div>
+
+<br />
+<br />
+<br />
+<div class="row">
+    <div class="span4 offsethalf">
+        <i class="icon-hand-left" style="margin:2px 0 0 0;"></i>&nbsp;&nbsp;<a href='mvc.htm'>MVC</a>
+
+    </div>
+    <div class="span3">
+        <a href='mvvm.htm'>MVVM</a>&nbsp;&nbsp;<i class="icon-hand-right" style="margin:2px 0 0 0;"></i>
+    </div>
+</div>
+<br />
+<br />
+
+
+
+
+
+
+      <br /><br />
+
+      <hr />
+      <div class="footer">
+        <p class="pull-right"><a id="totop" href="#">Back to top</a></p>
+        <p style="font-size:11pt;">Copyright &#169; 2013. Data & Object Factory, LLC. www.dofactory.com. All rights reserved.</p>
+      </div>
+      <br />
+   </div>
+
+<script type="text/javascript">
+
+    $(function() {
+        prettyPrint();
+
+        // animates page to scroll to top
+        $('#totop').on('click', function () {
+            $("html, body").animate({ scrollTop: 0 }, 500);
+            return false;
+        });
+    });
+
+</script>
+</body>
+</html>

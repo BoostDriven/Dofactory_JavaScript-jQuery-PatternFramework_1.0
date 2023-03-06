@@ -1,0 +1,193 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>What are Design Patterns?</title>
+    <link rel="shortcut icon" href='../img/favicon.ico' />
+    <link href='../css/bootstrap.css' rel="stylesheet" />
+    <link href='../css/app.css' rel="stylesheet" />
+    <link href='../css/google-code-prettify/prettify.css' rel="stylesheet" />
+
+    <script src='../js/jquery.js' type="text/javascript" ></script>
+    <script src='../js/bootstrap.js' type="text/javascript" ></script>
+    <script src='../js/app.js' type="text/javascript" ></script>
+
+    <script src='../css/google-code-prettify/prettify.js' type="text/javascript"></script>
+</head>
+<body>
+     <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" style="padding-top:15px;" href='../index.htm'><img src='../img/js.png' alt="js" width="32" height="30" />
+              &nbsp; JavaScript + jQuery Design Pattern Framework <sup>TM</sup>&nbsp; 2013
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+     <div class="row">
+            <div class="span12" style="height:4px;background:yellow;"></div>
+     </div>
+
+     <div class="row">
+       <div class="span12">
+         <ul class="breadcrumb">
+           <li><a href='../index.htm'>Home</a> <span class="divider">/</span></li>
+           <li><a href='_index.htm'>Essentials</a> <span class="divider">/</span></li>
+           <li class="active">Design Patterns</li>
+         </ul>
+        </div>
+      </div>
+      <br />
+        
+         <div class="row">
+           <div class="span7">
+               <h2 class="h1title">What are Design Patterns?</h2>
+                <p>
+                    First exploration of Design Patterns.
+                </p>
+               <p>
+                   Design Patterns are solutions to recurring software design problems. 
+                   Here we provide an introduction to Design Patterns, their history, and their benefits.
+               </p>
+            </div>
+            <div class="span3 lower">
+                <a class='js' href="javascript:void(0);" onclick="return openPdf('PatternEssentials');">Pattern Essentials Guide</a>
+            </div>
+            <div class="span2">
+                <img src="../img/jspatterndetail.jpg" style="width:140px;height:140px;" alt="" />
+                <br />
+                <div class="back" style="padding:10px 0 0 18px;">
+                  <i class="icon-hand-left" style="margin:2px 0 0 0;"></i>&nbsp;&nbsp;<a href='_index.htm' >back to list</a>
+                </div>
+            </div>
+        </div>
+        <hr />
+        <br />
+        <div class="row">
+            <div class="span10">
+                <h3>Essentials</h3>
+                <br />
+                <div class="ptext">
+
+<p>
+Design patterns are solutions to programming problems you find again and again in real-world application development. 
+The design involves a description or a solution template for solving a problem that can be applied in different scenarios. 
+Patterns are <i>formalized best practices</i> that developers can use in their own applications.  
+</p>
+<p>
+The GoF patterns are generally considered the foundation for all other patterns. They were published in 1995 in a seminal book called 
+    "<i>Design Patterns, Elements of Reusable Object-Oriented Software</i>".  
+Four authors were involved -- Erich Gamma, Richard Helm, Ralph Johnson and John Vlissides –hence the name Gang-of-Four, or GoF for short. 
+This publication was instrumental in introducing the concept of Design Patterns to the field of software engineering.
+</p>
+<p>
+Actually, the notion of design patterns originated in a different discipline, namely architecture.  
+Christopher Alexander, a well-known architect first developed the concept of a pattern language in which he categorized architectural 
+design elements that are both beautiful and practical.  His design elements include exact methods for constructing practical, safe, and 
+attractive designs at any scale (from individual rooms to city blocks).  
+The Gang of Four borrowed this concept of reusable design elements and applied it to world of software design.
+</p>
+<p>
+So, design patterns are solutions to common software design problems. Let's review the benefits of using patterns: 
+</p>
+<ol>
+<li><strong>Patterns are proven solutions</strong>. Patterns are solutions proposed 
+by seasoned developers that have run into similar design challenges. If you encounter a scenario that can be solved by implementing a design patterns, 
+then why re-invent the wheel? Not using it only increases the risk of you taking a wrong turn, while a good solution already exists. </li>
+<li><strong>Patterns are reusable</strong>. Patterns make you more effective and productive as a developer. Once you have experienced the power of 
+patterns and best practices in your own work it is hard to imagine working without them. Furthermore, in subsequent projects you will immediately 
+recognize similar situations and instantly know how to solve the problem at hand. Patterns are reusable allowing you to build better apps in less time. </li>
+<li><strong>Patterns provide a common vocabulary</strong>.  This is an often overlooked benefit. Each pattern has a name which makes it much easier 
+to discuss complex application designs. If a team member explains how the HTML talks to data objects that are managed by something in between, 
+you may be puzzled. However, if they state 'we use MVP', then anyone who's familiar with patterns will immediately recognize their chosen architecture. </li>
+<li><strong>Patterns build confidence</strong>. When a group of seasoned developers discusses design and architectural topics they may use terms like 
+Factory, LazyLoad, Façade, MVC, and Module.  As a senior web app developer or architect you are expected to be familiar with the lingo and the details 
+of these patterns. Having experience with patterns allows you to confidently participate in these deliberations as well as their subsequent implementation. </li>
+</ol>
+<p>
+Perhaps you are wondering, when does a particular software design solution qualify as a pattern?  
+This is not always an easy question to answer. The GoF state that design patterns are "<i>descriptions of communicating objects and classes that are 
+customized to solve a general design problem in a particular context</i>". Essentially it is a solution to a problem in a <i>context</i>, that is, each pattern 
+focuses on a general, but scoped problem area or issue.  This is the classical view on patterns. As you learn more about JavaScript patterns you will see that the JavaScript 
+community has a more pragmatic perspective towards design patterns.  
+</p>
+<p>
+Even so, there are always four essential elements to a pattern: 
+</p>
+<ol>
+<li>A pattern name – each pattern should have a descriptive name</li>
+<li>A problem – a design challenge or context in which to apply the pattern</li>
+<li>A solution -- describes the pattern elements and their arrangements</li>
+<li>Consequences – tradeoffs and side-effects of applying the pattern </li>
+</ol>
+<p>
+These elements, together with the GoF pattern definition, provide a reasonable starting point of what constitutes a design pattern. 
+The diagram below depicts this graphically.  The pre-pattern stage represents the problem and its context which is messy and unstructured. 
+The post-pattern stage shows the pattern solution which is clean and well structured.  The design has a name and there are consequences associated with using this pattern.  
+</p>
+ <div style="padding:35px 0 0 40px;">
+      <img src="../img/diagrams/javascript-intro.jpg" alt="" />
+</div>
+<p>
+In their book, the GoF are very detailed in their pattern definitions. 
+They use a formal 12-point system that categorizes and describes each pattern; this includes: Name, Intent, Motivation, Applicability, Participants, 
+Structure, Consequences, Implementation, Known Uses, and several more.  This certainly was useful and relevant at that time because patterns were a new concept and 
+it added clarity and structure to each of the 23 patterns they listed. 
+</p>
+<p>
+However, today you will not find a single pattern author that follows this system. 
+One reason is that the concept of a design pattern has become more fluid and is used in broader contexts. 
+Also, it is sometimes hard to pinpoint a single <i>pattern author</i> because patterns evolve in online communities with many participants. 
+A new design pattern is rarely nailed in a single design session in which each of the 12 points can be defined.  
+</p>
+<p>
+In fact, the JavaScript community is a great example of how pattern development has evolved.  
+It started off as a rather formal discipline in which a 'software authority' (mostly book authors) put their stamp of approval on a series of patterns. 
+Today, the pattern movement takes a far more agile and pragmatic approach in which numerous community members participate resulting in highly practical software 
+design solutions that are of immediate use to the practicing web app developer.  The nature of Design Patterns in JavaScript is discussed next. 
+</p>
+
+      </div>
+    </div>
+</div>
+<br />
+<br />
+<div class="row">
+    <div class="span4 offsethalf">
+        <i class="icon-hand-left" style="margin:2px 0 0 0;"></i>&nbsp;&nbsp;<a href='introduction.htm' >Introduction</a>
+    </div>
+    <div class="span3">
+        <a href='javascriptpatterns.htm'>Design Patterns & JavaScript</a>&nbsp;&nbsp;<i class="icon-hand-right" style="margin:2px 0 0 0;"></i>
+    </div>
+</div>
+<br />
+<br />
+
+
+      <br /><br />
+
+      <hr />
+      <div class="footer">
+        <p class="pull-right"><a id="totop" href="#">Back to top</a></p>
+        <p style="font-size:11pt;">Copyright &#169; 2013. Data & Object Factory, LLC. www.dofactory.com. All rights reserved.</p>
+      </div>
+      <br />
+   </div>
+
+<script type="text/javascript">
+
+    $(function() {
+        prettyPrint();
+
+        // animates page to scroll to top
+        $('#totop').on('click', function () {
+            $("html, body").animate({ scrollTop: 0 }, 500);
+            return false;
+        });
+    });
+
+</script>
+</body>
+</html>

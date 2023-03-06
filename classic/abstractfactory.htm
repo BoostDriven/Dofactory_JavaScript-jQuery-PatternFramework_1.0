@@ -1,0 +1,547 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Abstract Factory</title>
+    <link rel="shortcut icon" href='../img/favicon.ico' />
+    <link href='../css/bootstrap.css' rel="stylesheet" />
+    <link href='../css/app.css' rel="stylesheet" />
+    <link href='../css/google-code-prettify/prettify.css' rel="stylesheet" />
+
+    <script src='../js/jquery.js' type="text/javascript" ></script>
+    <script src='../js/bootstrap.js' type="text/javascript" ></script>
+    <script src='../js/app.js' type="text/javascript" ></script>
+
+    <script src='../css/google-code-prettify/prettify.js' type="text/javascript"></script>
+</head>
+<body>
+     <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" style="padding-top:15px;" href='../index.htm'><img src='../img/js.png' alt="js" width="32" height="30" />
+              &nbsp; JavaScript + jQuery Design Pattern Framework <sup>TM</sup>&nbsp; 2013
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+     <div class="row">
+            <div class="span12" style="height:4px;background:crimson;"></div>
+     </div>
+
+     <div class="row">
+       <div class="span12">
+         <ul class="breadcrumb">
+           <li><a href='../index.htm'>Home</a> <span class="divider">/</span></li>
+           <li><a href='_index.htm'>Classic</a> <span class="divider">/</span></li>
+           <li class="active">Abstract Factory</li>
+         </ul>
+        </div>
+      </div>
+      <br />
+        
+
+         <div class="row">
+           <div class="span10">
+              
+                <div class="row">
+                   <div class="span7" style="padding: 0px 0 0 0;">
+                       <h2 class="h1title">Abstract Factory</h2>
+                       <p>
+                           Provide an interface for creating families of related or dependent objects without
+                           specifying their concrete classes.
+                       </p>
+                   </div>
+                   <div class="span3">
+                       &nbsp;&nbsp;&nbsp;<a class='js' href="javascript:void(0);" onclick="return openPdf('ClassicPatterns');">Classic Patterns Guide</a>
+                   </div>
+               </div>
+               <br />
+               <div class="row">
+                  <div class="span7"><br />
+                     <table class="usage">
+                        <tr>
+                           <td class="usage1">Usage in JavaScript:</td>
+                           <td class="usage2">
+                              <div class="progress progress-warning" style="width: 150px;">
+                                 <div class="bar" style="width: 55%;"></div>
+                              </div>
+                           </td>
+                           <td class="usage3">medium</td>
+                       </tr>
+                    </table>
+                 </div>
+              </div>
+            </div>
+            <div class="span2">
+              <img src="../img/jspatterndetail.jpg" style="width:140px;height:140px;" alt="" />
+              <br />
+              <div class="back" style="padding:10px 0 0 18px;">
+                 <i class="icon-hand-left" style="margin:2px 0 0 0;"></i>&nbsp;&nbsp;<a href='_index.htm' >back to list</a>
+              </div>
+           </div>
+        </div>
+        <hr />
+        <br />
+        
+        <div class="row">
+            <div class="span8">
+                <h3>Introduction</h3>
+                <br />
+<p class="ptext">
+An Abstract Factory creates objects that are related by a common theme. 
+In object-oriented programming a Factory is an object that creates other objects.  
+An Abstract Factory has abstracted out a theme which is shared by the newly created objects. 
+</p>    
+<p class="ptext">
+Suppose we have two Abstract Factories whose task it is to create page controls, such as, buttons, textboxes, radio buttons, and listboxes. 
+One is the Light Factory which creates controls that are white and the other the Dark Factory which creates controls that are black.  
+Both Factories creates the same types of controls, but they differ in color, which is their common theme.  
+This is an implementation of the Abstract Factory pattern. 
+</p>    
+<p class="ptext">
+Over time the Abstract Factory and Factory Method patterns have merged into a more general pattern called Factory.  
+A Factory is simply an object that creates other objects. 
+</p>    
+<p class="ptext">
+You may be wondering why you would want to leave the responsibility of the construction of objects to others rather than simply calling a constructor function with the new keyword directly. 
+The reason is that that constructor functions are limited in their control over the overall creation process and sometimes you will need to hand over control to a factory that has broader knowledge. 
+</p>    
+<p class="ptext">
+This includes scenarios in which the creation process involves object caching, sharing or re-using of objects, complex logic, or applications that maintain object and type counts, 
+and objects that interact with different resources or devices.  If your application needs more control over the object creation process, consider using a Factory.
+</p>
+            </div>
+            <div class="span3 offset1"></div>
+        </div>
+        <br />
+        <!-- Diagram -->
+        <div class="row">
+            <div class="span8">
+                <h3>Diagram</h3>
+                <div style="padding:14px 0 0 120px;">
+                   <img src="../img/diagrams/javascript-abstract-factory.jpg" alt="" />
+                </div>
+            </div>
+            <div class="span3 offset1"></div>
+        </div>
+        <br />
+        <br />
+        <!-- Participants -->
+        <div class="row">
+          <div class="span8">
+             <h3>Participants</h3>
+             <br />
+            <div class="ptext">
+            The objects participating in this pattern are: <br /><br />
+   
+            <ul>
+            <li><b>AbstractFactory</b> -- not used in JavaScript
+             <ul>
+              <li>declares an interface for creating products</li>
+             </ul>
+            </li>
+            <li><b>ConcreteFactory</b> -- In sample code: <b style="color:#088;">EmployeeFactory, VendorFactory</b>
+             <ul>
+              <li>a factory object that 'manufactures' new products</li>
+              <li>the create() method returns new products</li>
+             </ul>
+            </li>
+            <li><b>Products</b> -- In sample code: <b style="color:#088;">Employee, Vendor</b>
+             <ul>
+              <li>the product instances being created by the factory</li>
+             </ul>
+            </li>
+            <li><b>AbstractProduct</b> -- not used in JavaScript
+             <ul>
+              <li>declares an interface for the products that are being created</li>
+             </ul>
+            </li>
+            </ul>
+
+            </div>
+            </div>
+            <div class="span3 offset1"></div>
+        </div>
+        <br />
+        <!-- JavaScript code -->
+        <div class="row">
+            <div class="span8">
+                <h3>JavaScript Code</h3>
+                <br />
+<p class="ptext">
+JavaScript does not support class-based inheritance therefore the abstract classes as depicted in the diagram are not used in the JavaScript sample. 
+Abstract classes and interfaces enforce consistent interfaces in derived classes. 
+In JavaScript we must ensure this consistency ourselves by making sure that each 'Concrete' object has the same interface definition (i.e. properties and methods) as the others</p>
+<p class="ptext">
+In the example we have two Concrete Factories: <span class="cd">EmployeeFactory</span> and <span class="cd">VendorFactory</span>. 
+The first one creates <span class="cd">Employee</span> instances, the second one <span class="cd">Vendor</span> instances. 
+Both products are person types (with the same interface) which allows the client to treat them the same. 
+An array with two employees and two vendors is created. Each person is then asked to say what and who they are.
+</p>
+<p class="ptext">
+The <span class="cd">log</span> function is a helper which collects and displays results. 
+</p>
+               
+                <br />
+<pre class="prettyprint">
+function Employee(name) {
+    this.name = name;
+    this.say = function () {
+        log.add("I am employee " + name);
+    };
+}
+
+function EmployeeFactory() {
+    this.create = function(name) {
+        return new Employee(name);
+    };
+}
+
+function Vendor(name) {
+    this.name = name;
+    this.say = function () {
+        log.add("I am vendor " + name);
+    };
+}
+
+function VendorFactory() {
+    this.create = function(name) {
+        return new Vendor(name);
+    };
+}
+
+// log helper
+var log = (function () {
+    var log = "";
+    return {
+        add: function (msg) { log += msg + "\n"; },
+        show: function () { alert(log); log = ""; }
+    }
+})();
+
+
+function run() {
+
+    var persons = [];
+
+    var employeeFactory = new EmployeeFactory();
+    var vendorFactory = new VendorFactory();
+
+    persons.push(employeeFactory.create("Joan DiSilva"));
+    persons.push(employeeFactory.create("Tim O'Neill"));
+
+    persons.push(vendorFactory.create("Gerald Watson"));
+    persons.push(vendorFactory.create("Nicole McNight"));
+
+    for (var i = 0, len = persons.length; i < len; i++) {
+        persons[i].say();
+    }
+
+    log.show();
+}
+</pre>
+<a class="btn" href="javascript:void(0);" onclick="run();return false;">Run</a>
+
+<script type="text/javascript">
+
+    function Employee(name) {
+        this.name = name;
+        this.say = function () {
+            log.add("I am employee " + name);
+        };
+    }
+
+    function EmployeeFactory() {
+        this.create = function (name) {
+            return new Employee(name);
+        };
+    }
+
+    function Vendor(name) {
+        this.name = name;
+        this.say = function () {
+            log.add("I am vendor " + name);
+        };
+    }
+
+    function VendorFactory() {
+        this.create = function (name) {
+            return new Vendor(name);
+        };
+    }
+
+    // log helper
+    var log = (function () {
+        var log = "";
+        return {
+            add: function (msg) { log += msg + "\n"; },
+            show: function () { alert(log); log = ""; }
+        }
+    })();
+
+    function run() {
+
+        var persons = [];
+
+        var employeeFactory = new EmployeeFactory();
+        var vendorFactory = new VendorFactory();
+
+        persons.push(employeeFactory.create("Joan DiSilva"));
+        persons.push(employeeFactory.create("Tim O'Neill"));
+
+        persons.push(vendorFactory.create("Gerald Watson"));
+        persons.push(vendorFactory.create("Nicole McNight"));
+
+        for (var i = 0, len = persons.length; i < len; i++) {
+            persons[i].say();
+        }
+
+        log.show();
+    }
+
+</script>
+
+
+
+            </div>
+        </div>
+      
+        <br /> <br /> <br />
+
+        <!-- JavaScript Optimated Code -->
+        <div class="row">
+            <div class="span8">
+                <h3>JavaScript Optimized Code</h3>
+                <br />
+<p class="ptext">
+The Namespace pattern has applied to keep the code out of the global namespace. Our namespace is named <span class="cd">Patterns.Classic</span>.
+A Revealing Module named <span class="cd">AbstractFactory</span> encapsulates all of Abstract Factory's functions.  
+Only the <span class="cd">EmployeeFactory</span> and <span class="cd">VendorFactory</span> are exposed (revealed), whereas the 
+<span class="cd">Employee</span> and <span class="cd">Vendor</span> constructor functions are kept private inside the module. 
+</p>
+<p class="ptext">
+The <span class="cd">Patterns</span> object contains the <span class="cd">namespace</span> function which constructs namespaces non-destructively, 
+that is, if a name already exists it won't overwrite it. 
+</p>
+<p class="ptext">
+The <span class="cd">log</span> function is a helper which collects and displays results.
+</p>
+                
+                <br />
+<pre class="prettyprint">
+var Patterns = {
+    namespace: function (name) {
+        var parts = name.split(".");
+        var ns = this;
+
+        for (var i = 0, len = parts.length; i < len; i++) {
+            ns[parts[i]] = ns[parts[i]] || {};
+            ns = ns[parts[i]];
+        }
+
+        return ns;
+    }
+};
+
+Patterns.namespace("Classic").AbstractFactory = (function () {
+
+    var Employee = function (name) {
+        this.name = name;
+        this.say = function () {
+            log.add("I am employee " + name);
+        };
+    };
+
+    var Vendor = function (name) {
+        this.name = name;
+        this.say = function () {
+            log.add("I am vendor " + name);
+        };
+    };
+
+    var EmployeeFactory = function () {
+        this.create = function (name) {
+            return new Employee(name);
+        };
+    };
+
+    var VendorFactory = function () {
+        this.create = function (name) {
+            return new Vendor(name);
+        };
+    };
+
+    return {
+        EmployeeFactory: EmployeeFactory, 
+        VendorFactory: VendorFactory
+    };
+})();
+
+// log helper
+var log = (function () {
+    var log = "";
+    return {
+        add: function (msg) { log += msg + "\n"; },
+        show: function () { alert(log); log = ""; }
+    }
+})();
+
+
+function run() {
+
+    var abstract = Patterns.Classic.AbstractFactory;
+
+    var employeeFactory = new abstract.EmployeeFactory();
+    var vendorFactory = new abstract.VendorFactory();
+
+    var persons = [];
+
+    persons.push(employeeFactory.create("Joan DiSilva"));
+    persons.push(employeeFactory.create("Tim O'Neill"));
+
+    persons.push(vendorFactory.create("Gerald Watson"));
+    persons.push(vendorFactory.create("Nicole McNight"));
+
+    for (var i = 0, len = persons.length; i < len; i++) {
+        persons[i].say();
+    }
+
+    log.show();
+}
+</pre>
+<a class="btn" href="javascript:void(0);" onclick="run1();return false;">Run</a>
+
+<script type="text/javascript">
+    var Patterns = {
+        namespace: function (name) {
+            var parts = name.split(".");
+            var ns = this;
+
+            for (var i = 0, len = parts.length; i < len; i++) {
+                ns[parts[i]] = ns[parts[i]] || {};
+                ns = ns[parts[i]];
+            }
+
+            return ns;
+        }
+    };
+
+    Patterns.namespace("Classic").AbstractFactory = (function () {
+
+        var Employee = function (name) {
+            this.name = name;
+            this.say = function () {
+                log.add("I am employee " + name);
+            };
+        };
+
+        var Vendor = function (name) {
+            this.name = name;
+            this.say = function () {
+                log.add("I am vendor " + name);
+            };
+        };
+
+        var EmployeeFactory = function () {
+            this.create = function (name) {
+                return new Employee(name);
+            };
+        };
+
+        var VendorFactory = function () {
+            this.create = function (name) {
+                return new Vendor(name);
+            };
+        };
+
+        return {
+            EmployeeFactory: EmployeeFactory, 
+            VendorFactory: VendorFactory
+        };
+    })();
+
+    // log helper
+    var log = (function () {
+        var log = "";
+        return {
+            add: function (msg) { log += msg + "\n"; },
+            show: function () { alert(log); log = ""; }
+        }
+    })();
+
+
+    function run1() {
+
+        var abstract = Patterns.Classic.AbstractFactory;
+
+        var employeeFactory = new abstract.EmployeeFactory();
+        var vendorFactory = new abstract.VendorFactory();
+
+        var persons = [];
+
+        persons.push(employeeFactory.create("Joan DiSilva"));
+        persons.push(employeeFactory.create("Tim O'Neill"));
+
+        persons.push(vendorFactory.create("Gerald Watson"));
+        persons.push(vendorFactory.create("Nicole McNight"));
+
+        for (var i = 0, len = persons.length; i < len; i++) {
+            persons[i].say();
+        }
+
+        log.show();
+    }
+
+
+</script>
+
+
+
+            </div>
+        </div>
+  
+<br />
+<br />
+<br />
+<div class="row">
+    <div class="span4 offsethalf">
+        <i class="icon-hand-left" style="margin:2px 0 0 0;"></i>&nbsp;&nbsp;<a href='introduction.htm'>Introduction</a>
+
+    </div>
+    <div class="span3">
+        <a href='builder.htm'>Builder</a>&nbsp;&nbsp;<i class="icon-hand-right" style="margin:2px 0 0 0;"></i>
+    </div>
+</div>
+<br />
+<br />
+
+
+
+
+      <br /><br />
+
+      <hr />
+      <div class="footer">
+        <p class="pull-right"><a id="totop" href="#">Back to top</a></p>
+        <p style="font-size:11pt;">Copyright &#169; 2013. Data & Object Factory, LLC. www.dofactory.com. All rights reserved.</p>
+      </div>
+      <br />
+   </div>
+
+<script type="text/javascript">
+
+    $(function() {
+        prettyPrint();
+
+        // animates page to scroll to top
+        $('#totop').on('click', function () {
+            $("html, body").animate({ scrollTop: 0 }, 500);
+            return false;
+        });
+    });
+
+</script>
+</body>
+</html>

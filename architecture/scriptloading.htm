@@ -1,0 +1,220 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Script Loading</title>
+    <link rel="shortcut icon" href='../img/favicon.ico' />
+    <link href='../css/bootstrap.css' rel="stylesheet" />
+    <link href='../css/app.css' rel="stylesheet" />
+    <link href='../css/google-code-prettify/prettify.css' rel="stylesheet" />
+
+    <script src='../js/jquery.js' type="text/javascript" ></script>
+    <script src='../js/bootstrap.js' type="text/javascript" ></script>
+    <script src='../js/app.js' type="text/javascript" ></script>
+
+    <script src='../css/google-code-prettify/prettify.js' type="text/javascript"></script>
+</head>
+<body>
+     <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" style="padding-top:15px;" href='../index.htm'><img src='../img/js.png' alt="js" width="32" height="30" />
+              &nbsp; JavaScript + jQuery Design Pattern Framework <sup>TM</sup>&nbsp; 2013
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+     <div class="row">
+            <div class="span12" style="height:4px;background:yellowgreen;"></div>
+     </div>
+
+     <div class="row">
+       <div class="span12">
+         <ul class="breadcrumb">
+           <li><a href='/index.htm'>Home</a> <span class="divider">/</span></li>
+           <li><a href='_index.htm'>Architecture</a> <span class="divider">/</span></li>
+           <li class="active">Script Loading</li>
+         </ul>
+        </div>
+      </div>
+      <br />
+        
+
+<div class="row">
+    <div class="span10">
+
+        <div class="row">
+            <div class="span7" style="padding: 0px 0 0 0;">
+                <h2 class="h1title">Script Loading</h2>
+                <p>
+                  Effective JavaScript file loading techniques.<br /><br />
+                  Script loaders can make a significant difference in page load times. 
+                </p>
+            </div>
+            <div class="span3">
+                &nbsp;&nbsp;&nbsp;<a class='js' href="javascript:void(0);" onclick="return openPdf('ArchitecturePatterns');">Architecture Patterns Guide</a>
+            </div>
+        </div>
+       
+    </div>
+    <div class="span2">
+        <img src="../img/jspatterndetail.jpg" style="width:140px;height:140px;" alt="" />
+        <br />
+        <div class="back" style="padding:10px 0 0 18px;">
+            <i class="icon-hand-left" style="margin:2px 0 0 0;"></i>&nbsp;&nbsp;<a href='_index.htm' >back to list</a>
+        </div>
+    </div>
+</div>
+<hr />
+<br />
+
+<div class="row">
+   <div class="span10">
+      <h3>Overview</h3>
+      <br />
+      <div class="ptext">
+<p>
+Script loading is important if your goal is to build fast loading web apps. Loading a large number of script files by placing multiple &lt;script&gt; tags in the header 
+will slow down your app because they are loaded and executed <i>before</i> any HTML markup is rendered. Minifying your scripts helps but it does not change the fact 
+that script loading does block page rendering. 
+</p>
+<p>
+Script loaders are tools that can alleviate this problem by allowing the load process to take place asynchronously and/or in parallel (i.e. multiple script files at the same time). 
+It is important to do performance and comparison testing, but in many cases script loaders make a difference in page load times. 
+</p>
+<p>
+The truth is that script loaders are not always necessary. If your goal is to minimize page render times, then an easy way to make a difference is by concatenating all 
+script files into a single file and placing the script tag towards the end of the file, just before the closing &lt;/body&gt; tag.  Once loaded, browsers will do a good 
+job caching this file. 
+</p>
+<p>
+However, merging all files is not always possible; for example when your script tags reference CDN hosted files, such as on Google, Microsoft and Yahoo, 
+rather than pulling in files from your server. 
+</p>
+<p>
+Script loaders mostly follow a similar pattern to indicate what needs loading. Here is some generic code to show what it looks like: 
+</p>
+<pre class="prettyprint">
+ScriptLoader.load("jQuery.js", "app.js");
+</pre>
+<p>
+This will load the two named scripts asynchronously which will speed up loading. Unfortunately this may pose a problem for other scripts that have dependencies 
+on the above referenced scripts because when they execute it is not known whether these two files have completed loading or not. 
+</p>
+<p>
+Most script loaders offer a ready event to this timing issue. This event will fire when all scripts have completed loading and are available for use. 
+You pass it a callback that will execute at that time. The syntax looks something like this: 
+</p>
+<pre class="prettyprint">
+ScriptLoader.ready(function () {
+    // everything is loaded
+}
+</pre>
+<p>
+Most script loaders allow you to combine the two above snippets in a single call in which you pass an array with scripts that require loading and a 
+callback function which will be invoked when all scripts have completed loading, like so: 
+</p>
+<pre class="prettyprint">
+ScriptLoader.load(["jQuery.js", "app.js"], function () {
+     // callback called when loading has completed
+});
+
+</pre>
+<p>
+In case you're wondering how this works under the hood, most of these loaders simply insert a &lt;script&gt; element in the DOM document.  
+Here is some skeleton code to get the idea: 
+</p>
+<pre class="prettyprint">
+var tag = document.createElement("script");
+var src = http://mysite.com/js/app.js;
+var first = document.getElementsByTagName("script")[0];
+
+first.parentNode.insertBefore(tag, first);
+
+</pre>
+<p>
+This will insert the new script tag before the first &lt;script&gt; in the document, which most likely is a reference to the script loader's own JavaScript file. 
+</p>
+<p>
+There are a number of script loaders available. The most popular ones include Require.js, Head.js, curl.js and LazyLoad 
+(by the way, the name LazyLoad is a reference to the Lazy Load pattern, i.e. load on demand).  
+</p>
+<p>
+Some script loaders have a narrow focus and all they do is speed up file loading.  Others offer additional services which we will look at in a moment. 
+LazyLoad falls under the first category: it allows you to speed up the load processing by loading CSS and JavaScript files on demand. 
+LazyLoad is a tiny tool which when minified is less than 1K. Here is an example of how you use it with two JavaScript files: 
+</p>
+<pre class="prettyprint">
+LazyLoad.js(["jQuery.js", "app.js"],function () {
+    // executes when loading is complete
+});
+
+</pre>
+<p>
+The <span class="cd">js</span> method loads the files in parallel. If your files need to be loaded sequentially and in order, then the statements can be nested: 
+</p>
+<pre class="prettyprint">
+LazyLoad.js("jQuery.js",function () {
+    // executes when jQuery is complete
+    LazyLoad.js("app.js", function () {
+       // executes when both are complete
+    });
+});
+
+</pre>
+<p>
+LazyLoad has the ability to load CSS files in a similar way by using its <span class="cd">css</span> method.
+</p>
+<p>
+Other script loaders do more than just loading scripts; they also help with organizing large applications. 
+The reason for this dual purpose is that script loading is inextricably related to the organization of your modules and the management of their dependencies. 
+Modularity is the topic of the next section followed by a review of these dual purpose loaders. 
+</p>
+
+
+      </div> 
+  </div>
+</div>
+
+<br />
+<br />
+<div class="row">
+    <div class="span4 offsethalf">
+        <i class="icon-hand-left" style="margin:2px 0 0 0;"></i>&nbsp;&nbsp;<a href='introduction.htm'>Introduction</a>
+
+    </div>
+    <div class="span3">
+        <a href='modularity.htm'>Modularity</a>&nbsp;&nbsp;<i class="icon-hand-right" style="margin:2px 0 0 0;"></i>
+    </div>
+</div>
+<br />
+<br />
+
+
+      <br /><br />
+
+      <hr />
+      <div class="footer">
+        <p class="pull-right"><a id="totop" href="#">Back to top</a></p>
+        <p style="font-size:11pt;">Copyright &#169; 2013. Data & Object Factory, LLC. www.dofactory.com. All rights reserved.</p>
+      </div>
+      <br />
+   </div>
+
+<script type="text/javascript">
+
+    $(function() {
+        prettyPrint();
+
+        // animates page to scroll to top
+        $('#totop').on('click', function () {
+            $("html, body").animate({ scrollTop: 0 }, 500);
+            return false;
+        });
+    });
+
+</script>
+</body>
+</html>

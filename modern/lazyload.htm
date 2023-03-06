@@ -1,0 +1,333 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Lazy Load</title>
+    <link rel="shortcut icon" href='../img/favicon.ico' />
+    <link href='../css/bootstrap.css' rel="stylesheet" />
+    <link href='../css/app.css' rel="stylesheet" />
+    <link href='../css/google-code-prettify/prettify.css' rel="stylesheet" />
+
+    <script src='../js/jquery.js' type="text/javascript" ></script>
+    <script src='../js/bootstrap.js' type="text/javascript" ></script>
+    <script src='../js/app.js' type="text/javascript" ></script>
+
+    <script src='../css/google-code-prettify/prettify.js' type="text/javascript"></script>
+</head>
+<body>
+     <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" style="padding-top:15px;" href='../index.htm'><img src='../img/js.png' alt="js" width="32" height="30" />
+              &nbsp; JavaScript + jQuery Design Pattern Framework <sup>TM</sup>&nbsp; 2013
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+     <div class="row">
+            <div class="span12" style="height:4px;background:lightsalmon;"></div>
+     </div>
+
+     <div class="row">
+       <div class="span12">
+         <ul class="breadcrumb">
+           <li><a href='../index.htm'>Home</a> <span class="divider">/</span></li>
+           <li><a href='_index.htm'>Modern</a> <span class="divider">/</span></li>
+           <li class="active">Lazyload</li>
+         </ul>
+        </div>
+      </div>
+      <br />
+        
+
+<div class="row">
+    <div class="span10">
+
+        <div class="row">
+            <div class="span7" style="padding: 0px 0 0 0;">
+                <h2 class="h1title">Lazy Load</h2>
+                <p>
+                   Loads data or code only when absolutely necessary.
+                </p>
+            </div>
+            <div class="span3">
+                &nbsp;&nbsp;&nbsp;<img src="../img/js.png" width="20" height="18" style="vertical-align:top;" alt="" />&nbsp; <a href="javascript:void(0);" onclick="return openPdf('ModernPatterns');">Modern Patterns Guide</a>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="span7">
+                <br />
+                <table class="usage">
+                    <tr>
+                        <td class="usage1">Usage in JavaScript:</td>
+                        <td class="usage2">
+                            <div class="progress progress-warning" style="width: 150px;">
+                                <div class="bar" style="width: 55%;"></div>
+                            </div>
+                        </td>
+                        <td class="usage3">medium</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+     <div class="span2">
+        <img src="../img/jspatterndetail.jpg" style="width:140px;height:140px;" alt="" />
+        <br />
+        <div class="back" style="padding:10px 0 0 18px;">
+            <i class="icon-hand-left" style="margin:2px 0 0 0;"></i>&nbsp;&nbsp;<a href='_index.htm' >back to list</a>
+        </div>
+    </div>
+</div>
+<hr />
+<br />
+
+<div class="row">
+    <div class="span10">
+        <h3>Fundamentals</h3>
+        <br />
+<div class="ptext">
+<p>
+The Lazy Load pattern allows you to load data or code only when absolutely necessary.  
+It is designed to limit the use of resources such as memory, CPU cycles, and/or network traffic. 
+It is a very helpful technique in providing end-users with a better experience, for example, faster display results when multiple items need to be displayed 
+but only a few will do initially.  An alternative name for this pattern is <i>Just-in-Time Pattern</i>. 
+</p>
+<p>
+There are two variations of this pattern: <i>Lazy Initialization</i> and the <i>Ghost Pattern</i>. Lazy initialization occurs when an object is lazily loaded. 
+Initially the object will be null or undefined. Upon requesting the object the code checks if the object exists and if it doesn't then it loads it and returns its reference. Here is an example: 
+</p>
+<pre class="prettyprint">
+var employee = {
+
+    name: "Victor",
+    salaryHistory: null,
+
+    getSalaryHistory: function () {
+       if (this.salaryHistory === null) {                 // Lazy initializion
+           this.salaryHistory = this.initializeHistory();
+       } 
+       return this.salaryHistory;
+    },
+
+    initializeHistory: function () {
+        var history = {};
+        history [2009] = "$34,000";
+        history [2010] = "$36,500";
+        history [2011] = "$44,000";
+        history [2012] = "$45,500";
+        history [2013] = "$51,000";
+        return history;
+    }
+};
+
+var history = employee.getSalaryHistory();
+
+alert("2010: " + history[2010]);   // => 2010: $36,500
+</pre>
+<a class="btn" href="javascript:void(0);" onclick="run1();return false">Run</a>
+<script type="text/javascript">
+    function run1() {
+        var employee = {
+
+            name: "Victor",
+            salaryHistory: null,
+
+            getSalaryHistory: function () {
+                if (this.salaryHistory === null) {                 // Lazy initializion
+                    this.salaryHistory = this.initializeHistory();
+                }
+                return this.salaryHistory;
+            },
+
+            initializeHistory: function () {
+                var history = {};
+                history[2009] = "$34,000";
+                history[2010] = "$36,500";
+                history[2011] = "$44,000";
+                history[2012] = "$45,500";
+                history[2013] = "$51,000";
+                return history;
+            }
+        };
+
+        var history = employee.getSalaryHistory();
+
+        alert("2010: " + history[2010]);   // => 2010: $36,500
+    }
+</script>
+<br /><br />
+<p>
+The <span class="cd">employee</span> object is initially created without salary history. 
+Perhaps this data is used infrequently and with many employees you can save yourself some significant memory and server access.  
+In case the end-user needs salary data for employee Victor then the <span class="cd">getSalaryHistory</span> method checks if it is already loaded; if not, 
+it will load it up and returns the array with historical salary data. It loads the data only when absolutely necessary. 
+</p>
+<p>
+The second variety called Ghost Pattern is rather interesting. A Ghost object is one that is only partially loaded and when called upon will load itself completely.  
+</p>
+<p>
+An example where the Ghost Pattern will be helpful is a web page that displays a long list of employees. For each employee you have a partially populated employee object with only the id, name, and thumbnail image loaded.  
+These are 'ghost' versions of the fully loaded employee objects. 
+</p>
+<p>
+To get the full details on an employee, the end-user clicks on the employee image. At that time the ghost object starts loading itself up with the remaining data to turn itself into a 
+fully populated employee object. This loading most likely takes place via an Ajax call in which the full employee record is retrieved from a back-end database.   Here is what this looks like:  
+</p>
+<pre class="prettyprint">
+var Employee = function (id, name, thumbnail) {
+    this.id = id; 
+    this.name = name;
+    this.thumbnail = thumbnail; 
+
+    this.ghost = true;
+
+    this.getDepartment = function () {
+        if (this.ghost) this.load();
+        return this.department;
+    },
+    this.getSalary = function () {
+        if (this.ghost) this.load();
+        return this.salary;
+    }
+    this.getBenefits = function () {
+        if (this.ghost) this.load();
+        return this.benefits;
+    }
+
+    this.load = function () {
+
+        // load using an ajax call
+
+        this.department = "Product Development";
+        this.salary = "$66,400";
+        this.benefits = "401(k); 21 vacation days";
+
+        this.ghost = false;
+    };
+};
+
+var employee = new Employee(211, "Nicolas Vick", "vick.jpg");
+
+alert(employee.name);
+
+// get more details on employee..
+
+alert(employee.getDepartment());            // this is when it loads
+alert(employee.getSalary());                // fully loaded
+alert(employee.getBenefits());              // fully loaded
+
+
+</pre>
+<a class="btn" href="javascript:void(0);" onclick="run2();return false">Run</a>
+<script type="text/javascript">
+    function run2() {
+        var Employee = function (id, name, thumbnail) {
+            this.id = id;
+            this.name = name;
+            this.thumbnail = thumbnail;
+
+            this.ghost = true;
+
+            this.getDepartment = function () {
+                if (this.ghost) this.load();
+                return this.department;
+            },
+            this.getSalary = function () {
+                if (this.ghost) this.load();
+                return this.salary;
+            }
+            this.getBenefits = function () {
+                if (this.ghost) this.load();
+                return this.benefits;
+            }
+
+            this.load = function () {
+
+                // load using an ajax call
+
+                this.department = "Product Development";
+                this.salary = "$66,400";
+                this.benefits = "401(k); 21 vacation days";
+
+                this.ghost = false;
+            };
+        };
+
+        var employee = new Employee(211, "Nicolas Vick", "vick.jpg");
+
+        alert(employee.name);
+
+        // get more details on employee..
+
+        alert(employee.getDepartment());            // this is when it loads
+        alert(employee.getSalary());                // fully loaded
+        alert(employee.getBenefits());              // fully loaded
+
+    }
+</script>
+<br /><br />
+<p>
+This code does not account for the asynchronous nature of Ajax. It requires some sort of callback mechanism. But, you get the idea. 
+The beauty of the Ghost Pattern is that it is usually totally transparent to the client programmer.  
+</p>
+<p>
+Of course, you have to balance the initial performance of loading the entire page versus a slower display of employee details. 
+There are smart techniques that predict which employees are likely to require details and data for these can be pre-fetched, 
+so some sort of balance is found between initial fast performance (for entire employee list) and later fast performance (for employee detail).   
+All this depends on your particular situation. 
+</p>
+
+
+</div>
+
+
+
+    </div>
+</div>
+
+<br />
+<br />
+<div class="row">
+    <div class="span5 offsethalf">
+        <i class="icon-hand-left" style="margin:2px 0 0 0;"></i>&nbsp;&nbsp;<a href='monkeypatch.htm'>Monkeypatch</a>
+
+    </div>
+    <div class="span3">
+        <a href='multiton.htm'>Multiton</a>&nbsp;&nbsp;<i class="icon-hand-right" style="margin:2px 0 0 0;"></i>
+    </div>
+</div>
+<br />
+<br />
+
+
+
+
+      <br /><br />
+
+      <hr />
+      <div class="footer">
+        <p class="pull-right"><a id="totop" href="#">Back to top</a></p>
+        <p style="font-size:11pt;">Copyright &#169; 2013. Data & Object Factory, LLC. www.dofactory.com. All rights reserved.</p>
+      </div>
+      <br />
+   </div>
+
+<script type="text/javascript">
+
+    $(function() {
+        prettyPrint();
+
+        // animates page to scroll to top
+        $('#totop').on('click', function () {
+            $("html, body").animate({ scrollTop: 0 }, 500);
+            return false;
+        });
+    });
+
+</script>
+</body>
+</html>

@@ -1,0 +1,166 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Chaining</title>
+    <link rel="shortcut icon" href='../img/favicon.ico' />
+    <link href='../css/bootstrap.css' rel="stylesheet" />
+    <link href='../css/app.css' rel="stylesheet" />
+    <link href='../css/google-code-prettify/prettify.css' rel="stylesheet" />
+
+    <script src='../js/jquery.js' type="text/javascript" ></script>
+    <script src='../js/bootstrap.js' type="text/javascript" ></script>
+    <script src='../js/app.js' type="text/javascript" ></script>
+
+    <script src='../css/google-code-prettify/prettify.js' type="text/javascript"></script>
+</head>
+<body>
+     <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" style="padding-top:15px;" href='../index.htm'><img src='../img/js.png' alt="js" width="32" height="30" />
+              &nbsp; JavaScript + jQuery Design Pattern Framework <sup>TM</sup>&nbsp; 2013
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+     <div class="row">
+            <div class="span12" style="height:4px;background:mediumturquoise;"></div>
+     </div>
+
+     <div class="row">
+       <div class="span12">
+         <ul class="breadcrumb">
+           <li><a href='../index.htm'>Home</a> <span class="divider">/</span></li>
+           <li><a href='_index.htm'>jQuery</a> <span class="divider">/</span></li>
+           <li class="active">Chaining</li>
+         </ul>
+        </div>
+      </div>
+      <br />
+        
+
+<div class="row">
+    <div class="span10">
+
+        <div class="row">
+            <div class="span7" style="padding: 0px 0 0 0;">
+                <h2 class="h1title">Chaining</h2>
+                <p>
+                  Allows multiple chained method calls on an object.<br /><br />
+                  Most functions in jQuery are written to be chainable. 
+                </p>
+            </div>
+            <div class="span3">
+                &nbsp;&nbsp;&nbsp;<a class='js' href="javascript:void(0);" onclick="return openPdf('jQueryPatterns');">jQuery Patterns Guide</a>
+            </div>
+        </div>
+       
+    </div>
+     <div class="span2">
+        <img src="../img/jspatterndetail.jpg" style="width:140px;height:140px;" alt="" />
+        <br />
+        <div class="back" style="padding:10px 0 0 18px;">
+            <i class="icon-hand-left" style="margin:2px 0 0 0;"></i>&nbsp;&nbsp;<a href='_index.htm' >back to list</a>
+        </div>
+    </div>
+</div>
+<hr />
+<br />
+
+<div class="row">
+   <div class="span10">
+      <h3>Overview</h3>
+      <br />
+      <div class="ptext">
+<p>
+The Chaining pattern allows method calls to be chained together in a single statement. 
+Chaining is deeply engrained in jQuery and any method that can support chaining does. 
+In jQuery chaining is important because it limits selector processing which involves DOM traversing which can be rather slow.  
+Here is an example of a chained jQuery statement: 
+</p>
+<pre class="prettyprint">
+$("#menu").addClass("highlight").css("margin", "2px").fadeIn("fast");
+</pre>
+<p>
+As an aside, the methods that operate on a jQuery selector set (a set of DOM elements) are commonly referred to as <i>commands</i>.  In the above code we have three commands.
+</p>
+<p>
+The selector selects the #menu element only once; all subsequent commands are applied to the selector's result set in a chain, one after the other. 
+</p>
+<p>
+In jQuery's code base we find numerous methods that return <span class="cd">this</span> or <span class="cd">this.each</span> which mostly represents
+the jQuery object which is the currently selected set of elements.  Many methods use an internal helper method named jQuery.access; it has a <span class="cd">chainable</span> 
+argument in which the calling method indicates whether chaining is supported or not.   Here is the skeleton code of jQuery.access and its use of the chainable flag: 
+</p>
+<pre class="prettyprint">
+access: function( elems, fn, key, value, chainable, emptyGet, pass ) {
+
+    // ...
+
+    return chainable ? ...
+
+}
+</pre>
+<p>
+Chaining in jQuery can also be applied to events, like so: 
+</p>
+<pre class="prettyprint">
+$("#menu").click(function (e) {
+        alert("You clicked me!");
+    }).mouseenter(function (e) {
+        $(this).css("backgroundColor", "Red");
+    }).mouseleave(function (e) {
+        $(this).css("backgroundColor", "Green");
+    }); 
+
+</pre>
+<p>
+In summary, the Chaining pattern is very important to jQuery.
+</p>
+
+      </div> 
+  </div>
+</div>
+
+<br />
+<br />
+<div class="row">
+    <div class="span4 offsethalf">
+        <i class="icon-hand-left" style="margin:2px 0 0 0;"></i>&nbsp;&nbsp;<a href='optionshash.htm'>Options Hash</a>
+    </div>
+    <div class="span3">
+        <a href='namespace.htm'>Namespace</a>&nbsp;&nbsp;<i class="icon-hand-right" style="margin:2px 0 0 0;"></i>
+    </div>
+</div>
+<br />
+<br />
+
+
+      <br /><br />
+
+      <hr />
+      <div class="footer">
+        <p class="pull-right"><a id="totop" href="#">Back to top</a></p>
+        <p style="font-size:11pt;">Copyright &#169; 2013. Data & Object Factory, LLC. www.dofactory.com. All rights reserved.</p>
+      </div>
+      <br />
+   </div>
+
+<script type="text/javascript">
+
+    $(function() {
+        prettyPrint();
+
+        // animates page to scroll to top
+        $('#totop').on('click', function () {
+            $("html, body").animate({ scrollTop: 0 }, 500);
+            return false;
+        });
+    });
+
+</script>
+</body>
+</html>

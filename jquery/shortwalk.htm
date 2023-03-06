@@ -1,0 +1,162 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>ShortWalk</title>
+    <link rel="shortcut icon" href='../img/favicon.ico' />
+    <link href='../css/bootstrap.css' rel="stylesheet" />
+    <link href='../css/app.css' rel="stylesheet" />
+    <link href='../css/google-code-prettify/prettify.css' rel="stylesheet" />
+
+    <script src='../js/jquery.js' type="text/javascript" ></script>
+    <script src='../js/bootstrap.js' type="text/javascript" ></script>
+    <script src='../js/app.js' type="text/javascript" ></script>
+
+    <script src='../css/google-code-prettify/prettify.js' type="text/javascript"></script>
+</head>
+<body>
+     <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" style="padding-top:15px;" href='../index.htm'><img src='../img/js.png' alt="js" width="32" height="30" />
+              &nbsp; JavaScript + jQuery Design Pattern Framework <sup>TM</sup>&nbsp; 2013
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+     <div class="row">
+            <div class="span12" style="height:4px;background:mediumturquoise;"></div>
+     </div>
+
+     <div class="row">
+       <div class="span12">
+         <ul class="breadcrumb">
+           <li><a href='../index.htm'>Home</a> <span class="divider">/</span></li>
+           <li><a href='_index.htm'>jQuery</a> <span class="divider">/</span></li>
+           <li class="active">Short Walk</li>
+         </ul>
+        </div>
+      </div>
+      <br />
+        
+
+<div class="row">
+    <div class="span10">
+
+        <div class="row">
+            <div class="span7" style="padding: 0px 0 0 0;">
+                <h2 class="h1title">Short Walk</h2>
+                <p>
+                  Shortens the length of the prototype chain walk.<br /><br />
+                  jQuery assigns frequently used global functions to local variables to speed up processing. 
+                </p>
+            </div>
+            <div class="span3">
+                &nbsp;&nbsp;&nbsp;<a class='js' href="javascript:void(0);" onclick="return openPdf('jQueryPatterns');">jQuery Patterns Guide</a>
+            </div>
+        </div>
+       
+    </div>
+     <div class="span2">
+        <img src="../img/jspatterndetail.jpg" style="width:140px;height:140px;" alt="" />
+        <br />
+        <div class="back" style="padding:10px 0 0 18px;">
+            <i class="icon-hand-left" style="margin:2px 0 0 0;"></i>&nbsp;&nbsp;<a href='_index.htm' >back to list</a>
+        </div>
+    </div>
+</div>
+<hr />
+<br />
+
+<div class="row">
+   <div class="span10">
+      <h3>Overview</h3>
+      <br />
+      <div class="ptext">
+<p>
+Within the Single var area in jQuery there are several assignments of built-in JavaScript functions to local variables.  Here is an extract: 
+</p>
+
+<pre class="prettyprint">
+core_push = Array.prototype.push,
+core_slice = Array.prototype.slice,
+core_indexOf = Array.prototype.indexOf,
+core_toString = Object.prototype.toString,
+core_hasOwn = Object.prototype.hasOwnProperty,
+core_trim = String.prototype.trim,
+
+</pre>
+<p>
+These are implementations of the Short Walk idiom which is designed to speed up processing. 
+Having these methods available as local variables will prevent the JavaScript engine from having to walk the scope chain 
+every time these methods are needed. 
+</p>
+<p>
+A slight disadvantage is that you need to invoke these with <span class="cd">call</span> or <span class="cd">apply</span>, making the code a bit less legible: 
+</p>
+<pre class="prettyprint">
+core_push.call( ret, arr );
+
+core_indexOf.call( arr, elem, i );
+
+core_toString.call(obj)
+
+</pre>
+<p>
+These lines are all from jQuery.
+</p>
+<br />
+<p>
+<strong>Minification</strong><br />
+The above Short Walk idiom does more than provide faster access. 
+It also helps in minifying the code. The local variables can get shortened to 1 or 2 character names, which would not be possible with built-in methods with 
+longer names and object chains.  This is the Minification Idiom.
+
+</p>
+
+
+      </div> 
+  </div>
+</div>
+
+<br />
+<br />
+<div class="row">
+    <div class="span4 offsethalf">
+        <i class="icon-hand-left" style="margin:2px 0 0 0;"></i>&nbsp;&nbsp;<a href='placeholder.htm'>Placeholder</a>
+    </div>
+    <div class="span3">
+        <a href='optionshash.htm'>Options Hash</a>&nbsp;&nbsp;<i class="icon-hand-right" style="margin:2px 0 0 0;"></i>
+    </div>
+</div>
+<br />
+<br />
+
+
+      <br /><br />
+
+      <hr />
+      <div class="footer">
+        <p class="pull-right"><a id="totop" href="#">Back to top</a></p>
+        <p style="font-size:11pt;">Copyright &#169; 2013. Data & Object Factory, LLC. www.dofactory.com. All rights reserved.</p>
+      </div>
+      <br />
+   </div>
+
+<script type="text/javascript">
+
+    $(function() {
+        prettyPrint();
+
+        // animates page to scroll to top
+        $('#totop').on('click', function () {
+            $("html, body").animate({ scrollTop: 0 }, 500);
+            return false;
+        });
+    });
+
+</script>
+</body>
+</html>

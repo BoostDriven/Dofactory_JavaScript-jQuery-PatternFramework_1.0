@@ -1,0 +1,330 @@
+﻿<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Search</title>
+    <link rel="shortcut icon" href='../img/favicon.ico' />
+    <link href='../css/bootstrap.css' rel="stylesheet" />
+    <link href='../css/app.css' rel="stylesheet" />
+    <link href='../css/google-code-prettify/prettify.css' rel="stylesheet" />
+
+    <script src='../js/jquery.js' type="text/javascript" ></script>
+    <script src='../js/bootstrap.js' type="text/javascript" ></script>
+    <script src='../js/app.js' type="text/javascript" ></script>
+
+    <script src='../css/google-code-prettify/prettify.js' type="text/javascript"></script>
+</head>
+<body>
+     <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" style="padding-top:15px;" href='../index.htm'><img src='../img/js.png' alt="js" width="32" height="30" />
+              &nbsp; JavaScript + jQuery Design Pattern Framework <sup>TM</sup>&nbsp; 2013
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+     <div class="row">
+            <div class="span12" style="height:4px;background:mediumblue;"></div>
+     </div>
+
+     <div class="row">
+       <div class="span12">
+         <ul class="breadcrumb">
+           <li><a href='../index.htm'>Home</a> <span class="divider">/</span></li>
+           <li><a href='_index.htm'>Patterns In Action</a> <span class="divider">/</span></li>
+           <li class="active">Search</li>
+         </ul>
+        </div>
+      </div>
+      <br />
+        
+
+<div class="row">
+    <div class="span10">
+
+        <div class="row">
+            <div class="span7" style="padding: 0px 0 0 0;">
+                <h2 class="h1title">Search</h2>
+                <p>
+                  A search app displaying a list of results.
+                </p>
+                <br />
+                <br />
+                <a href='searchapp.htm' class="btn btn-inverse">Launch App</a>
+            </div>
+            <div class="span3">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class='js' href="javascript:void(0);" onclick="return openPdf('PatternsInAction');">Patterns in Action Guide</a>
+            </div>
+        </div>
+       
+    </div>
+    <div class="span2">
+        <img src="../img/jspatterndetail.jpg" style="width:140px;height:140px;" alt="" />
+        <br />
+        <div class="back" style="padding:10px 0 0 18px;">
+            <i class="icon-hand-left" style="margin:2px 0 0 0;"></i>&nbsp;&nbsp;<a href='_index.htm' >back to list</a>
+        </div>
+    </div>
+</div>
+<hr />
+<br />
+
+
+<div class="row">
+   <div  id="text" class="span12">
+      <h3>Description</h3>
+      <br />
+      <div class="ptext">
+
+<p>
+Search is important to most web apps. If you have a database with more than, say 100 records, you will want to consider some search, and possibly sort and filter, facility on your site. 
+Since our app has no access to a real server, we will be using a Mock server that returns a random number of records generated with the help of a quote from Cicero, a Roman philosopher. 
+</p>
+<p>
+The page has two &lt;script&gt; templates. The <span class="cd">search-results-template</span> 
+renders all search results and the 
+<span class="cd">search-result-template</span> renders an individual record.  Just as we did in the <span class="cd">DataEntry</span> 
+example, the template token 
+markers were changed from <span class="cd">&lt;% = &nbsp; %&gt;</span> to double braces <span class="cd">{{</span> and <span class="cd">}}</span> using a simple <span class="cd">_.templateSettings</span> call.
+</p>
+<p>
+The Search app code is below: 
+</p>
+<div class="row">
+<pre class="prettyprint span12">
+var Patterns = {
+    // ** namespace pattern
+    namespace: function (name) {
+
+        // ** single var pattern
+        var parts = name.split(".");
+        var ns = this;
+
+        // ** iterator pattern
+        for (var i = 0, len = parts.length; i < len; i++) {
+
+            // ** || idiom
+            ns[parts[i]] = ns[parts[i]] || {};
+            ns = ns[parts[i]];
+        }
+
+        return ns;
+    }
+};
+
+// ** namespace pattern 
+// ** revealing module pattern
+// ** singleton pattern
+Patterns.namespace("InAction").Search = (function () {
+
+    // change template token markers to use double curly braces (just like Mustache):
+    _.templateSettings = {
+        interpolate: /\{\{(.+?)\}\}/g,
+        evaluate: /\{\{(.+?)\}\}/g
+    };
+
+    // ** extend pattern
+    // ** option hash idiom
+    var Book = Backbone.Model.extend({
+    });
+
+    // ** extend pattern
+    // ** option hash idiom
+    var Books = Backbone.Collection.extend({
+        model: Book,
+        url: "search/:q"
+    });
+
+    // ** extend pattern
+    // ** option hash idiom
+    var Views = Backbone.View.extend({
+
+        // ** chaining pattern
+        template: _.template($('#search-results-template').html()),
+        el: $("#searchresults"),
+
+        // ** init pattern
+        initialize: function (obj) {
+            this.query = obj.query;
+
+            this.books = new Books();
+            // ** observer pattern
+            this.books.on('reset', this.render, this); // will trigger render
+            this.books.fetch({ data: { q: this.query } });
+        },
+
+        render: function (eventName) {
+            this.$el.empty();
+            // ** iterator pattern
+            this.books.each(function (book) {
+                this.$el.append(new View({ model: book }).render().el);
+            }, this);
+
+            return this;
+        }
+    });
+
+    // ** extend pattern
+    // ** option hash idiom
+    var View = Backbone.View.extend({
+        // ** chaining pattern
+        template: _.template($('#search-result-template').html()),
+
+        render: function (eventName) {
+            this.$el.html(this.template(this.model.toJSON()));
+            return this;
+        }
+    });
+
+    // Random text helpers
+
+    var randomInt = function (min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    // cicero: used in random string generator
+    var cicero = "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?";
+    var ciceroLen = cicero.length;
+
+    // server Mock
+    fauxServer.addRoute("searchBook", "search/:q", "GET", function (context) {
+            
+        var q = context.data.q;
+        var count = randomInt(6, 35);
+
+        var array = [];
+
+        // ** iterator pattern
+        for (var i = 0; i < count; i++) {
+            var from = randomInt(1, ciceroLen - 31);
+            var to = from + randomInt(10, 30);
+            var append = cicero.substring(from, to).replace(/^\s+|\s+$/g, ''); // sub and trim
+            array.push({ id: i, title: q + " " + append })
+        }
+
+        context.data = array;
+        return context.data;
+    });
+
+    var start = function () {
+
+        // focus on search text box and hook up enter keydown event
+        // ** chaining pattern
+        $("#search").focus().keydown(function (event) {  
+            if (event.keyCode == 13) {
+                $("#searchbutton").click();
+            }
+        });
+
+        // button click triggers search
+        // ** observer pattern
+        $("#searchbutton").on('click', function () {
+            var q = $("#search").val();
+            if (q) {
+                new Views({ query: q });
+            } else {
+                alert("Please enter a search string");
+                $("#search").focus();
+            }
+        });
+
+        // ** observer pattern
+        $("#reset").on('mousedown', function () {
+            // ** chaining pattern
+            $("#search").val("").focus();
+            $("#searchresults").empty();
+        });
+    }
+
+    return { start: start };
+}());
+    
+$(function () {
+
+    // ** facade pattern
+    Patterns.InAction.Search.start();
+});
+</pre>
+</div>
+<p>
+The patterns and idioms used in this code are:  
+</p>
+<ul>
+<li>|| and && idiom</li>
+<li>Option Hash idiom</li>
+<li>Namespace pattern</li>
+<li>Single var pattern</li>
+<li>Module pattern </li>
+<li>Extend pattern</li>
+<li>Init pattern</li>
+<li>Chaining pattern</li>
+<li>Iterator pattern</li>
+<li>Singleton pattern</li>
+<li>Observer pattern</li>
+<li>Façade pattern</li>
+</ul>
+<p>
+All of these patterns have already been described in the previous examples. 
+This shows that the same patterns are commonly used over and over again. 
+Once you develop the skills to write patterns they will become second nature, almost as if they were native to 
+the JavaScript language.  
+</p>
+<br />
+<p>
+<a href='searchapp.htm' class="btn btn-inverse">Launch App</a>
+</p>
+       </div>
+    </div>
+</div>
+
+<br />
+
+<br />
+<br />
+<div class="row">
+    <div class="span4 offsethalf">
+        <i class="icon-hand-left" style="margin:2px 0 0 0;"></i>&nbsp;&nbsp;<a href='dataentry.htm'>Data Entry</a>
+
+    </div>
+    <div class="span3">
+        <a href='pagination.htm'>Pagination</a>&nbsp;&nbsp;<i class="icon-hand-right" style="margin:2px 0 0 0;"></i>
+    </div>
+</div>
+<br />
+<br />
+
+
+
+
+
+
+
+
+      <br /><br />
+
+      <hr />
+      <div class="footer">
+        <p class="pull-right"><a id="totop" href="#">Back to top</a></p>
+        <p style="font-size:11pt;">Copyright &#169; 2013. Data & Object Factory, LLC. www.dofactory.com. All rights reserved.</p>
+      </div>
+      <br />
+   </div>
+
+<script type="text/javascript">
+
+    $(function() {
+        prettyPrint();
+
+        // animates page to scroll to top
+        $('#totop').on('click', function () {
+            $("html, body").animate({ scrollTop: 0 }, 500);
+            return false;
+        });
+    });
+
+</script>
+</body>
+</html>

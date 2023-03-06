@@ -1,0 +1,202 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>jQuery Design Patterns</title>
+    <link rel="shortcut icon" href='../img/favicon.ico' />
+    <link href='../css/bootstrap.css' rel="stylesheet" />
+    <link href='../css/app.css' rel="stylesheet" />
+    <link href='../css/google-code-prettify/prettify.css' rel="stylesheet" />
+
+    <script src='../js/jquery.js' type="text/javascript" ></script>
+    <script src='../js/bootstrap.js' type="text/javascript" ></script>
+    <script src='../js/app.js' type="text/javascript" ></script>
+
+    <script src='../css/google-code-prettify/prettify.js' type="text/javascript"></script>
+</head>
+<body>
+     <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" style="padding-top:15px;" href='../index.htm'><img src='../img/js.png' alt="js" width="32" height="30" />
+              &nbsp; JavaScript + jQuery Design Pattern Framework <sup>TM</sup>&nbsp; 2013
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+     <div class="row">
+            <div class="span12" style="height:4px;background:mediumturquoise;"></div>
+     </div>
+
+     <div class="row">
+       <div class="span12">
+         <ul class="breadcrumb">
+           <li><a href='../index.htm'>Home</a> <span class="divider">/</span></li>
+           <li class="active">jQuery</li>
+         </ul>
+        </div>
+      </div>
+      <br />
+        
+
+
+      <div class="row">
+      <div class="span7"><h2 style="color:#4e3825;">jQuery Design Patterns</h2>
+      <div class="pattern-top">
+         <p>
+            jQuery is by far the most popular JavaScript library. jQuery makes it easy to 
+            traverse HTML documents, handle events, build animations, and perform Ajax interactions.<br /><br />  
+            In this section we review how jQuery uses Idioms, Modern Patterns, and Classic Patterns.
+            We will also look at extending jQuery through plugins.
+         </p>
+           
+      </div>
+      
+      </div>
+      <div class="span3">
+       &nbsp;&nbsp;&nbsp;<a class='js' href="javascript:void(0);" onclick="return openPdf('jQueryPatterns');">jQuery Patterns Guide</a>
+      </div>
+      <div class="span2">
+        <img src="../img/jspattern.jpg" style="width:140px;height:140px;" alt="" />
+        <br />
+        <div class="back" style="padding:10px 0 0 18px;">
+            <i class="icon-hand-left" style="margin:2px 0 0 0;"></i>&nbsp;&nbsp;<a href='../index.htm'>back to home</a>
+        </div>
+      </div>
+    </div>
+
+      <br /><br />
+      <br />
+      <br />
+
+      <div class="row">
+       <div class="span9">
+       <table class="table">
+         <tr>
+            <th colspan="2" style="background-color:beige;">&nbsp;&nbsp;<b>jQuery Modern Patterns  &  <i>Idioms</i></b></th>
+         </tr>
+        <tr>
+            <td class="first-col">&nbsp;&nbsp;&nbsp;<a href='introduction.htm'>Introduction</a></td>
+            <td>Introduction to jQuery and Design Patterns</td>
+        </tr>
+        <tr>
+            <td class="first-col">&nbsp;&nbsp;&nbsp;<a href='module.htm'>Module</a></td>
+            <td>Organizes the code in logical or functional units</td>
+        </tr>
+        <tr>
+            <td>&nbsp;&nbsp;&nbsp;<a href='singlevar.htm'>Single var</a></td>
+            <td>Declares and initializes all function variables with a single var</td>
+        </tr>
+        <tr>
+            <td>&nbsp;&nbsp;&nbsp;<a href='doubleexclamation.htm'>Double Exclamation</a></td>
+            <td>Apply double exclamation to a variable to ensure it is boolean</td>
+        </tr>
+        <tr>
+            <td>&nbsp;&nbsp;&nbsp;<a href='overload.htm'>Overloading</a></td>
+            <td>Allows function overloading using argument switching</td>
+        </tr>
+        <tr>
+            <td>&nbsp;&nbsp;&nbsp;<a href='placeholder.htm'>Placeholder</a></td>
+            <td>A way to signify unused function parameters</td>
+        </tr>
+        <tr>
+            <td>&nbsp;&nbsp;&nbsp;<a href='shortwalk.htm'>Short Walk</a></td>
+            <td>Shortens the length of the prototype chain walk</td>
+        </tr>
+        <tr>
+            <td>&nbsp;&nbsp;&nbsp;<a href='optionshash.htm'>Options Hash</a></td>
+            <td>Reduces multiple function arguments to a single argument</td>
+        </tr>
+        <tr>
+            <td>&nbsp;&nbsp;&nbsp;<a href='chaining.htm'>Chaining</a></td>
+            <td>Allows multiple chained method calls on an object</td>
+        </tr>
+        <tr>
+            <td>&nbsp;&nbsp;&nbsp;<a href='namespace.htm'>Namespace</a></td>
+            <td>Organizes the code to avoid name collisions</td>
+        </tr>
+        <tr>
+            <td>&nbsp;&nbsp;&nbsp;<a href='lazyload.htm'>Lazy Load</a></td>
+            <td>Creates data or code items only when absolutely necessary</td>
+        </tr>
+        <tr>
+            <td>&nbsp;&nbsp;&nbsp;<a href='zerotimeout.htm'>Zero Timeout</a></td>
+            <td>Provides a way to avoid the user iterface from freezing up</td>
+        </tr>
+      </table>
+
+      <table class="table">
+        <tr>
+            <th colspan="2"  style="background-color:beige;">&nbsp;&nbsp;<b>jQuery Classic Patterns</b></th>
+        </tr>
+        <tr>
+            <td class="first-col">&nbsp;&nbsp;&nbsp;<a href='singleton.htm'>Singleton</a></td>
+            <td>An object of which only a single instance can be created</td>
+        </tr>
+        <tr>
+            <td>&nbsp;&nbsp;&nbsp;<a href='iterator.htm'>Iterator</a></td>
+            <td>Sequentially access the elements of a collection</td>
+        </tr>
+        <tr>
+            <td>&nbsp;&nbsp;&nbsp;<a href='observer.htm'>Observer</a></td>
+            <td>A way of notify changes to a number of objects</td>
+        </tr>
+        <tr>
+            <td>&nbsp;&nbsp;&nbsp;<a href='proxy.htm'>Proxy</a></td>
+            <td>An object representing another object</td>
+        </tr>
+        <tr>
+            <td>&nbsp;&nbsp;&nbsp;<a href='facade.htm'>Facade</a></td>
+            <td>A single object that represents an entire subsystem</td>
+        </tr>
+        <tr>
+            <td>&nbsp;&nbsp;&nbsp;<a href='adapter.htm'>Adapter</a></td>
+            <td>Matches interfaces of different objects</td>
+        </tr>
+      </table>
+      <table class="table">
+        <tr>
+            <th colspan="2"  style="background-color:beige;">&nbsp;&nbsp;<b>jQuery Plugin Patterns</b></th>
+        </tr>
+        <tr>
+            <td class="first-col">&nbsp;&nbsp;&nbsp;<a href='plugin.htm'>jQuery Plugins</a></td>
+            <td>An effective way to extend or enhance jQuery</td>
+        </tr>
+      
+    </table>
+    
+       </div>
+      </div>
+
+      <br /><br />
+      <hr />
+  
+
+
+      <br /><br />
+
+      <hr />
+      <div class="footer">
+        <p class="pull-right"><a id="totop" href="#">Back to top</a></p>
+        <p style="font-size:11pt;">Copyright &#169; 2013. Data & Object Factory, LLC. www.dofactory.com. All rights reserved.</p>
+      </div>
+      <br />
+   </div>
+
+<script type="text/javascript">
+
+    $(function() {
+        prettyPrint();
+
+        // animates page to scroll to top
+        $('#totop').on('click', function () {
+            $("html, body").animate({ scrollTop: 0 }, 500);
+            return false;
+        });
+    });
+
+</script>
+</body>
+</html>
